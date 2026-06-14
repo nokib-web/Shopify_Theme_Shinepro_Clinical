@@ -1,0 +1,816 @@
+{% comment %}
+  Dr. Pen Device Comparison Table — Full Customization Edition
+  Schema covers: Typography, Colors, Spacing, Layout, Borders,
+  Shadows, Buttons, Badges, Quiz Banner, Mobile, Table Style
+{% endcomment %}
+
+{%- liquid
+  assign use_google_font = section.settings.use_google_font
+  assign google_font_name = section.settings.google_font_name
+-%}
+
+{%- if use_google_font and google_font_name != blank -%}
+  {%- assign gf_url = google_font_name | replace: ' ', '+' -%}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family={{ gf_url }}:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+{%- endif -%}
+
+<style>
+/* ═══════════════════════════════════════════════
+   CSS CUSTOM PROPERTIES — all driven by schema
+═══════════════════════════════════════════════ */
+#drpen-{{ section.id }} {
+  /* Colors */
+  --bg:               {{ section.settings.bg_color }};
+  --text:             {{ section.settings.text_color }};
+  --heading-color:    {{ section.settings.heading_color }};
+  --eyebrow-color:    {{ section.settings.eyebrow_color }};
+  --subtext-color:    {{ section.settings.subtext_color }};
+  --accent:           {{ section.settings.accent_color }};
+  --border:           {{ section.settings.border_color }};
+  --table-bg:         {{ section.settings.table_bg_color }};
+  --thead-bg:         {{ section.settings.thead_bg_color }};
+  --thead-text:       {{ section.settings.thead_text_color }};
+  --row-odd-bg:       {{ section.settings.row_odd_bg }};
+  --row-even-bg:      {{ section.settings.row_even_bg }};
+  --row-hover-bg:     {{ section.settings.row_hover_bg }};
+  --feature-col-bg:   {{ section.settings.feature_col_bg }};
+  --feature-col-text: {{ section.settings.feature_col_text }};
+  --highlight-head:   {{ section.settings.highlight_head_bg }};
+  --highlight-head-text: {{ section.settings.highlight_head_text }};
+  --highlight-body:   {{ section.settings.highlight_body_bg }};
+  --badge-bg:         {{ section.settings.badge_bg_color }};
+  --badge-text:       {{ section.settings.badge_text_color }};
+  --btn-bg:           {{ section.settings.btn_bg_color }};
+  --btn-text:         {{ section.settings.btn_text_color }};
+  --btn-hover-bg:     {{ section.settings.btn_hover_bg }};
+  --btn-border:       {{ section.settings.btn_border_color }};
+  --check-color:      {{ section.settings.check_color }};
+  --cross-color:      {{ section.settings.cross_color }};
+  --partial-color:    {{ section.settings.partial_color }};
+  --quiz-bg:          {{ section.settings.quiz_bg_color }};
+  --quiz-text:        {{ section.settings.quiz_text_color }};
+  --quiz-link:        {{ section.settings.quiz_link_color }};
+  --tfoot-bg:         {{ section.settings.tfoot_bg_color }};
+
+  /* Typography */
+  --font-family:      {%- if use_google_font and google_font_name != blank -%}'{{ google_font_name }}', sans-serif{%- else -%}inherit{%- endif -%};
+  --font-size-body:   {{ section.settings.font_size_body }}px;
+  --font-size-head:   {{ section.settings.font_size_heading }}px;
+  --font-size-eyebrow:{{ section.settings.font_size_eyebrow }}px;
+  --font-size-subtext:{{ section.settings.font_size_subtext }}px;
+  --font-size-table-header: {{ section.settings.font_size_table_header }}px;
+  --font-size-feature:{{ section.settings.font_size_feature }}px;
+  --font-size-cell:   {{ section.settings.font_size_cell }}px;
+  --font-size-badge:  {{ section.settings.font_size_badge }}px;
+  --font-size-btn:    {{ section.settings.font_size_btn }}px;
+  --font-weight-head: {{ section.settings.font_weight_heading }};
+  --font-weight-body: {{ section.settings.font_weight_body }};
+  --font-weight-feature: {{ section.settings.font_weight_feature }};
+  --line-height-head: {{ section.settings.line_height_heading }};
+  --line-height-body: {{ section.settings.line_height_body }};
+  --letter-spacing-head: {{ section.settings.letter_spacing_heading }}em;
+  --letter-spacing-eyebrow: {{ section.settings.letter_spacing_eyebrow }}em;
+
+  /* Layout */
+  --radius:           {{ section.settings.border_radius }}px;
+  --radius-badge:     {{ section.settings.badge_radius }}px;
+  --radius-btn:       {{ section.settings.btn_radius }}px;
+  --border-width:     {{ section.settings.border_width }}px;
+  --divider-width:    {{ section.settings.divider_width }}px;
+  --shadow-opacity:   {{ section.settings.shadow_opacity }};
+  --shadow-blur:      {{ section.settings.shadow_blur }}px;
+  --shadow-spread:    {{ section.settings.shadow_spread }}px;
+  --shadow-y:         {{ section.settings.shadow_y }}px;
+
+  /* Sizes */
+  --feature-col-width:{{ section.settings.feature_col_width }}px;
+  --cell-pad-v:       {{ section.settings.cell_pad_v }}px;
+  --cell-pad-h:       {{ section.settings.cell_pad_h }}px;
+  --device-img-size:  {{ section.settings.device_img_size }}px;
+
+  font-family:        var(--font-family);
+  background-color:   var(--bg);
+  color:              var(--text);
+  padding-top:        {{ section.settings.padding_top }}px;
+  padding-bottom:     {{ section.settings.padding_bottom }}px;
+}
+
+/* ═══════════════════════════════════════════════ WRAPPER */
+#drpen-{{ section.id }} .drpen-wrap {
+  max-width:    {{ section.settings.max_width }}px;
+  margin:       0 auto;
+  padding-left: {{ section.settings.padding_sides }}px;
+  padding-right:{{ section.settings.padding_sides }}px;
+}
+
+/* ═══════════════════════════════════════════════ HEADING BLOCK */
+#drpen-{{ section.id }} .drpen-heading {
+  text-align:    {{ section.settings.heading_align }};
+  margin-bottom: {{ section.settings.heading_gap }}px;
+}
+#drpen-{{ section.id }} .drpen-eyebrow {
+  display:        block;
+  font-size:      var(--font-size-eyebrow);
+  letter-spacing: var(--letter-spacing-eyebrow);
+  text-transform: uppercase;
+  color:          var(--eyebrow-color);
+  font-weight:    600;
+  margin-bottom:  {{ section.settings.eyebrow_gap }}px;
+}
+#drpen-{{ section.id }} .drpen-h2 {
+  font-size:      var(--font-size-head);
+  font-weight:    var(--font-weight-head);
+  color:          var(--heading-color);
+  line-height:    var(--line-height-head);
+  letter-spacing: var(--letter-spacing-head);
+  margin:         0 0 {{ section.settings.heading_sub_gap }}px;
+  {%- if section.settings.heading_transform != 'none' %}
+  text-transform: {{ section.settings.heading_transform }};
+  {%- endif %}
+}
+#drpen-{{ section.id }} .drpen-subtext {
+  font-size:   var(--font-size-subtext);
+  color:       var(--subtext-color);
+  line-height: var(--line-height-body);
+  max-width:   {{ section.settings.subtext_max_width }}px;
+  margin:      0 auto;
+  font-weight: var(--font-weight-body);
+}
+
+/* ═══════════════════════════════════════════════ TABLE SCROLL */
+#drpen-{{ section.id }} .drpen-scroll {
+  overflow-x:              auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius:           var(--radius);
+  {%- if section.settings.shadow_opacity > 0 %}
+  box-shadow: 0 var(--shadow-y) var(--shadow-blur) var(--shadow-spread)
+              rgba(0,0,0,var(--shadow-opacity));
+  {%- endif %}
+}
+
+/* ═══════════════════════════════════════════════ TABLE BASE */
+#drpen-{{ section.id }} .drpen-table {
+  width:           100%;
+  min-width:       {{ section.settings.table_min_width }}px;
+  border-collapse: collapse;
+  background:      var(--table-bg);
+  border-radius:   var(--radius);
+  overflow:        hidden;
+  font-size:       var(--font-size-body);
+}
+
+/* ═══════════════════════════════════════════════ THEAD */
+#drpen-{{ section.id }} .drpen-table thead th {
+  padding:       var(--cell-pad-v) var(--cell-pad-h);
+  text-align:    center;
+  background:    var(--thead-bg);
+  color:         var(--thead-text);
+  font-size:     var(--font-size-table-header);
+  font-weight:   700;
+  border-bottom: var(--divider-width) solid var(--border);
+  vertical-align: bottom;
+}
+#drpen-{{ section.id }} .drpen-table thead th.fc {
+  text-align:     left;
+  width:          var(--feature-col-width);
+  font-size:      var(--font-size-eyebrow);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background:     var(--feature-col-bg);
+  color:          var(--feature-col-text);
+  font-weight:    var(--font-weight-feature);
+  opacity:        0.7;
+}
+
+/* ═══════════════════════════════════════════════ THEAD — HIGHLIGHT */
+#drpen-{{ section.id }} .drpen-table thead th.hl {
+  background: var(--highlight-head) !important;
+  color:      var(--highlight-head-text) !important;
+}
+
+/* ═══════════════════════════════════════════════ DEVICE IMAGE */
+#drpen-{{ section.id }} .drpen-device-img {
+  display:     block;
+  width:       var(--device-img-size);
+  height:      var(--device-img-size);
+  object-fit:  contain;
+  margin:      0 auto {{ section.settings.device_img_gap }}px;
+}
+
+/* ═══════════════════════════════════════════════ BADGE */
+#drpen-{{ section.id }} .drpen-badge {
+  display:        inline-block;
+  background:     var(--badge-bg);
+  color:          var(--badge-text);
+  font-size:      var(--font-size-badge);
+  font-weight:    700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding:        {{ section.settings.badge_pad_v }}px {{ section.settings.badge_pad_h }}px;
+  border-radius:  var(--radius-badge);
+  margin-top:     {{ section.settings.badge_gap }}px;
+  white-space:    nowrap;
+  line-height:    1.2;
+}
+
+/* ═══════════════════════════════════════════════ TBODY */
+#drpen-{{ section.id }} .drpen-table tbody tr:nth-child(odd) td  { background: var(--row-odd-bg);  }
+#drpen-{{ section.id }} .drpen-table tbody tr:nth-child(even) td { background: var(--row-even-bg); }
+#drpen-{{ section.id }} .drpen-table tbody tr:hover td           { background: var(--row-hover-bg) !important; }
+
+#drpen-{{ section.id }} .drpen-table tbody td {
+  padding:        var(--cell-pad-v) var(--cell-pad-h);
+  text-align:     center;
+  border-bottom:  var(--border-width) solid var(--border);
+  font-size:      var(--font-size-cell);
+  color:          var(--text);
+  vertical-align: middle;
+  transition:     background 0.18s;
+  line-height:    var(--line-height-body);
+}
+#drpen-{{ section.id }} .drpen-table tbody td.fc {
+  text-align:  left;
+  font-size:   var(--font-size-feature);
+  font-weight: var(--font-weight-feature);
+  color:       var(--feature-col-text);
+  background:  var(--feature-col-bg) !important;
+  white-space: nowrap;
+}
+#drpen-{{ section.id }} .drpen-table tbody tr:last-child td { border-bottom: none; }
+
+/* ═══════════════════════════════════════════════ TBODY — HIGHLIGHT */
+#drpen-{{ section.id }} .drpen-table tbody td.hl {
+  background: var(--highlight-body) !important;
+}
+#drpen-{{ section.id }} .drpen-table tbody tr:hover td.hl {
+  filter: brightness(0.96);
+}
+
+/* ═══════════════════════════════════════════════ CHECK / CROSS / PARTIAL */
+#drpen-{{ section.id }} .ic-yes     { color: var(--check-color);   font-size: 1.2em; font-weight: 700; }
+#drpen-{{ section.id }} .ic-no      { color: var(--cross-color);   font-size: 1.2em; }
+#drpen-{{ section.id }} .ic-partial { color: var(--partial-color); font-size: 0.85em; font-weight: 700; letter-spacing: 0.03em; }
+
+/* ═══════════════════════════════════════════════ TFOOT / CTA ROW */
+#drpen-{{ section.id }} .drpen-table tfoot td {
+  padding:    var(--cell-pad-v) var(--cell-pad-h);
+  text-align: center;
+  background: var(--tfoot-bg);
+  border-top: var(--divider-width) solid var(--border);
+}
+#drpen-{{ section.id }} .drpen-table tfoot td.fc {
+  text-align:     left;
+  font-size:      var(--font-size-eyebrow);
+  font-weight:    var(--font-weight-feature);
+  color:          var(--feature-col-text);
+  background:     var(--feature-col-bg) !important;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity:        0.6;
+}
+
+/* ═══════════════════════════════════════════════ CTA BUTTON */
+#drpen-{{ section.id }} .drpen-btn {
+  display:         inline-block;
+  background:      var(--btn-bg);
+  color:           var(--btn-text) !important;
+  font-size:       var(--font-size-btn);
+  font-weight:     700;
+  letter-spacing:  0.06em;
+  text-transform:  uppercase;
+  padding:         {{ section.settings.btn_pad_v }}px {{ section.settings.btn_pad_h }}px;
+  border-radius:   var(--radius-btn);
+  text-decoration: none;
+  border:          var(--border-width) solid var(--btn-border);
+  transition:      background 0.2s, transform 0.15s, box-shadow 0.2s;
+  cursor:          pointer;
+  white-space:     nowrap;
+  line-height:     1.3;
+}
+#drpen-{{ section.id }} .drpen-btn:hover {
+  background:  var(--btn-hover-bg);
+  color:       var(--btn-text) !important;
+  transform:   translateY(-1px);
+  box-shadow:  0 4px 14px rgba(0,0,0,0.12);
+}
+#drpen-{{ section.id }} .drpen-btn.outline {
+  background: transparent;
+  color:      var(--btn-bg) !important;
+  border-color: var(--btn-bg);
+}
+#drpen-{{ section.id }} .drpen-btn.outline:hover {
+  background: var(--btn-bg);
+  color:      var(--btn-text) !important;
+}
+#drpen-{{ section.id }} tfoot td.hl .drpen-btn {
+  background:   var(--highlight-head) !important;
+  color:        var(--highlight-head-text) !important;
+  border-color: var(--highlight-head) !important;
+}
+#drpen-{{ section.id }} tfoot td.hl .drpen-btn:hover {
+  filter: brightness(0.9);
+}
+
+/* ═══════════════════════════════════════════════ QUIZ BANNER */
+#drpen-{{ section.id }} .drpen-quiz {
+  margin-top:   {{ section.settings.quiz_margin_top }}px;
+  text-align:   {{ section.settings.quiz_align }};
+  padding:      {{ section.settings.quiz_pad_v }}px {{ section.settings.quiz_pad_h }}px;
+  border:       var(--border-width) solid var(--border);
+  border-radius:var(--radius);
+  background:   var(--quiz-bg);
+}
+#drpen-{{ section.id }} .drpen-quiz p {
+  margin:      0 0 {{ section.settings.quiz_text_gap }}px;
+  font-size:   var(--font-size-subtext);
+  color:       var(--quiz-text);
+  font-weight: 500;
+  line-height: var(--line-height-body);
+}
+#drpen-{{ section.id }} .drpen-quiz a {
+  font-size:      var(--font-size-btn);
+  font-weight:    700;
+  color:          var(--quiz-link) !important;
+  text-decoration:underline;
+  text-underline-offset: 3px;
+  letter-spacing: 0.04em;
+}
+#drpen-{{ section.id }} .drpen-quiz a:hover { opacity: 0.75; }
+
+/* ═══════════════════════════════════════════════ MOBILE */
+@media (max-width: {{ section.settings.mobile_breakpoint }}px) {
+  #drpen-{{ section.id }} {
+    padding-top:    {{ section.settings.mob_pad_top }}px;
+    padding-bottom: {{ section.settings.mob_pad_bottom }}px;
+  }
+  #drpen-{{ section.id }} .drpen-wrap {
+    padding-left:  {{ section.settings.mob_pad_sides }}px;
+    padding-right: {{ section.settings.mob_pad_sides }}px;
+  }
+  #drpen-{{ section.id }} .drpen-h2 {
+    font-size: {{ section.settings.mob_font_size_heading }}px;
+  }
+  #drpen-{{ section.id }} .drpen-table {
+    font-size: {{ section.settings.mob_font_size_cell }}px;
+  }
+  #drpen-{{ section.id }} .drpen-table thead th {
+    font-size: {{ section.settings.mob_font_size_thead }}px;
+    padding:   {{ section.settings.mob_cell_pad_v }}px {{ section.settings.mob_cell_pad_h }}px;
+  }
+  #drpen-{{ section.id }} .drpen-table tbody td,
+  #drpen-{{ section.id }} .drpen-table tfoot td {
+    padding: {{ section.settings.mob_cell_pad_v }}px {{ section.settings.mob_cell_pad_h }}px;
+  }
+  #drpen-{{ section.id }} .drpen-btn {
+    padding:   {{ section.settings.mob_btn_pad_v }}px {{ section.settings.mob_btn_pad_h }}px;
+    font-size: {{ section.settings.mob_font_size_btn }}px;
+  }
+  #drpen-{{ section.id }} .drpen-device-img {
+    width:  {{ section.settings.mob_device_img_size }}px;
+    height: {{ section.settings.mob_device_img_size }}px;
+  }
+}
+
+#drpen-{{ section.id }} .drpen-quiz .drpen-btn {
+  background:      #002e5c !important;
+  color:           #ffffff !important;
+  border-color:    #002e5c !important;
+  text-decoration: none !important;
+  font-weight:     700;
+}
+#drpen-{{ section.id }} .drpen-quiz .drpen-btn:hover {
+  background:  #001f3f !important;
+  color:       #ffffff !important;
+  border-color:#001f3f !important;
+}
+
+
+
+
+
+</style>
+
+<section id="drpen-{{ section.id }}">
+  <div class="drpen-wrap">
+
+    {%- if section.settings.show_heading -%}
+    <div class="drpen-heading">
+      {%- if section.settings.eyebrow != blank -%}
+        <span class="drpen-eyebrow">{{ section.settings.eyebrow }}</span>
+      {%- endif -%}
+      <h2 class="drpen-h2">{{ section.settings.heading }}</h2>
+      {%- if section.settings.subtext != blank -%}
+        <p class="drpen-subtext">{{ section.settings.subtext }}</p>
+      {%- endif -%}
+    </div>
+    {%- endif -%}
+
+    <div class="drpen-scroll">
+      <table class="drpen-table" role="table" aria-label="{{ section.settings.heading | escape }}">
+
+        {%- comment %} ── THEAD ── {% endcomment -%}
+        <thead>
+          <tr>
+            <th class="fc" scope="col">{{ section.settings.feature_col_label }}</th>
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'device' -%}
+                <th scope="col" {% if block.settings.highlight %}class="hl"{% endif %}>
+                  {%- if block.settings.device_image != blank -%}
+                    <img class="drpen-device-img"
+                         src="{{ block.settings.device_image | img_url: '120x120', crop: 'center' }}"
+                         alt="{{ block.settings.device_name | escape }}"
+                         width="{{ section.settings.device_img_size }}"
+                         height="{{ section.settings.device_img_size }}"
+                         loading="lazy">
+                  {%- endif -%}
+                  {{ block.settings.device_name }}
+                  {%- if block.settings.badge != blank -%}
+                    <br><span class="drpen-badge">{{ block.settings.badge }}</span>
+                  {%- endif -%}
+                </th>
+              {%- endif -%}
+            {%- endfor -%}
+          </tr>
+        </thead>
+
+        {%- comment %} ── TBODY ── {% endcomment -%}
+        <tbody>
+          {%- for row in section.blocks -%}
+            {%- if row.type == 'row' -%}
+              <tr>
+                <td class="fc">{{ row.settings.feature_label }}</td>
+                {%- for dev in section.blocks -%}
+                  {%- if dev.type == 'device' -%}
+                    {%- assign vkey = 'val_' | append: forloop.index -%}
+                    {%- assign cv = row.settings[vkey] -%}
+                    <td {% if dev.settings.highlight %}class="hl"{% endif %}>
+                      {%- if cv == blank -%}
+                        <span class="ic-no" aria-label="N/A">&mdash;</span>
+                      {%- elsif cv == 'Yes' or cv == 'yes' or cv == '✓' -%}
+                        <span class="ic-yes" aria-label="Yes">&#10003;</span>
+                      {%- elsif cv == 'No' or cv == 'no' or cv == '✗' -%}
+                        <span class="ic-no" aria-label="No">&#10007;</span>
+                      {%- elsif cv == 'Limited' or cv == 'limited' -%}
+                        <span class="ic-partial">Limited</span>
+                      {%- else -%}
+                        {{ cv }}
+                      {%- endif -%}
+                    </td>
+                  {%- endif -%}
+                {%- endfor -%}
+              </tr>
+            {%- endif -%}
+          {%- endfor -%}
+        </tbody>
+
+        {%- comment %} ── TFOOT / CTA ── {% endcomment -%}
+        {%- if section.settings.show_cta_row -%}
+        <tfoot>
+          <tr>
+            <td class="fc">{{ section.settings.cta_row_label }}</td>
+            {%- for dev in section.blocks -%}
+              {%- if dev.type == 'device' -%}
+                <td {% if dev.settings.highlight %}class="hl"{% endif %}>
+                  {%- if dev.settings.btn_url != blank -%}
+                    <a href="{{ dev.settings.btn_url }}"
+                       class="drpen-btn{% unless dev.settings.highlight %} outline{% endunless %}">
+                      {{ dev.settings.btn_label | default: 'Shop Now' }}
+                    </a>
+                  {%- endif -%}
+                </td>
+              {%- endif -%}
+            {%- endfor -%}
+          </tr>
+        </tfoot>
+        {%- endif -%}
+
+      </table>
+    </div>
+
+    {%- if section.settings.show_quiz -%}
+    <div class="drpen-quiz">
+      {%- if section.settings.quiz_text != blank -%}
+        <p>{{ section.settings.quiz_text }}</p>
+      {%- endif -%}
+      {%- if section.settings.quiz_url != blank and section.settings.quiz_link_label != blank -%}
+       <a href="{{ section.settings.quiz_url }}" class="drpen-btn">{{ section.settings.quiz_link_label }}</a>
+      {%- endif -%}
+    </div>
+    {%- endif -%}
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Dr. Pen Comparison Table",
+  "tag": "section",
+  "settings": [
+
+    { "type": "header", "content": "── HEADING CONTENT ──" },
+    { "type": "checkbox", "id": "show_heading", "label": "Show heading block", "default": true },
+    { "type": "text",     "id": "eyebrow",   "label": "Eyebrow text",   "default": "Device Guide" },
+    { "type": "text",     "id": "heading",   "label": "Main heading",   "default": "Find The Perfect Device For Your Skin Goals" },
+    { "type": "textarea", "id": "subtext",   "label": "Subheading / description", "default": "Compare our professional microneedling devices side by side." },
+    {
+      "type": "select", "id": "heading_align", "label": "Heading alignment",
+      "options": [
+        { "value": "left",   "label": "Left"   },
+        { "value": "center", "label": "Center" },
+        { "value": "right",  "label": "Right"  }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select", "id": "heading_transform", "label": "Heading text transform",
+      "options": [
+        { "value": "none",       "label": "None"       },
+        { "value": "uppercase",  "label": "Uppercase"  },
+        { "value": "capitalize", "label": "Capitalize" },
+        { "value": "lowercase",  "label": "Lowercase"  }
+      ],
+      "default": "none"
+    },
+    { "type": "range", "id": "heading_gap",     "label": "Space below heading block (px)", "min": 8, "max": 80, "step": 4, "default": 40 },
+    { "type": "range", "id": "heading_sub_gap", "label": "Space between heading and subtext (px)", "min": 0, "max": 32, "step": 2, "default": 10 },
+    { "type": "range", "id": "eyebrow_gap",     "label": "Space below eyebrow (px)", "min": 0, "max": 24, "step": 2, "default": 8 },
+    { "type": "range", "id": "subtext_max_width","label": "Subtext max width (px)", "min": 200, "max": 900, "step": 10, "default": 540 },
+
+    { "type": "header", "content": "── TYPOGRAPHY ──" },
+    {
+      "type": "checkbox", "id": "use_google_font",
+      "label": "Use a Google Font (overrides theme font)",
+      "default": false,
+      "info": "Enter the exact Google Font name below. Leave unchecked to inherit your theme's font."
+    },
+    {
+      "type": "text", "id": "google_font_name",
+      "label": "Google Font name",
+      "placeholder": "e.g. Playfair Display",
+      "info": "Exact name from fonts.google.com — e.g. 'Poppins', 'Playfair Display', 'DM Sans'"
+    },
+    { "type": "range", "id": "font_size_heading",     "label": "Heading font size (px)",        "min": 16, "max": 60, "step": 1, "default": 32 },
+    { "type": "range", "id": "font_size_eyebrow",     "label": "Eyebrow font size (px)",        "min": 10, "max": 20, "step": 1, "default": 12 },
+    { "type": "range", "id": "font_size_subtext",     "label": "Subtext font size (px)",        "min": 12, "max": 22, "step": 1, "default": 15 },
+    { "type": "range", "id": "font_size_table_header","label": "Table header font size (px)",   "min": 10, "max": 22, "step": 1, "default": 14 },
+    { "type": "range", "id": "font_size_feature",     "label": "Feature label font size (px)",  "min": 10, "max": 20, "step": 1, "default": 13 },
+    { "type": "range", "id": "font_size_cell",        "label": "Table cell font size (px)",     "min": 10, "max": 20, "step": 1, "default": 13 },
+    { "type": "range", "id": "font_size_body",        "label": "Base body font size (px)",      "min": 10, "max": 20, "step": 1, "default": 14 },
+    { "type": "range", "id": "font_size_badge",       "label": "Badge font size (px)",          "min": 8,  "max": 16, "step": 1, "default": 10 },
+    { "type": "range", "id": "font_size_btn",         "label": "Button / quiz link font size (px)", "min": 10, "max": 18, "step": 1, "default": 12 },
+    {
+      "type": "select", "id": "font_weight_heading", "label": "Heading font weight",
+      "options": [
+        { "value": "400", "label": "Regular (400)" },
+        { "value": "500", "label": "Medium (500)"  },
+        { "value": "600", "label": "Semi-Bold (600)" },
+        { "value": "700", "label": "Bold (700)"    },
+        { "value": "800", "label": "Extra-Bold (800)" }
+      ],
+      "default": "700"
+    },
+    {
+      "type": "select", "id": "font_weight_body", "label": "Body / cell font weight",
+      "options": [
+        { "value": "300", "label": "Light (300)"   },
+        { "value": "400", "label": "Regular (400)" },
+        { "value": "500", "label": "Medium (500)"  },
+        { "value": "600", "label": "Semi-Bold (600)" }
+      ],
+      "default": "400"
+    },
+    {
+      "type": "select", "id": "font_weight_feature", "label": "Feature label font weight",
+      "options": [
+        { "value": "400", "label": "Regular (400)"   },
+        { "value": "500", "label": "Medium (500)"    },
+        { "value": "600", "label": "Semi-Bold (600)" },
+        { "value": "700", "label": "Bold (700)"      }
+      ],
+      "default": "600"
+    },
+    {
+      "type": "select", "id": "line_height_heading", "label": "Heading line height",
+      "options": [
+        { "value": "1",    "label": "1.0 — Tight"   },
+        { "value": "1.15", "label": "1.15"          },
+        { "value": "1.25", "label": "1.25 — Default" },
+        { "value": "1.4",  "label": "1.4"           },
+        { "value": "1.5",  "label": "1.5 — Relaxed" }
+      ],
+      "default": "1.25"
+    },
+    {
+      "type": "select", "id": "line_height_body", "label": "Body / cell line height",
+      "options": [
+        { "value": "1.2", "label": "1.2 — Compact" },
+        { "value": "1.4", "label": "1.4"           },
+        { "value": "1.6", "label": "1.6 — Default" },
+        { "value": "1.8", "label": "1.8 — Relaxed" }
+      ],
+      "default": "1.6"
+    },
+    {
+      "type": "select", "id": "letter_spacing_heading", "label": "Heading letter spacing",
+      "options": [
+        { "value": "-0.03", "label": "-0.03em — Tight"  },
+        { "value": "0",     "label": "0 — Normal"       },
+        { "value": "0.02",  "label": "0.02em"           },
+        { "value": "0.05",  "label": "0.05em — Spaced"  }
+      ],
+      "default": "0"
+    },
+    {
+      "type": "select", "id": "letter_spacing_eyebrow", "label": "Eyebrow letter spacing",
+      "options": [
+        { "value": "0.05",  "label": "0.05em"           },
+        { "value": "0.1",   "label": "0.1em"            },
+        { "value": "0.18",  "label": "0.18em — Default" },
+        { "value": "0.25",  "label": "0.25em — Wide"    }
+      ],
+      "default": "0.18"
+    },
+
+    { "type": "header", "content": "── COLORS: SECTION ──" },
+    { "type": "color", "id": "bg_color",       "label": "Section background",       "default": "#f8fafc" },
+    { "type": "color", "id": "text_color",     "label": "Body text",                "default": "#3a3a3a" },
+    { "type": "color", "id": "heading_color",  "label": "Heading color",            "default": "#1a1a2e" },
+    { "type": "color", "id": "eyebrow_color",  "label": "Eyebrow color",            "default": "#0077cc" },
+    { "type": "color", "id": "subtext_color",  "label": "Subtext color",            "default": "#666666" },
+    { "type": "color", "id": "accent_color",   "label": "Accent color",             "default": "#0077cc" },
+
+    { "type": "header", "content": "── COLORS: TABLE ──" },
+    { "type": "color", "id": "table_bg_color", "label": "Table background",         "default": "#ffffff" },
+    { "type": "color", "id": "border_color",   "label": "Border / divider color",   "default": "#e8edf3" },
+    { "type": "color", "id": "thead_bg_color", "label": "Table header background",  "default": "#ffffff" },
+    { "type": "color", "id": "thead_text_color","label": "Table header text",       "default": "#1a1a2e" },
+    { "type": "color", "id": "row_odd_bg",     "label": "Odd row background",       "default": "#ffffff" },
+    { "type": "color", "id": "row_even_bg",    "label": "Even row background (stripe)", "default": "#f9fbfc" },
+    { "type": "color", "id": "row_hover_bg",   "label": "Row hover background",     "default": "#f0f6ff" },
+    { "type": "color", "id": "feature_col_bg", "label": "Feature column background","default": "#f4f7fa" },
+    { "type": "color", "id": "feature_col_text","label": "Feature column text",     "default": "#3a3a3a" },
+    { "type": "color", "id": "tfoot_bg_color", "label": "CTA row background",       "default": "#fafbfc" },
+
+    { "type": "header", "content": "── COLORS: HIGHLIGHTED COLUMN ──" },
+    { "type": "color", "id": "highlight_head_bg",   "label": "Highlight column — header background", "default": "#0077cc" },
+    { "type": "color", "id": "highlight_head_text", "label": "Highlight column — header text",       "default": "#ffffff" },
+    { "type": "color", "id": "highlight_body_bg",   "label": "Highlight column — body background",   "default": "#eef6ff" },
+
+    { "type": "header", "content": "── COLORS: ICONS ──" },
+    { "type": "color", "id": "check_color",   "label": "Checkmark (Yes) color",  "default": "#22c67a" },
+    { "type": "color", "id": "cross_color",   "label": "Cross (No) color",       "default": "#cccccc" },
+    { "type": "color", "id": "partial_color", "label": "Limited / partial color","default": "#f59e0b" },
+
+    { "type": "header", "content": "── COLORS: BADGE ──" },
+    { "type": "color", "id": "badge_bg_color",   "label": "Badge background", "default": "#fff3cd" },
+    { "type": "color", "id": "badge_text_color", "label": "Badge text",       "default": "#7a5000" },
+
+    { "type": "header", "content": "── COLORS: BUTTON ──" },
+    { "type": "color", "id": "btn_bg_color",    "label": "Button background",       "default": "#0077cc" },
+    { "type": "color", "id": "btn_text_color",  "label": "Button text",             "default": "#ffffff" },
+    { "type": "color", "id": "btn_hover_bg",    "label": "Button hover background", "default": "#005fa3" },
+    { "type": "color", "id": "btn_border_color","label": "Button border color",     "default": "#0077cc" },
+
+    { "type": "header", "content": "── COLORS: QUIZ BANNER ──" },
+    { "type": "color", "id": "quiz_bg_color",   "label": "Quiz banner background", "default": "#f0f6ff" },
+    { "type": "color", "id": "quiz_text_color", "label": "Quiz banner text",       "default": "#1a1a2e" },
+    { "type": "color", "id": "quiz_link_color", "label": "Quiz link color",        "default": "#0077cc" },
+
+    { "type": "header", "content": "── SPACING: SECTION ──" },
+    { "type": "range", "id": "max_width",      "label": "Content max-width (px)",     "min": 600, "max": 1600, "step": 20, "default": 1200 },
+    { "type": "range", "id": "padding_top",    "label": "Section padding top (px)",   "min": 0, "max": 160, "step": 4, "default": 80 },
+    { "type": "range", "id": "padding_bottom", "label": "Section padding bottom (px)","min": 0, "max": 160, "step": 4, "default": 80 },
+    { "type": "range", "id": "padding_sides",  "label": "Section side padding (px)",  "min": 0, "max": 80,  "step": 4, "default": 20 },
+
+    { "type": "header", "content": "── SPACING: TABLE ──" },
+    { "type": "range", "id": "cell_pad_v",         "label": "Cell vertical padding (px)",   "min": 4, "max": 36, "step": 2, "default": 16 },
+    { "type": "range", "id": "cell_pad_h",         "label": "Cell horizontal padding (px)", "min": 4, "max": 40, "step": 2, "default": 20 },
+    { "type": "range", "id": "feature_col_width",  "label": "Feature column width (px)",    "min": 80, "max": 280, "step": 8, "default": 160 },
+    { "type": "range", "id": "table_min_width",    "label": "Table min width before scroll (px)", "min": 400, "max": 1000, "step": 20, "default": 620 },
+    { "type": "range", "id": "device_img_size",    "label": "Device image size (px)",       "min": 24, "max": 120, "step": 4, "default": 56 },
+    { "type": "range", "id": "device_img_gap",     "label": "Device image bottom gap (px)", "min": 0, "max": 20, "step": 2, "default": 8 },
+
+    { "type": "header", "content": "── BORDERS & RADIUS ──" },
+    { "type": "range", "id": "border_radius",  "label": "Section / table radius (px)", "min": 0, "max": 24, "step": 2, "default": 12 },
+    { "type": "range", "id": "badge_radius",   "label": "Badge border radius (px)",    "min": 0, "max": 20, "step": 2, "default": 20 },
+    { "type": "range", "id": "btn_radius",     "label": "Button border radius (px)",   "min": 0, "max": 32, "step": 2, "default": 6  },
+    { "type": "range", "id": "border_width",   "label": "Row border thickness (px)",   "min": 0, "max": 4,  "step": 1, "default": 1  },
+    { "type": "range", "id": "divider_width",  "label": "Section divider thickness (px)", "min": 1, "max": 6, "step": 1, "default": 2  },
+
+    { "type": "header", "content": "── SHADOW ──" },
+    {
+      "type": "select", "id": "shadow_opacity", "label": "Shadow strength",
+      "options": [
+        { "value": "0",    "label": "None"   },
+        { "value": "0.04", "label": "Subtle" },
+        { "value": "0.08", "label": "Light"  },
+        { "value": "0.14", "label": "Medium" },
+        { "value": "0.22", "label": "Strong" }
+      ],
+      "default": "0.08"
+    },
+    { "type": "range", "id": "shadow_y",      "label": "Shadow Y offset (px)", "min": 0, "max": 24, "step": 2, "default": 4  },
+    { "type": "range", "id": "shadow_blur",   "label": "Shadow blur (px)",     "min": 0, "max": 60, "step": 4, "default": 32 },
+    { "type": "range", "id": "shadow_spread", "label": "Shadow spread (px)",   "min": 0, "max": 20, "step": 2, "default": 0  },
+
+    { "type": "header", "content": "── BADGE SPACING ──" },
+    { "type": "range", "id": "badge_pad_v", "label": "Badge vertical padding (px)",   "min": 1, "max": 10, "step": 1, "default": 3 },
+    { "type": "range", "id": "badge_pad_h", "label": "Badge horizontal padding (px)", "min": 4, "max": 20, "step": 2, "default": 8 },
+    { "type": "range", "id": "badge_gap",   "label": "Badge top gap (px)",            "min": 0, "max": 16, "step": 2, "default": 6 },
+
+    { "type": "header", "content": "── BUTTON SPACING ──" },
+    { "type": "range", "id": "btn_pad_v", "label": "Button vertical padding (px)",   "min": 4, "max": 24, "step": 2, "default": 10 },
+    { "type": "range", "id": "btn_pad_h", "label": "Button horizontal padding (px)", "min": 8, "max": 40, "step": 2, "default": 18 },
+
+    { "type": "header", "content": "── TABLE FEATURE COLUMN LABEL ──" },
+    { "type": "text", "id": "feature_col_label", "label": "Feature column header text", "default": "Feature" },
+
+    { "type": "header", "content": "── CTA ROW ──" },
+    { "type": "checkbox", "id": "show_cta_row",  "label": "Show CTA button row",        "default": true },
+    { "type": "text",     "id": "cta_row_label", "label": "CTA row label (left cell)",  "default": "Get Yours" },
+
+    { "type": "header", "content": "── QUIZ BANNER ──" },
+    { "type": "checkbox",  "id": "show_quiz",       "label": "Show quiz banner",          "default": true },
+    { "type": "textarea",  "id": "quiz_text",       "label": "Quiz banner text",          "default": "Still unsure which device is right for you? Take our quick skincare device quiz." },
+    { "type": "text",      "id": "quiz_link_label", "label": "Quiz link label",           "default": "Take the Quiz" },
+    { "type": "url",       "id": "quiz_url",        "label": "Quiz page URL" },
+    {
+      "type": "select", "id": "quiz_align", "label": "Quiz banner text alignment",
+      "options": [
+        { "value": "left",   "label": "Left"   },
+        { "value": "center", "label": "Center" },
+        { "value": "right",  "label": "Right"  }
+      ],
+      "default": "center"
+    },
+    { "type": "range", "id": "quiz_margin_top", "label": "Space above quiz banner (px)", "min": 8, "max": 60, "step": 4, "default": 28 },
+    { "type": "range", "id": "quiz_pad_v",      "label": "Quiz banner vertical padding (px)", "min": 8, "max": 48, "step": 4, "default": 24 },
+    { "type": "range", "id": "quiz_pad_h",      "label": "Quiz banner horizontal padding (px)", "min": 8, "max": 60, "step": 4, "default": 24 },
+    { "type": "range", "id": "quiz_text_gap",   "label": "Quiz text bottom gap (px)", "min": 4, "max": 24, "step": 4, "default": 12 },
+
+    { "type": "header", "content": "── MOBILE RESPONSIVE ──" },
+    { "type": "range", "id": "mobile_breakpoint",   "label": "Mobile breakpoint (px)",         "min": 480, "max": 900, "step": 10, "default": 770 },
+    { "type": "range", "id": "mob_pad_top",          "label": "Mobile padding top (px)",        "min": 0, "max": 100, "step": 4,  "default": 48 },
+    { "type": "range", "id": "mob_pad_bottom",       "label": "Mobile padding bottom (px)",     "min": 0, "max": 100, "step": 4,  "default": 48 },
+    { "type": "range", "id": "mob_pad_sides",        "label": "Mobile side padding (px)",       "min": 0, "max": 40,  "step": 4,  "default": 16 },
+    { "type": "range", "id": "mob_font_size_heading","label": "Mobile heading font size (px)",  "min": 14, "max": 42, "step": 1,  "default": 22 },
+    { "type": "range", "id": "mob_font_size_cell",   "label": "Mobile cell font size (px)",     "min": 10, "max": 18, "step": 1,  "default": 12 },
+    { "type": "range", "id": "mob_font_size_thead",  "label": "Mobile header font size (px)",   "min": 10, "max": 18, "step": 1,  "default": 12 },
+    { "type": "range", "id": "mob_font_size_btn",    "label": "Mobile button font size (px)",   "min": 9,  "max": 16, "step": 1,  "default": 11 },
+    { "type": "range", "id": "mob_cell_pad_v",       "label": "Mobile cell vertical padding (px)",   "min": 4, "max": 20, "step": 2, "default": 10 },
+    { "type": "range", "id": "mob_cell_pad_h",       "label": "Mobile cell horizontal padding (px)", "min": 4, "max": 24, "step": 2, "default": 12 },
+    { "type": "range", "id": "mob_btn_pad_v",        "label": "Mobile button vertical padding (px)",   "min": 4, "max": 16, "step": 2, "default": 8  },
+    { "type": "range", "id": "mob_btn_pad_h",        "label": "Mobile button horizontal padding (px)", "min": 6, "max": 24, "step": 2, "default": 12 },
+    { "type": "range", "id": "mob_device_img_size",  "label": "Mobile device image size (px)", "min": 20, "max": 80, "step": 4,  "default": 40 }
+
+  ],
+  "blocks": [
+    {
+      "type": "device",
+      "name": "Device Column",
+      "settings": [
+        { "type": "text",         "id": "device_name",  "label": "Device name",                  "default": "A6S" },
+        { "type": "image_picker", "id": "device_image", "label": "Device image" },
+        { "type": "text",         "id": "badge",        "label": "Badge label", "placeholder": "e.g. Best Seller" },
+        { "type": "checkbox",     "id": "highlight",    "label": "Highlight this column",        "default": false },
+        { "type": "text",         "id": "btn_label",    "label": "Button label",                 "default": "Shop Now" },
+        { "type": "url",          "id": "btn_url",      "label": "Button URL" }
+      ]
+    },
+    {
+      "type": "row",
+      "name": "Comparison Row",
+      "settings": [
+        { "type": "text", "id": "feature_label", "label": "Feature label", "default": "Feature", "info": "For device values: type Yes/No/Limited for icons, or any text." },
+        { "type": "text", "id": "val_1", "label": "Device 1 value", "default": "—" },
+        { "type": "text", "id": "val_2", "label": "Device 2 value", "default": "—" },
+        { "type": "text", "id": "val_3", "label": "Device 3 value", "default": "—" },
+        { "type": "text", "id": "val_4", "label": "Device 4 value", "default": "—" },
+        { "type": "text", "id": "val_5", "label": "Device 5 value (if added)", "placeholder": "Leave blank if unused" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Dr. Pen Comparison Table",
+      "blocks": [
+        { "type": "device", "settings": { "device_name": "A6S",  "badge": "Beginner Friendly", "btn_label": "Shop A6S"  } },
+        { "type": "device", "settings": { "device_name": "M8S",  "badge": "Best Seller", "highlight": true, "btn_label": "Shop M8S" } },
+        { "type": "device", "settings": { "device_name": "A11",  "badge": "Most Advanced", "btn_label": "Shop A11" } },
+        { "type": "device", "settings": { "device_name": "Q2",   "badge": "Home Use", "btn_label": "Shop Q2"  } },
+        { "type": "row", "settings": { "feature_label": "Needle Depth",     "val_1": "0-2.5mm", "val_2": "0-2.5mm", "val_3": "0-2.5mm", "val_4": "0-2.0mm" } },
+        { "type": "row", "settings": { "feature_label": "Speed Levels",     "val_1": "6",       "val_2": "6",       "val_3": "6",       "val_4": "5"       } },
+        { "type": "row", "settings": { "feature_label": "RPM Speed",        "val_1": "16,000",  "val_2": "16,000",  "val_3": "18,000",  "val_4": "15,000"  } },
+        { "type": "row", "settings": { "feature_label": "Wireless",         "val_1": "Yes",     "val_2": "Yes",     "val_3": "Yes",     "val_4": "No"      } },
+        { "type": "row", "settings": { "feature_label": "Best For",         "val_1": "Beginners","val_2": "Pros",   "val_3": "Advanced","val_4": "Home Use" } },
+        { "type": "row", "settings": { "feature_label": "Battery Life",     "val_1": "4 hrs",   "val_2": "5 hrs",  "val_3": "6 hrs",   "val_4": "Wired"   } },
+        { "type": "row", "settings": { "feature_label": "Professional Use", "val_1": "Yes",     "val_2": "Yes",    "val_3": "Yes",     "val_4": "Limited" } },
+        { "type": "row", "settings": { "feature_label": "Home Use",         "val_1": "Yes",     "val_2": "Yes",    "val_3": "Yes",     "val_4": "Yes"     } }
+      ]
+    }
+  ],
+  "max_blocks": 20
+}
+{% endschema %}

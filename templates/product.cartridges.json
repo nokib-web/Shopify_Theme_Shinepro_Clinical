@@ -1,0 +1,1252 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {
+            "text_size": "h1",
+            "title_alignment": "left",
+            "uppercase_title": false,
+            "margin_top": 0,
+            "margin_bottom": 0
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {
+            "margin_top": 24,
+            "margin_bottom": 24
+          }
+        },
+        "a6eb81db-40e4-43e0-972f-32db010a4a56": {
+          "type": "rating_stars",
+          "settings": {
+            "rating": 4.4,
+            "star_color": "#ffcc00",
+            "bg_stars_style": "full",
+            "bg_star_color": "#ececec",
+            "label": "",
+            "size": 16,
+            "alignment": "flex-start",
+            "scroll_id": "",
+            "margin_top": 0,
+            "margin_bottom": 9
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "layout": "price_first",
+            "price_color": "accent-1",
+            "compare_price_color": "text",
+            "displayed_badge": "sale",
+            "icon_scale": 140,
+            "custom_badge_text": "[icon_1] SPECIAL OFFER",
+            "icon_1": "redeem",
+            "filled_icon_1": false,
+            "icon_2": "check_circle",
+            "filled_icon_2": false,
+            "margin_top": 9,
+            "margin_bottom": 15
+          }
+        },
+        "04ba004e-2f54-4936-8b1c-8bcadf6573f6": {
+          "type": "quantity_selector",
+          "settings": {
+            "full_width_classic": false,
+            "atc_append": "none",
+            "atc_append_heights": "stretch-quantity",
+            "enable_quantity_discounts": false,
+            "style": "normal",
+            "headline": "BUNDLE & SAVE",
+            "preselected": "option_1",
+            "display_selected_indicator": true,
+            "border_radius": 10,
+            "border_width": 2,
+            "color_scheme": "accent-1",
+            "enable_variant_selectors": true,
+            "enable_variant_selectors_on_quantity_of_1": false,
+            "update_prices": false,
+            "skip_unavailable": false,
+            "full_width_pickers": false,
+            "hide_pickers_overlay": true,
+            "pickers_label": "",
+            "image_width": 70,
+            "space_images": true,
+            "vertical_images_position": "top",
+            "vertical_prices_layout": "vertical",
+            "option_1_quantity": 1,
+            "option_1_badge": "",
+            "option_1_badge_style": "1",
+            "option_1_badge_color": "accent-1",
+            "option_1_label": "Buy [quantity]",
+            "option_1_benefit": "",
+            "option_1_benefit_position": "top",
+            "option_1_benefit_style": "outlined",
+            "option_1_benefit_color": "accent-1",
+            "option_1_caption": "You save [amount_saved]",
+            "option_1_percentage_off_text": "0",
+            "option_1_fixed_amount_off": "0",
+            "option_1_price_text": "[price]",
+            "option_1_compare_price": "compare_price",
+            "option_1_compare_price_text": "[compare_price]",
+            "option_2_quantity": 2,
+            "option_2_badge": "",
+            "option_2_badge_style": "1",
+            "option_2_badge_color": "accent-1",
+            "option_2_label": "Buy [quantity]",
+            "option_2_benefit": "",
+            "option_2_benefit_position": "top",
+            "option_2_benefit_style": "outlined",
+            "option_2_benefit_color": "accent-1",
+            "option_2_caption": "You save [amount_saved]",
+            "option_2_percentage_off_text": "0",
+            "option_2_fixed_amount_off": "0",
+            "option_2_price_text": "[price]",
+            "option_2_compare_price": "compare_price",
+            "option_2_compare_price_text": "[compare_price]",
+            "option_3_quantity": 3,
+            "option_3_badge": "",
+            "option_3_badge_style": "1",
+            "option_3_badge_color": "accent-1",
+            "option_3_label": "Buy [quantity]",
+            "option_3_benefit": "",
+            "option_3_benefit_position": "top",
+            "option_3_benefit_style": "outlined",
+            "option_3_benefit_color": "accent-1",
+            "option_3_caption": "You save [amount_saved]",
+            "option_3_percentage_off_text": "0",
+            "option_3_fixed_amount_off": "0",
+            "option_3_price_text": "[price]",
+            "option_3_compare_price": "compare_price",
+            "option_3_compare_price_text": "[compare_price]",
+            "option_4_quantity": 4,
+            "option_4_badge": "",
+            "option_4_badge_style": "1",
+            "option_4_badge_color": "accent-1",
+            "option_4_label": "Buy [quantity]",
+            "option_4_benefit": "",
+            "option_4_benefit_position": "top",
+            "option_4_benefit_style": "outlined",
+            "option_4_benefit_color": "accent-1",
+            "option_4_caption": "You save [amount_saved]",
+            "option_4_percentage_off_text": "0",
+            "option_4_fixed_amount_off": "0",
+            "option_4_price_text": "[price]",
+            "option_4_compare_price": "compare_price",
+            "option_4_compare_price_text": "[compare_price]",
+            "margin_top": 15,
+            "margin_bottom": 15
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": false,
+            "skip_cart": false,
+            "uppercase_text": true,
+            "icon_scale": 120,
+            "icon_spacing": 10,
+            "display_price": false,
+            "enable_custom_color": false,
+            "custom_color": "#53af01",
+            "enable_secondary_btn": false,
+            "secondary_btn_label": "Buy It Now",
+            "secondary_btn_enable_custom_color": false,
+            "secondary_btn_custom_color": "#dd1d1d",
+            "margin_top": 24,
+            "margin_bottom": 24
+          }
+        },
+        "e0a0b690-50df-4ca4-acfd-ce2980696cce": {
+          "type": "shipping_checkpoints",
+          "settings": {
+            "icon_1": "add_shopping_cart",
+            "filled_icon_1": false,
+            "top_text_1": "<strong>[start_date]</strong>",
+            "bottom_text_1": "Ordered",
+            "min_days_1": 0,
+            "max_days_1": 0,
+            "icon_2": "local_shipping",
+            "filled_icon_2": false,
+            "top_text_2": "<strong>[start_date] - [end_date]</strong>",
+            "bottom_text_2": "Order Ready",
+            "min_days_2": 1,
+            "max_days_2": 2,
+            "icon_3": "redeem",
+            "filled_icon_3": false,
+            "top_text_3": "<strong>[start_date] - [end_date]</strong>",
+            "bottom_text_3": "Delivered",
+            "min_days_3": 10,
+            "max_days_3": 12,
+            "icon_4": "",
+            "filled_icon_4": false,
+            "top_text_4": "",
+            "bottom_text_4": "",
+            "date_format": "mm_dd",
+            "days_labels": "Mon, Tue, Wed, Thu, Fri, Sat, Sun",
+            "months_labels": "Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec",
+            "color_scheme": "inverse",
+            "margin_top": 24,
+            "margin_bottom": 24
+          }
+        },
+        "custom_liquid_QxwHjM": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "{% assign needle_variants = product.metafields.custom.needle.value %}\n{% if needle_variants and needle_variants.size > 0 %}\n  <style>\n    .needle-selector { margin: 16px 0 20px; }\n    .needle-label { font-size: 14px; margin-bottom: 10px; color: #333; }\n    .needle-buttons { display: flex; flex-wrap: wrap; gap: 8px; }\n    .needle-btn {\n      padding: 8px 18px;\n      border: 1px solid #ccc;\n      border-radius: 4px;\n      text-decoration: none;\n      color: #333;\n      font-size: 14px;\n    }\n    .needle-btn:hover { border-color: #333; }\n    .needle-btn.active {\n      background: #002b56;\n      color: #fff;\n      border-color: #1a1a1a;\n    }\n  </style>\n  <div class=\"needle-selector\">\n    {% assign current_label = product.title | split: 'Cartridges ' | last | split: ' - ' | first | remove: ' Pin Type' %}\n    <p class=\"needle-label\">Needles: <strong>{{ current_label }}</strong></p>\n    <div class=\"needle-buttons\">\n      {% for p in needle_variants %}\n        {% assign pin_label = p.title | split: 'Cartridges ' | last | split: ' - ' | first | remove: ' Pin Type' %}\n        <a href=\"{{ p.url }}\" class=\"needle-btn {% if p.id == product.id %}active{% endif %}\">\n          {{ pin_label }}\n        </a>\n      {% endfor %}\n    </div>\n  </div>\n{% endif %}"
+          }
+        },
+        "5fcc0428-e768-4cb7-bea3-eb0274198dd1": {
+          "type": "variant_picker",
+          "disabled": true,
+          "settings": {
+            "picker_types": "pills, dropdown, dropdown",
+            "custom_labels": "[name] - [selected]",
+            "skip_unavailable": false,
+            "swatches_size": "medium",
+            "swatches_custom_colors": "disabled",
+            "swatches_custom_colors_list": "#000000, #6D388B, #0000FF, #FFCC00",
+            "full_width_dropdowns": false,
+            "breaks_style": "normal",
+            "breaks_headline": "BUNDLE & SAVE",
+            "breaks_display_selected_indicator": true,
+            "breaks_border_radius": 10,
+            "breaks_border_width": 2,
+            "breaks_color_scheme": "accent-1",
+            "breaks_badges": "[empty], Most popular, [empty]",
+            "breaks_badge_style": "1",
+            "breaks_badge_color": "accent-1",
+            "breaks_displayed_images": "variant_images",
+            "breaks_custom_images": "",
+            "breaks_image_width": 70,
+            "breaks_space_images": true,
+            "breaks_vertical_images_position": "top",
+            "breaks_vertical_prices_layout": "vertical",
+            "breaks_labels": "[name], [name], [name]",
+            "breaks_benefits": "[empty], Free Shipping, Free Shipping",
+            "breaks_benefit_position": "top",
+            "breaks_benefit_style": "outlined",
+            "breaks_benefit_color": "accent-1",
+            "breaks_captions": "Variant 1 caption, Variant 2 caption, Variant 3 caption",
+            "breaks_price_texts": "[price], [price], [price]",
+            "breaks_compare_price_texts": "[compare_price], [compare_price], [compare_price]",
+            "margin_top": 15,
+            "margin_bottom": 15
+          }
+        },
+        "e7a28cbe-03cb-4c9d-a2c4-0e3e76ffb3e5": {
+          "type": "sticky_atc",
+          "settings": {
+            "function": "add_to_cart",
+            "display_when": "after_scroll",
+            "button_label": "Add to cart",
+            "enable_custom_btn_color": false,
+            "custom_btn_color": "#dd1d1d",
+            "color_scheme": "background-1",
+            "star_color": "#ffcc00",
+            "stars_label": "(xxxx Reviews)",
+            "picker_type": "combined",
+            "desktop_show_image": true,
+            "desktop_show_title": true,
+            "desktop_rating_stars": false,
+            "desktop_show_price": true,
+            "desktop_show_sale_badge": true,
+            "desktop_variant_picker": true,
+            "desktop_full_button_width": false,
+            "desktop_show_price_in_button": false,
+            "desktop_transparent_bg": false,
+            "mobile_show_image": false,
+            "mobile_show_title": true,
+            "mobile_rating_stars": false,
+            "mobile_show_price": true,
+            "mobile_show_sale_badge": false,
+            "mobile_variant_picker": false,
+            "mobile_full_button_width": false,
+            "mobile_show_price_in_button": false,
+            "mobile_transparent_bg": false
+          }
+        },
+        "reviews_8UgFbe": {
+          "type": "reviews",
+          "settings": {
+            "color_scheme": "background-1",
+            "show_custom_bg": false,
+            "custom_bg_color": "#f2f2f2",
+            "corner_radius": 12,
+            "border_width": 0,
+            "border_color": "#b7b7b7",
+            "avatar_alignment": "top",
+            "avatar_corner_radius": 40,
+            "star_color": "#ffcc00",
+            "stars_translate": 0,
+            "checkmark_color": "#6d388b",
+            "checkmark_icon_color": "#ffffff",
+            "slider_type": "slide",
+            "autoplay": false,
+            "autoplay_speed": 5,
+            "display_arrows": false,
+            "display_dots": true,
+            "author_1": "Sarah K [stars]",
+            "image_1": "shopify://shop_images/download_16.jpg",
+            "text_1": "<p><br/>“The cartridges arrived sealed and high quality. I’ve been using the Dr. Pen device consistently and noticed visible improvement in acne scars and fine lines.”<br/><br/></p>",
+            "author_2": "Nicole T [stars]",
+            "image_2": "shopify://shop_images/download_18.jpg",
+            "text_2": "<p><br/>“Great quality products and authentic packaging. I’ve been using the nano cartridges weekly and my skincare products absorb so much better now.”<br/><br/></p>",
+            "author_3": "Amanda R[stars]",
+            "image_3": "shopify://shop_images/download_19.jpg",
+            "text_3": "<p><br/>“I was honestly nervous to try microneedling at home, but the device is very user-friendly. My skin feels firmer and looks more refreshed already.”<br/><br/></p>",
+            "margin_top": 24,
+            "margin_bottom": 24
+          }
+        },
+        "de158e68-5d0d-4819-a625-e2dabdff87d1": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Know more about cartridges",
+            "heading_size": "medium",
+            "icon": "check_box",
+            "filled_icon": false,
+            "collapse_icon": "carret",
+            "display_top_border": true,
+            "open": false,
+            "content": "<p>Know More About Cartridges<br/><br/>Our cartridges are engineered for precision and compatibility with Dr. Pen devices. Each pack contains sterile, individually packaged needles designed to deliver consistent results. Available in various needle configurations to suit different skin concerns and treatment depths. Store in a cool, dry place and inspect packaging before use. Replace cartridges regularly to maintain optimal performance and hygiene standards.</p>",
+            "page": "",
+            "margin_top": 24,
+            "margin_bottom": 0
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "description",
+        "a6eb81db-40e4-43e0-972f-32db010a4a56",
+        "price",
+        "04ba004e-2f54-4936-8b1c-8bcadf6573f6",
+        "buy_buttons",
+        "e0a0b690-50df-4ca4-acfd-ce2980696cce",
+        "custom_liquid_QxwHjM",
+        "5fcc0428-e768-4cb7-bea3-eb0274198dd1",
+        "e7a28cbe-03cb-4c9d-a2c4-0e3e76ffb3e5",
+        "reviews_8UgFbe",
+        "de158e68-5d0d-4819-a625-e2dabdff87d1"
+      ],
+      "custom_css": [],
+      "settings": {
+        "display_id": false,
+        "enable_sticky_info": true,
+        "display_variant_image_first": false,
+        "disable_prepend": true,
+        "hide_variants": false,
+        "variant_image_filtering": "none",
+        "image_zoom": "none",
+        "thumbnails_ratio": "square",
+        "arrows_color_scheme": "inverse",
+        "transparent_arrows": false,
+        "dots_color_scheme": "inverse",
+        "video_player": "play_btn",
+        "enable_video_looping": false,
+        "autoplay_videos_pause_btn": false,
+        "video_sound_btn": false,
+        "video_timeline": false,
+        "play_btn_color_scheme": "accent-1",
+        "sound_btn_color_scheme": "inverse",
+        "timeline_color": "accent-1",
+        "media_size": "small",
+        "media_position": "left",
+        "gallery_layout": "thumbnail_slider",
+        "desktop_thumbnails_position": "bottom",
+        "desktop_thumbnails_count": 5,
+        "desktop_vertical_thumbnails_width": 16,
+        "desktop_vertical_thumbnails_hide_arrows": false,
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "desktop_arrows_position": "hidden",
+        "mobile_media_corner_radius": 0,
+        "mobile_spacing_pixels": 0,
+        "mobile_arrows_position": "sides",
+        "mobile_pagination": "dots_overlay",
+        "mobile_thumbnails_position": "hidden",
+        "mobile_thumbnails_count": 5,
+        "mobile_vertical_thumbnails_width": 22,
+        "mobile_vertical_thumbnails_hide_arrows": true,
+        "mobile_scroll_padding_percentage": 0,
+        "mobile_scroll_padding_pixels": 14,
+        "enable_mobile_outher_spacing": false,
+        "mobile_slides_container_width": 100,
+        "mobile_slides_inner_width": 100,
+        "trust_badge_position": "top-right",
+        "trust_badge_size": "medium",
+        "mobile_padding_top": 0,
+        "mobile_padding_bottom": 16,
+        "desktop_padding_top": 36,
+        "desktop_padding_bottom": 36
+      }
+    },
+    "related-products": {
+      "type": "related-products",
+      "disabled": true,
+      "settings": {
+        "display_id": false,
+        "title": "You may also like",
+        "title_highlight_color": "#6d388b",
+        "heading_size": "h2",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "color_scheme": "background-1",
+        "image_ratio": "adapt",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "enable_quick_add": false,
+        "columns_mobile": "2",
+        "padding_top": 36,
+        "padding_bottom": 24
+      }
+    },
+    "8beb6911-28c6-482c-976a-e5421ad3e8df": {
+      "type": "custom-columns",
+      "blocks": {
+        "template--21507361800487__8beb6911-28c6-482c-976a-e5421ad3e8df-heading-1": {
+          "type": "heading",
+          "settings": {
+            "column": "col_1",
+            "visibility": "always-display",
+            "heading": "Specification",
+            "title_highlight_color": "#6d388b",
+            "heading_size": "h1",
+            "alignment": "center",
+            "mobile_alignment": "mobile-center",
+            "margin_top": 20,
+            "margin_bottom": 20
+          }
+        },
+        "template--21507361800487__8beb6911-28c6-482c-976a-e5421ad3e8df-richtext-1": {
+          "type": "richtext",
+          "settings": {
+            "column": "col_1",
+            "visibility": "always-display",
+            "text": "<p><br/>Professional microneedling cartridges designed for safe, precise, and effective skin treatments. Each sterile, single-use cartridge supports smoother application, improved skin texture, and enhanced collagen stimulation for professional skincare results.</p>",
+            "text_style": "body",
+            "alignment": "center",
+            "mobile_alignment": "mobile-center",
+            "margin_top": 20,
+            "margin_bottom": 20
+          }
+        },
+        "template--21507361800487__8beb6911-28c6-482c-976a-e5421ad3e8df-icon_with_text-1": {
+          "type": "icon_with_text",
+          "settings": {
+            "column": "col_2",
+            "visibility": "always-display",
+            "icon": "check_circle",
+            "filled_icon": false,
+            "icon_size": "m",
+            "icon_position": "next-to-title",
+            "icon_color": "accent-1",
+            "icon_heading_size": "h3",
+            "icon_text_alignment": "left",
+            "title": "Professional Microneedling Performance",
+            "text": "<p><br/>Designed to deliver precise and consistent microneedling results for smoother, healthier, and more rejuvenated-looking skin.<br/><br/></p>",
+            "margin_top": 20,
+            "margin_bottom": 30
+          }
+        },
+        "template--21507361800487__8beb6911-28c6-482c-976a-e5421ad3e8df-icon_with_text-2": {
+          "type": "icon_with_text",
+          "settings": {
+            "column": "col_2",
+            "visibility": "always-display",
+            "icon": "check_circle",
+            "filled_icon": false,
+            "icon_size": "m",
+            "icon_position": "next-to-title",
+            "icon_color": "accent-1",
+            "icon_heading_size": "h3",
+            "icon_text_alignment": "left",
+            "title": "Sterile & Single-Use Design",
+            "text": "<p><br/>Each cartridge is individually sealed and sterilized to maintain maximum hygiene, safety, and professional treatment standards.<br/><br/></p>",
+            "margin_top": 20,
+            "margin_bottom": 20
+          }
+        },
+        "template--21507361800487__8beb6911-28c6-482c-976a-e5421ad3e8df-image-1": {
+          "type": "image",
+          "settings": {
+            "column": "col_3",
+            "visibility": "always-display",
+            "image": "shopify://shop_images/a20_cartridges_Nano_Square_Replacement.png",
+            "width": 100,
+            "alignment": "center",
+            "mobile_alignment": "center",
+            "border_radius": 0,
+            "margin_top": 20,
+            "margin_bottom": 20
+          }
+        },
+        "template--21507361800487__8beb6911-28c6-482c-976a-e5421ad3e8df-icon_with_text-3": {
+          "type": "icon_with_text",
+          "settings": {
+            "column": "col_4",
+            "visibility": "always-display",
+            "icon": "check_circle",
+            "filled_icon": false,
+            "icon_size": "m",
+            "icon_position": "next-to-title",
+            "icon_color": "accent-1",
+            "icon_heading_size": "h3",
+            "icon_text_alignment": "left",
+            "title": "Secure Device Compatibility",
+            "text": "<p><br/>Engineered for stable fitment and reliable performance with compatible Dr. Pen microneedling devices during every session.<br/><br/></p>",
+            "margin_top": 20,
+            "margin_bottom": 30
+          }
+        },
+        "template--21507361800487__8beb6911-28c6-482c-976a-e5421ad3e8df-icon_with_text-4": {
+          "type": "icon_with_text",
+          "settings": {
+            "column": "col_4",
+            "visibility": "always-display",
+            "icon": "check_circle",
+            "filled_icon": false,
+            "icon_size": "m",
+            "icon_position": "next-to-title",
+            "icon_color": "accent-1",
+            "icon_heading_size": "h3",
+            "icon_text_alignment": "left",
+            "title": "Supports Skin Renewal & Collagen Production",
+            "text": "<p><br/>Helps improve skin texture, fine lines, uneven tone, and overall skin appearance by supporting natural collagen stimulation.<br/><br/></p>",
+            "margin_top": 20,
+            "margin_bottom": 20
+          }
+        }
+      },
+      "block_order": [
+        "template--21507361800487__8beb6911-28c6-482c-976a-e5421ad3e8df-heading-1",
+        "template--21507361800487__8beb6911-28c6-482c-976a-e5421ad3e8df-richtext-1",
+        "template--21507361800487__8beb6911-28c6-482c-976a-e5421ad3e8df-icon_with_text-1",
+        "template--21507361800487__8beb6911-28c6-482c-976a-e5421ad3e8df-icon_with_text-2",
+        "template--21507361800487__8beb6911-28c6-482c-976a-e5421ad3e8df-image-1",
+        "template--21507361800487__8beb6911-28c6-482c-976a-e5421ad3e8df-icon_with_text-3",
+        "template--21507361800487__8beb6911-28c6-482c-976a-e5421ad3e8df-icon_with_text-4"
+      ],
+      "settings": {
+        "display_id": false,
+        "visibility": "always-display",
+        "color_scheme": "custom",
+        "columns_count": 4,
+        "column_gap_desktop": 40,
+        "row_gap_desktop": 40,
+        "desktop_vertical_alignment": "center",
+        "column_gap_mobile": 20,
+        "row_gap_mobile": 30,
+        "mobile_vertical_alignment": "flex-start",
+        "col_1_desktop_width": 12,
+        "col_1_mobile_width": 4,
+        "col_1_visibility": "always-display",
+        "col_2_desktop_width": 4,
+        "col_2_mobile_width": 4,
+        "col_2_visibility": "always-display",
+        "col_3_desktop_width": 4,
+        "col_3_mobile_width": 4,
+        "col_3_visibility": "always-display",
+        "col_4_desktop_width": 4,
+        "col_4_mobile_width": 4,
+        "col_4_visibility": "always-display",
+        "col_5_desktop_width": 3,
+        "col_5_mobile_width": 4,
+        "col_5_visibility": "always-display",
+        "col_6_desktop_width": 3,
+        "col_6_mobile_width": 4,
+        "col_6_visibility": "always-display",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "custom_colors_background": "#ffffff",
+        "custom_gradient_background": "",
+        "custom_image_background": "shopify://shop_images/dp_daub_bright.png",
+        "custom_colors_text": "#2e2a39",
+        "custom_colors_solid_button_background": "#dd1d1d",
+        "custom_colors_solid_button_text": "#ffffff",
+        "custom_colors_outline_button": "#dd1d1d"
+      }
+    },
+    "collapsible_content_PAb47V": {
+      "type": "collapsible-content",
+      "blocks": {
+        "collapsible_row_i7ihww": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Why use microneedling cartridges?",
+            "icon": "check_box",
+            "filled_icon": false,
+            "row_content": "<p>Microneedling cartridges create controlled micro-injuries that stimulate your skin's natural healing response, boosting collagen and elastin production. This process helps reduce the appearance of fine lines, wrinkles, acne scars, and uneven skin texture. The result is firmer, smoother, and more radiant-looking skin with improved overall complexion quality.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_TqDjCw": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Benefits",
+            "icon": "check_box",
+            "filled_icon": false,
+            "row_content": "<p>Enhanced Microneedling Performance<br/><br/>Our 16-needle cartridges deliver superior results with optimized needle depth and spacing. Each pack contains 10 sterile, medical-grade cartridges engineered for consistent puncture patterns that maximize collagen induction and product absorption. The A6S design ensures smooth gliding action and reduced skin trauma, making treatments more comfortable while achieving professional-grade outcomes.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_XVUgmh": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Specifications",
+            "icon": "check_box",
+            "filled_icon": false,
+            "row_content": "<p>Needle Count: 16 needles per cartridge<br/>Cartridge Quantity: 10-pack<br/>Needle Length: 0.25mm<br/>Needle Gauge: 33G<br/>Material: Medical-grade stainless steel<br/>Compatibility: Dr. Pen A6S device<br/>Sterilization: Pre-sterilized and individually sealed<br/>Storage: Keep in cool, dry place before use</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_4cLpDD": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "How to use",
+            "icon": "check_box",
+            "filled_icon": false,
+            "row_content": "<p>Cleanse the treatment area with a gentle cleanser and pat dry. Apply a thin layer of numbing cream if desired and wait 10-15 minutes. Attach the cartridge firmly to your Dr. Pen device, select your desired speed setting, and begin with gentle, vertical motions across the skin. Use light pressure and avoid sensitive areas. After treatment, apply a soothing serum or moisturizer and use SPF 30+ sunscreen daily for the next week.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_row_XpR9ph": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Precautions",
+            "icon": "check_box",
+            "filled_icon": false,
+            "row_content": "<p>Do not use if you are pregnant or nursing. Avoid use on active acne, open wounds, or severely irritated skin. Discontinue use if redness, swelling, or irritation occurs. Not suitable for individuals with bleeding disorders or those taking blood thinners without medical clearance. Consult a healthcare provider before use if you have sensitive skin or are prone to keloid formation. Keep out of reach of children. Store in a cool, dry place away from direct sunlight.</p>",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "collapsible_row_i7ihww",
+        "collapsible_row_TqDjCw",
+        "collapsible_row_XVUgmh",
+        "collapsible_row_4cLpDD",
+        "collapsible_row_XpR9ph"
+      ],
+      "name": "t:sections.collapsible_content.presets.name",
+      "settings": {
+        "display_id": false,
+        "visibility": "always-display",
+        "caption": "",
+        "title": "<strong>Product details</strong>",
+        "title_highlight_color": "#000000",
+        "heading_size": "h1",
+        "heading_alignment": "center",
+        "layout": "none",
+        "color_scheme": "background-1",
+        "container_color_scheme": "background-1",
+        "open_first_collapsible_row": true,
+        "image": "shopify://shop_images/cart.png",
+        "video_muted_autoplay": true,
+        "image_ratio": "adapt",
+        "desktop_layout": "image_second",
+        "row_heading_size": "medium",
+        "collapse_icon": "plus",
+        "display_top_border": true,
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "custom_colors_background": "#ffffff",
+        "custom_gradient_background": "",
+        "custom_image_background": "shopify://shop_images/dp_daub_bright.png",
+        "custom_colors_text": "#2e2a39",
+        "custom_contaner_colors_background": "#ffffff",
+        "custom_container_gradient_background": "",
+        "custom_contaner_colors_text": "#2e2a39"
+      }
+    },
+    "eba88da5-80ac-47fc-aa75-997cfe7b2e59": {
+      "type": "image-slider",
+      "blocks": {
+        "image_slide_pG9DgG": {
+          "type": "image_slide",
+          "settings": {
+            "image": "shopify://shop_images/A9_10ps_RN_003.jpg",
+            "link": "",
+            "description": "",
+            "desc_alignment": "center",
+            "desc_color_scheme": "background-2"
+          }
+        },
+        "image_slide_3NrmAE": {
+          "type": "image_slide",
+          "settings": {
+            "image": "shopify://shop_images/a20_cartridges_Nano_Square_Replacement.png",
+            "link": "",
+            "description": "",
+            "desc_alignment": "center",
+            "desc_color_scheme": "background-2"
+          }
+        },
+        "template--21507361800487__eba88da5-80ac-47fc-aa75-997cfe7b2e59-image_slide-1": {
+          "type": "image_slide",
+          "settings": {
+            "image": "shopify://shop_images/M8S-A11-A8S-A9_10ps_RNpins_all_grey_BLX_002.jpg",
+            "link": "",
+            "description": "",
+            "desc_alignment": "center",
+            "desc_color_scheme": "background-2"
+          }
+        },
+        "template--21507361800487__eba88da5-80ac-47fc-aa75-997cfe7b2e59-image_slide-2": {
+          "type": "image_slide",
+          "settings": {
+            "image": "shopify://shop_images/M8S-A11-A8S-A9_10ps_RNpins_all_grey_BLX_001.jpg",
+            "link": "",
+            "description": "",
+            "desc_alignment": "center",
+            "desc_color_scheme": "background-2"
+          }
+        },
+        "template--21507361800487__eba88da5-80ac-47fc-aa75-997cfe7b2e59-image_slide-3": {
+          "type": "image_slide",
+          "settings": {
+            "image": "shopify://shop_images/M8S-A11-A8S-A9_10ps_24pins_all_grey_BLX_002_86e7c68b-c769-45ec-ac7a-1e0db992d27d.jpg",
+            "link": "",
+            "description": "",
+            "desc_alignment": "center",
+            "desc_color_scheme": "background-2"
+          }
+        },
+        "template--21507361800487__eba88da5-80ac-47fc-aa75-997cfe7b2e59-image_slide-4": {
+          "type": "image_slide",
+          "settings": {
+            "link": "",
+            "description": "",
+            "desc_alignment": "center",
+            "desc_color_scheme": "background-2"
+          }
+        }
+      },
+      "block_order": [
+        "image_slide_pG9DgG",
+        "image_slide_3NrmAE",
+        "template--21507361800487__eba88da5-80ac-47fc-aa75-997cfe7b2e59-image_slide-1",
+        "template--21507361800487__eba88da5-80ac-47fc-aa75-997cfe7b2e59-image_slide-2",
+        "template--21507361800487__eba88da5-80ac-47fc-aa75-997cfe7b2e59-image_slide-3",
+        "template--21507361800487__eba88da5-80ac-47fc-aa75-997cfe7b2e59-image_slide-4"
+      ],
+      "settings": {
+        "display_id": false,
+        "visibility": "always-display",
+        "title": "Types of cartridges",
+        "title_highlight_color": "#6d388b",
+        "heading_size": "h1",
+        "color_scheme": "background-1",
+        "type": "slide",
+        "drag": "enabled",
+        "autoplay": false,
+        "autoplay_speed": 5,
+        "center_mode": false,
+        "arrows_color_scheme": "inverse",
+        "transparent_arrows": false,
+        "dots_color_scheme": "inverse",
+        "desktop_page_width": "normal",
+        "desktop_border_radius": 0,
+        "slides_desktop": 3,
+        "per_move_desktop": 1,
+        "desktop_spacing": 28,
+        "desktop_side_padding": 0,
+        "desktop_padding_calc": true,
+        "desktop_adaptive_height": false,
+        "desktop_dots_position": "under",
+        "desktop_arrows_position": "sides",
+        "mobile_full_page": false,
+        "mobile_border_radius": 0,
+        "slides_mobile": 2,
+        "per_move_mobile": 1,
+        "mobile_spacing": 12,
+        "mobile_side_padding": 0,
+        "mobile_padding_calc": true,
+        "mobile_adaptive_height": false,
+        "mobile_dots_position": "under",
+        "mobile_arrows_position": "sides",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "custom_colors_background": "#ffffff",
+        "custom_gradient_background": "",
+        "custom_colors_text": "#121212"
+      }
+    },
+    "comparison_slider_NC4Fh8": {
+      "type": "comparison-slider",
+      "name": "Before & After slider",
+      "settings": {
+        "display_id": false,
+        "visibility": "always-display",
+        "title": "<strong>Dr. Pen™ - The Ultimate Beauty Solution for Perfect Skin</strong>",
+        "title_highlight_color": "#000000",
+        "heading_size": "h1",
+        "text": "<p>Opt for the patented derma pen technology trusted by dermatologists worldwide for effective, pain-free at-home skin treatments<br/></p>",
+        "button_label": "",
+        "link": "",
+        "button_style_secondary": false,
+        "atc_button_label": "",
+        "atc_product": "",
+        "atc_skip_cart": false,
+        "color_scheme": "custom",
+        "layout": "slider_second",
+        "before_label": "Before",
+        "after_label": "After",
+        "labels_color_scheme": "accent-1",
+        "line_color": "background-1",
+        "arrows_style": "circle",
+        "before_image": "shopify://shop_images/worldface-australian-girl-white-background_53876-139752.jpg",
+        "after_image": "shopify://shop_images/after_image.webp",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "custom_colors_background": "#ffffff",
+        "custom_gradient_background": "",
+        "custom_image_background": "shopify://shop_images/dp_daub_bright.png",
+        "custom_colors_text": "#2e2a39",
+        "custom_colors_solid_button_background": "#dd1d1d",
+        "custom_colors_solid_button_text": "#ffffff",
+        "custom_colors_outline_button": "#dd1d1d"
+      }
+    },
+    "4fc05ee5-1c30-4863-b88f-81cb6fa7c41a": {
+      "type": "icons-with-content",
+      "blocks": {
+        "template--21507361800487__4fc05ee5-1c30-4863-b88f-81cb6fa7c41a-icon-1": {
+          "type": "icon",
+          "settings": {
+            "icon": "check_circle",
+            "filled_icon": false,
+            "title": "Icon with text",
+            "text": "<p>Pair text with an icon to focus on your chosen product, collection, or blog post</p>"
+          }
+        },
+        "template--21507361800487__4fc05ee5-1c30-4863-b88f-81cb6fa7c41a-icon-2": {
+          "type": "icon",
+          "settings": {
+            "icon": "check_circle",
+            "filled_icon": false,
+            "title": "Icon with text",
+            "text": "<p>Pair text with an icon to focus on your chosen product, collection, or blog post</p>"
+          }
+        },
+        "template--21507361800487__4fc05ee5-1c30-4863-b88f-81cb6fa7c41a-icon-3": {
+          "type": "icon",
+          "settings": {
+            "icon": "check_circle",
+            "filled_icon": false,
+            "title": "Icon with text",
+            "text": "<p>Pair text with an icon to focus on your chosen product, collection, or blog post</p>"
+          }
+        },
+        "template--21507361800487__4fc05ee5-1c30-4863-b88f-81cb6fa7c41a-heading-1": {
+          "type": "heading",
+          "settings": {
+            "title": "Content heading",
+            "title_highlight_color": "#6d388b",
+            "heading_size": "h1"
+          }
+        },
+        "template--21507361800487__4fc05ee5-1c30-4863-b88f-81cb6fa7c41a-text-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Pair icons with content to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+            "text_style": "body"
+          }
+        },
+        "template--21507361800487__4fc05ee5-1c30-4863-b88f-81cb6fa7c41a-button-1": {
+          "type": "button",
+          "settings": {
+            "button_label": "Button label",
+            "button_link": "",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "template--21507361800487__4fc05ee5-1c30-4863-b88f-81cb6fa7c41a-icon-1",
+        "template--21507361800487__4fc05ee5-1c30-4863-b88f-81cb6fa7c41a-icon-2",
+        "template--21507361800487__4fc05ee5-1c30-4863-b88f-81cb6fa7c41a-icon-3",
+        "template--21507361800487__4fc05ee5-1c30-4863-b88f-81cb6fa7c41a-heading-1",
+        "template--21507361800487__4fc05ee5-1c30-4863-b88f-81cb6fa7c41a-text-1",
+        "template--21507361800487__4fc05ee5-1c30-4863-b88f-81cb6fa7c41a-button-1"
+      ],
+      "disabled": true,
+      "settings": {
+        "display_id": false,
+        "visibility": "always-display",
+        "color_scheme": "background-1",
+        "icon_size": "m",
+        "icon_position": "next-to-title",
+        "icon_color": "accent-1",
+        "icon_heading_size": "h3",
+        "icon_text_alignment": "left",
+        "icons_desktop_layout": "1-column",
+        "icons_mobile_layout": "1-column",
+        "desktop_content_alignment": "left",
+        "layout": "image_first",
+        "mobile_layout": "text_first",
+        "hide_content_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "custom_colors_background": "#ffffff",
+        "custom_gradient_background": "",
+        "custom_colors_text": "#2e2a39",
+        "custom_colors_solid_button_background": "#dd1d1d",
+        "custom_colors_solid_button_text": "#ffffff",
+        "custom_colors_outline_button": "#dd1d1d"
+      }
+    },
+    "55bd100e-3bbd-426c-a5cf-eed7b2a3706f": {
+      "type": "testimonials",
+      "blocks": {
+        "template--21507361800487__55bd100e-3bbd-426c-a5cf-eed7b2a3706f-column-1": {
+          "type": "column",
+          "settings": {
+            "star_rating": 5,
+            "title": "Heading",
+            "text": "<p>Share positive thoughts and feedback from your customer..</p>",
+            "author": "<em><strong>Author</strong></em>"
+          }
+        },
+        "template--21507361800487__55bd100e-3bbd-426c-a5cf-eed7b2a3706f-column-2": {
+          "type": "column",
+          "settings": {
+            "star_rating": 5,
+            "title": "Heading",
+            "text": "<p>Share positive thoughts and feedback from your customer..</p>",
+            "author": "<em><strong>Author</strong></em>"
+          }
+        },
+        "template--21507361800487__55bd100e-3bbd-426c-a5cf-eed7b2a3706f-column-3": {
+          "type": "column",
+          "settings": {
+            "star_rating": 5,
+            "title": "Heading",
+            "text": "<p>Share positive thoughts and feedback from your customer..</p>",
+            "author": "<em><strong>Author</strong></em>"
+          }
+        }
+      },
+      "block_order": [
+        "template--21507361800487__55bd100e-3bbd-426c-a5cf-eed7b2a3706f-column-1",
+        "template--21507361800487__55bd100e-3bbd-426c-a5cf-eed7b2a3706f-column-2",
+        "template--21507361800487__55bd100e-3bbd-426c-a5cf-eed7b2a3706f-column-3"
+      ],
+      "disabled": true,
+      "settings": {
+        "display_id": false,
+        "visibility": "always-display",
+        "title": "Testimonials",
+        "title_highlight_color": "#6d388b",
+        "heading_size": "h1",
+        "text": "",
+        "color_scheme": "background-1",
+        "image_width": "full",
+        "image_ratio": "square",
+        "column_alignment": "center",
+        "show_stars": true,
+        "inactive_stars_style": "solid",
+        "star_color": "#ffcc00",
+        "bg_star_color": "#ececec",
+        "show_quotes": true,
+        "quotes_color_scheme": "accent-2",
+        "cards_color_scheme": "bg-overlay",
+        "type": "slide",
+        "autoplay": false,
+        "autoplay_speed": 5,
+        "arrows_color_scheme": "inverse",
+        "transparent_arrows": true,
+        "dots_color_scheme": "inverse",
+        "desktop_full_page": false,
+        "columns_desktop": 3,
+        "slider_desktop": false,
+        "per_move_desktop": 1,
+        "desktop_spacing": 40,
+        "desktop_side_padding": 0,
+        "desktop_padding_calc": true,
+        "desktop_adaptive_height": false,
+        "desktop_dots_position": "under",
+        "desktop_arrows_position": "sides",
+        "slider_mobile": true,
+        "enable_mobile_preview": false,
+        "mobile_adaptive_height": false,
+        "mobile_dots_position": "under",
+        "mobile_arrows_position": "under",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "custom_colors_background": "#ffffff",
+        "custom_gradient_background": "",
+        "custom_image_background": "shopify://shop_images/dp_daub_bright.png",
+        "custom_colors_text": "#2e2a39",
+        "custom_cards_colors_background": "#f3f3f3",
+        "custom_cards_gradient_background": "",
+        "custom_cards_colors_text": "#2e2a39"
+      }
+    },
+    "section_divider_g4d3TJ": {
+      "type": "section-divider",
+      "name": "Section divider",
+      "settings": {
+        "visibility": "always-display",
+        "shape": "waves_3",
+        "flip_horizontal": false,
+        "flip_vertical": false,
+        "shape_color": "accent-1",
+        "custom_shape_color": "#dd1d1d",
+        "background_color": "background-1",
+        "custom_background_color": "#ffffff",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "horizontal_ticker_xtCDcR": {
+      "type": "horizontal-ticker",
+      "blocks": {
+        "text_LN4Gmf": {
+          "type": "text",
+          "settings": {
+            "title": "365-day Warranty"
+          }
+        },
+        "text_Hff6X3": {
+          "type": "text",
+          "settings": {
+            "title": "60-day money-back guarantee"
+          }
+        },
+        "text_pDjybW": {
+          "type": "text",
+          "settings": {
+            "title": "Free shipping in the US on order over 40$"
+          }
+        }
+      },
+      "block_order": [
+        "text_LN4Gmf",
+        "text_Hff6X3",
+        "text_pDjybW"
+      ],
+      "name": "Horizontal Ticker",
+      "settings": {
+        "visibility": "always-display",
+        "speed": 1,
+        "direction": "reverse",
+        "stop_on_hover": true,
+        "mobile_spacing": 60,
+        "desktop_spacing": 100,
+        "color_scheme": "accent-1",
+        "mobile_text_size": 16,
+        "desktop_text_size": 27,
+        "italic_text": false,
+        "uppercase_text": false,
+        "bold_text": true,
+        "mobile_image_height": 26,
+        "desktop_image_height": 40,
+        "mobile_reviews_width": 300,
+        "desktop_reviews_width": 400,
+        "hidden_products": "",
+        "enable_specific_display": false,
+        "displayed_products": "",
+        "mobile_padding_top": 12,
+        "mobile_padding_bottom": 12,
+        "desktop_padding_top": 32,
+        "desktop_padding_bottom": 32,
+        "custom_colors_background": "#ffffff",
+        "custom_gradient_background": "",
+        "custom_colors_text": "#2e2a39"
+      }
+    },
+    "facebook_testimonials_xD8kwp": {
+      "type": "facebook-testimonials",
+      "blocks": {
+        "column_9K6LRy": {
+          "type": "column",
+          "settings": {
+            "post_author": "Author name",
+            "post_author_avatar": "shopify://shop_images/download_23.jpg",
+            "post_author_verified": false,
+            "post_time": "2h ago",
+            "post_text": "<p><br/>“The cartridges arrived sealed and high quality. I’ve been using the Dr. Pen device consistently and noticed visible improvement in acne scars and fine lines.”<br/><br/></p>",
+            "post_reactions": "like, love, care",
+            "post_reactions_text": "5.1k",
+            "post_comments_text": "260 Comments",
+            "comment_1_author": "Comment author",
+            "comment_1_author_verified": false,
+            "comment_1_time": "2h ago",
+            "comment_1_text": "",
+            "comment_2_author": "Comment author",
+            "comment_2_author_verified": false,
+            "comment_2_time": "3h ago",
+            "comment_2_text": ""
+          }
+        },
+        "column_Hw4Hn9": {
+          "type": "column",
+          "settings": {
+            "post_author": "Author name",
+            "post_author_avatar": "shopify://shop_images/download_15.jpg",
+            "post_author_verified": false,
+            "post_time": "2h ago",
+            "post_text": "<p><br/>“Great quality products and authentic packaging. I’ve been using the nano cartridges weekly and my skincare products absorb so much better now.”<br/><br/></p>",
+            "post_reactions": "like, love, care",
+            "post_reactions_text": "17k",
+            "post_comments_text": "770 Comments",
+            "comment_1_author": "Comment author",
+            "comment_1_author_verified": false,
+            "comment_1_time": "5h ago",
+            "comment_1_text": "",
+            "comment_2_author": "Comment author",
+            "comment_2_author_verified": false,
+            "comment_2_time": "3h ago",
+            "comment_2_text": ""
+          }
+        },
+        "column_a9pyQn": {
+          "type": "column",
+          "settings": {
+            "post_author": "Author name",
+            "post_author_avatar": "shopify://shop_images/download_19.jpg",
+            "post_author_verified": false,
+            "post_time": "7h ago",
+            "post_text": "<p><br/>“I was honestly nervous to try microneedling at home, but the device is very user-friendly. My skin feels firmer and looks more refreshed already.”<br/><br/></p>",
+            "post_reactions": "like, love, care",
+            "post_reactions_text": "7.1k",
+            "post_comments_text": "260 Comments",
+            "comment_1_author": "Comment author",
+            "comment_1_author_verified": false,
+            "comment_1_time": "2h ago",
+            "comment_1_text": "",
+            "comment_2_author": "Comment author",
+            "comment_2_author_verified": false,
+            "comment_2_time": "3h ago",
+            "comment_2_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_9K6LRy",
+        "column_Hw4Hn9",
+        "column_a9pyQn"
+      ],
+      "name": "Facebook testimonials",
+      "settings": {
+        "display_id": false,
+        "visibility": "always-display",
+        "title": "Facebook testimonials",
+        "title_highlight_color": "#6d388b",
+        "heading_size": "h1",
+        "text": "",
+        "color_scheme": "custom",
+        "type": "slide",
+        "autoplay": false,
+        "autoplay_speed": 5,
+        "arrows_color_scheme": "inverse",
+        "transparent_arrows": true,
+        "dots_color_scheme": "inverse",
+        "desktop_full_page": false,
+        "columns_desktop": 3,
+        "slider_desktop": false,
+        "per_move_desktop": 1,
+        "desktop_spacing": 24,
+        "desktop_side_padding": 0,
+        "desktop_padding_calc": true,
+        "desktop_adaptive_height": false,
+        "desktop_dots_position": "under",
+        "desktop_arrows_position": "sides",
+        "slider_mobile": true,
+        "enable_mobile_preview": false,
+        "mobile_adaptive_height": false,
+        "mobile_dots_position": "under",
+        "mobile_arrows_position": "under",
+        "post_bg_color": "#ffffff",
+        "post_text_color": "#101010",
+        "comments_bg_color": "#f0f2f5",
+        "separators_color": "#a4b0be",
+        "post_border_color": "#dfdfdf",
+        "border_width": 1,
+        "like_label": "Like",
+        "comment_label": "Comment",
+        "reply_label": "Reply",
+        "share_label": "Share",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "custom_colors_background": "#f3f3f3",
+        "custom_gradient_background": "",
+        "custom_image_background": "shopify://shop_images/dp_daub_bright.png",
+        "custom_colors_text": "#2e2a39"
+      }
+    },
+    "17790127572a37e34e": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_GhEwyk": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "review_data": "real_data",
+            "max_width": 1200,
+            "show_shop_reviews": false,
+            "empty_state": "empty_widget"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_GhEwyk"
+      ],
+      "settings": {
+        "display_id": false,
+        "include_margins": true
+      }
+    },
+    "you_may_also_like_V7WdgB": {
+      "type": "you-may-also-like",
+      "name": "Product Carousel",
+      "settings": {
+        "heading": "Available Cartridges",
+        "collection": "all-microneedling-pen-cartridges",
+        "products_to_show": 20,
+        "card_width": 240,
+        "image_height": 220,
+        "card_gap": 16,
+        "card_radius": 10,
+        "title_size": 14,
+        "price_size": 15,
+        "heading_size": 28,
+        "bg_color": "#fdfcfa",
+        "heading_color": "#1a1a1a",
+        "price_color": "#0553c9",
+        "scroll_speed": 3,
+        "section_padding": 40,
+        "show_dots": true
+      }
+    }
+  },
+  "order": [
+    "main",
+    "related-products",
+    "8beb6911-28c6-482c-976a-e5421ad3e8df",
+    "collapsible_content_PAb47V",
+    "eba88da5-80ac-47fc-aa75-997cfe7b2e59",
+    "comparison_slider_NC4Fh8",
+    "4fc05ee5-1c30-4863-b88f-81cb6fa7c41a",
+    "55bd100e-3bbd-426c-a5cf-eed7b2a3706f",
+    "section_divider_g4d3TJ",
+    "horizontal_ticker_xtCDcR",
+    "facebook_testimonials_xD8kwp",
+    "17790127572a37e34e",
+    "you_may_also_like_V7WdgB"
+  ]
+}

@@ -1,0 +1,1083 @@
+{% comment %}
+  Dr. Pen Device Finder Quiz
+  Section: drpen-quiz.liquid
+  Compatible with: Shopify Shine Pro theme
+  Place in: sections/drpen-quiz.liquid
+  Add to page template via Shopify theme editor
+{% endcomment %}
+
+{{ 'drpen-quiz.css' | asset_url | stylesheet_tag }}
+
+<style>
+  /* =============================================
+     DR. PEN QUIZ — SCOPED STYLES
+     Uses theme CSS variables + section settings
+  ============================================= */
+
+  #drpen-quiz-section-{{ section.id }} {
+    --quiz-primary:          {{ section.settings.primary_color }};
+    --quiz-primary-dark:     {{ section.settings.primary_color | color_darken: 12 }};
+    --quiz-accent:           {{ section.settings.accent_color }};
+    --quiz-bg:               {{ section.settings.section_bg }};
+    --quiz-card-bg:          {{ section.settings.card_bg }};
+    --quiz-text:             {{ section.settings.text_color }};
+    --quiz-text-light:       {{ section.settings.text_color | color_lighten: 30 }};
+    --quiz-border:           {{ section.settings.border_color }};
+    --quiz-radius:           {{ section.settings.border_radius }}px;
+    --quiz-font-heading:     {{ section.settings.heading_font.family }}, {{ section.settings.heading_font.fallback_families }};
+    --quiz-font-body:        {{ section.settings.body_font.family }}, {{ section.settings.body_font.fallback_families }};
+    --quiz-heading-size:     {{ section.settings.heading_size }}px;
+    --quiz-subheading-size:  {{ section.settings.subheading_size }}px;
+    --quiz-body-size:        {{ section.settings.body_size }}px;
+    --quiz-btn-radius:       {{ section.settings.button_radius }}px;
+    --quiz-section-pt:       {{ section.settings.padding_top }}px;
+    --quiz-section-pb:       {{ section.settings.padding_bottom }}px;
+    --quiz-max-width:        {{ section.settings.content_max_width }}px;
+    --quiz-progress-height:  {{ section.settings.progress_bar_height }}px;
+    --quiz-option-min-h:     {{ section.settings.option_min_height }}px;
+    background-color: var(--quiz-bg);
+    padding-top: var(--quiz-section-pt);
+    padding-bottom: var(--quiz-section-pb);
+    font-family: var(--quiz-font-body);
+    color: var(--quiz-text);
+  }
+
+  #drpen-quiz-section-{{ section.id }} .quiz-inner {
+    max-width: var(--quiz-max-width);
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* ---- Section heading ---- */
+  #drpen-quiz-section-{{ section.id }} .quiz-section-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  #drpen-quiz-section-{{ section.id }} .quiz-eyebrow {
+    display: inline-block;
+    font-family: var(--quiz-font-body);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--quiz-primary);
+    background: {{ section.settings.primary_color | color_modify: 'alpha', 0.08 }};
+    border: 1px solid {{ section.settings.primary_color | color_modify: 'alpha', 0.25 }};
+    padding: 5px 14px;
+    border-radius: 100px;
+    margin-bottom: 14px;
+  }
+  #drpen-quiz-section-{{ section.id }} .quiz-section-title {
+    font-family: var(--quiz-font-heading);
+    font-size: var(--quiz-heading-size);
+    font-weight: 700;
+    color: var(--quiz-text);
+    line-height: 1.2;
+    margin: 0 0 12px;
+  }
+  #drpen-quiz-section-{{ section.id }} .quiz-section-subtitle {
+    font-size: var(--quiz-subheading-size);
+    color: var(--quiz-text-light);
+    max-width: 540px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* ---- Quiz card wrapper ---- */
+  #drpen-quiz-section-{{ section.id }} .quiz-card {
+    background: var(--quiz-card-bg);
+    border: 1px solid var(--quiz-border);
+    border-radius: var(--quiz-radius);
+    box-shadow: 0 4px 32px rgba(0,0,0,0.07);
+    overflow: hidden;
+  }
+
+  /* ---- Progress bar ---- */
+  #drpen-quiz-section-{{ section.id }} .quiz-progress-wrap {
+    background: var(--quiz-border);
+    height: var(--quiz-progress-height);
+    position: relative;
+  }
+  #drpen-quiz-section-{{ section.id }} .quiz-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--quiz-primary), var(--quiz-accent));
+    border-radius: 0 100px 100px 0;
+    transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+    width: 0%;
+  }
+  #drpen-quiz-section-{{ section.id }} .quiz-progress-label {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--quiz-text-light);
+    letter-spacing: 0.5px;
+  }
+
+  /* ---- Quiz body ---- */
+  #drpen-quiz-section-{{ section.id }} .quiz-body {
+    padding: 40px 48px;
+  }
+  @media (max-width: 768px) {
+    #drpen-quiz-section-{{ section.id }} .quiz-body {
+      padding: 28px 20px;
+    }
+  }
+
+  /* ---- Step indicator ---- */
+  #drpen-quiz-section-{{ section.id }} .quiz-step-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--quiz-primary);
+    margin-bottom: 8px;
+  }
+
+  /* ---- Question ---- */
+  #drpen-quiz-section-{{ section.id }} .quiz-question {
+    font-family: var(--quiz-font-heading);
+    font-size: var(--quiz-subheading-size);
+    font-weight: 700;
+    color: var(--quiz-text);
+    line-height: 1.35;
+    margin: 0 0 8px;
+  }
+  #drpen-quiz-section-{{ section.id }} .quiz-question-hint {
+    font-size: calc(var(--quiz-body-size) - 1px);
+    color: var(--quiz-text-light);
+    margin: 0 0 28px;
+  }
+
+  /* ---- Options grid ---- */
+  #drpen-quiz-section-{{ section.id }} .quiz-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  #drpen-quiz-section-{{ section.id }} .quiz-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: var(--quiz-option-min-h);
+    padding: 14px 18px;
+    border: 2px solid var(--quiz-border);
+    border-radius: var(--quiz-radius);
+    background: var(--quiz-card-bg);
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s, box-shadow 0.2s, transform 0.15s;
+    font-family: var(--quiz-font-body);
+    font-size: var(--quiz-body-size);
+    color: var(--quiz-text);
+    text-align: left;
+    line-height: 1.4;
+    position: relative;
+    outline: none;
+  }
+  #drpen-quiz-section-{{ section.id }} .quiz-option:hover {
+    border-color: var(--quiz-primary);
+    background: {{ section.settings.primary_color | color_modify: 'alpha', 0.04 }};
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px {{ section.settings.primary_color | color_modify: 'alpha', 0.15 }};
+  }
+  #drpen-quiz-section-{{ section.id }} .quiz-option.selected {
+    border-color: var(--quiz-primary);
+    background: {{ section.settings.primary_color | color_modify: 'alpha', 0.06 }};
+    box-shadow: 0 0 0 3px {{ section.settings.primary_color | color_modify: 'alpha', 0.18 }};
+  }
+  #drpen-quiz-section-{{ section.id }} .quiz-option-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: {{ section.settings.primary_color | color_modify: 'alpha', 0.1 }};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 18px;
+    transition: background 0.2s;
+  }
+  #drpen-quiz-section-{{ section.id }} .quiz-option.selected .quiz-option-icon {
+    background: var(--quiz-primary);
+  }
+  #drpen-quiz-section-{{ section.id }} .quiz-option-check {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid var(--quiz-border);
+    margin-left: auto;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  #drpen-quiz-section-{{ section.id }} .quiz-option.selected .quiz-option-check {
+    border-color: var(--quiz-primary);
+    background: var(--quiz-primary);
+  }
+  #drpen-quiz-section-{{ section.id }} .quiz-option.selected .quiz-option-check::after {
+    content: '';
+    width: 5px;
+    height: 9px;
+    border: 2px solid #fff;
+    border-top: none;
+    border-left: none;
+    transform: rotate(45deg) translate(-1px,-1px);
+    display: block;
+  }
+
+  /* ---- Navigation ---- */
+  #drpen-quiz-section-{{ section.id }} .quiz-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-top: 8px;
+    border-top: 1px solid var(--quiz-border);
+  }
+  #drpen-quiz-section-{{ section.id }} .quiz-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-family: var(--quiz-font-body);
+    font-size: var(--quiz-body-size);
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    padding: 13px 28px;
+    border-radius: var(--quiz-btn-radius);
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    line-height: 1;
+    outline: none;
+  }
+  #drpen-quiz-section-{{ section.id }} .quiz-btn-primary {
+    background: var(--quiz-primary);
+    color: #fff;
+    border-color: var(--quiz-primary);
+  }
+  #drpen-quiz-section-{{ section.id }} .quiz-btn-primary:hover {
+    background: var(--quiz-primary-dark);
+    border-color: var(--quiz-primary-dark);
+    box-shadow: 0 4px 16px {{ section.settings.primary_color | color_modify: 'alpha', 0.35 }};
+    transform: translateY(-1px);
+  }
+  #drpen-quiz-section-{{ section.id }} .quiz-btn-secondary {
+    background: transparent;
+    color: var(--quiz-text-light);
+    border-color: var(--quiz-border);
+  }
+  #drpen-quiz-section-{{ section.id }} .quiz-btn-secondary:hover {
+    border-color: var(--quiz-text-light);
+    color: var(--quiz-text);
+  }
+  #drpen-quiz-section-{{ section.id }} .quiz-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
+  }
+
+  /* ---- Result panel ---- */
+  #drpen-quiz-section-{{ section.id }} .quiz-result {
+    display: none;
+    padding: 48px;
+    text-align: center;
+  }
+  @media (max-width: 768px) {
+    #drpen-quiz-section-{{ section.id }} .quiz-result {
+      padding: 32px 20px;
+    }
+  }
+  #drpen-quiz-section-{{ section.id }} .quiz-result.visible {
+    display: block;
+  }
+  #drpen-quiz-section-{{ section.id }} .quiz-result-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #fff;
+    background: linear-gradient(135deg, var(--quiz-primary), var(--quiz-accent));
+    padding: 5px 16px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+  }
+  #drpen-quiz-section-{{ section.id }} .quiz-result-title {
+    font-family: var(--quiz-font-heading);
+    font-size: var(--quiz-heading-size);
+    font-weight: 700;
+    color: var(--quiz-text);
+    margin: 0 0 8px;
+  }
+  #drpen-quiz-section-{{ section.id }} .quiz-result-subtitle {
+    font-size: var(--quiz-body-size);
+    color: var(--quiz-text-light);
+    margin: 0 0 36px;
+  }
+  #drpen-quiz-section-{{ section.id }} .quiz-result-products {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+    margin-bottom: 36px;
+    text-align: left;
+  }
+  #drpen-quiz-section-{{ section.id }} .quiz-result-product {
+    border: 2px solid var(--quiz-border);
+    border-radius: var(--quiz-radius);
+    padding: 22px 20px;
+    background: var(--quiz-card-bg);
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+    position: relative;
+  }
+  #drpen-quiz-section-{{ section.id }} .quiz-result-product.primary-pick {
+    border-color: var(--quiz-primary);
+  }
+  #drpen-quiz-section-{{ section.id }} .quiz-result-product.primary-pick::before {
+    content: attr(data-badge);
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--quiz-primary);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 3px 12px;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+  #drpen-quiz-section-{{ section.id }} .quiz-result-product:hover {
+    border-color: var(--quiz-primary);
+    box-shadow: 0 8px 28px {{ section.settings.primary_color | color_modify: 'alpha', 0.14 }};
+    transform: translateY(-3px);
+  }
+  #drpen-quiz-section-{{ section.id }} .quiz-result-product-name {
+    font-family: var(--quiz-font-heading);
+    font-size: calc(var(--quiz-subheading-size) - 2px);
+    font-weight: 700;
+    color: var(--quiz-text);
+    margin: 0 0 6px;
+  }
+  #drpen-quiz-section-{{ section.id }} .quiz-result-product-desc {
+    font-size: calc(var(--quiz-body-size) - 1px);
+    color: var(--quiz-text-light);
+    margin: 0 0 14px;
+    line-height: 1.5;
+  }
+  #drpen-quiz-section-{{ section.id }} .quiz-result-product-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+  #drpen-quiz-section-{{ section.id }} .quiz-tag {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 100px;
+    background: {{ section.settings.primary_color | color_modify: 'alpha', 0.08 }};
+    color: var(--quiz-primary);
+    border: 1px solid {{ section.settings.primary_color | color_modify: 'alpha', 0.2 }};
+  }
+  #drpen-quiz-section-{{ section.id }} .quiz-result-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: calc(var(--quiz-body-size) - 1px);
+    font-weight: 700;
+    color: var(--quiz-primary);
+    text-decoration: none;
+    transition: gap 0.2s;
+  }
+  #drpen-quiz-section-{{ section.id }} .quiz-result-link:hover {
+    gap: 10px;
+  }
+  #drpen-quiz-section-{{ section.id }} .quiz-result-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  /* ---- Animated step transitions ---- */
+  #drpen-quiz-section-{{ section.id }} .quiz-step-content {
+    animation: quizFadeIn 0.35s ease both;
+  }
+  @keyframes quizFadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ---- Responsive ---- */
+  @media (max-width: 600px) {
+    #drpen-quiz-section-{{ section.id }} .quiz-options {
+      grid-template-columns: 1fr;
+    }
+    #drpen-quiz-section-{{ section.id }} .quiz-result-products {
+      grid-template-columns: 1fr;
+    }
+    #drpen-quiz-section-{{ section.id }} .quiz-nav {
+      flex-direction: column-reverse;
+    }
+    #drpen-quiz-section-{{ section.id }} .quiz-btn {
+      width: 100%;
+    }
+  }
+</style>
+
+<section
+  id="drpen-quiz-section-{{ section.id }}"
+  class="drpen-quiz-section"
+  data-section-id="{{ section.id }}"
+>
+  <div class="quiz-inner">
+
+    {%- if section.settings.show_header -%}
+    <div class="quiz-section-header">
+      {%- if section.settings.eyebrow != blank -%}
+        <div class="quiz-eyebrow">{{ section.settings.eyebrow }}</div>
+      {%- endif -%}
+      <h2 class="quiz-section-title">{{ section.settings.heading }}</h2>
+      {%- if section.settings.subheading != blank -%}
+        <p class="quiz-section-subtitle">{{ section.settings.subheading }}</p>
+      {%- endif -%}
+    </div>
+    {%- endif -%}
+
+    <div class="quiz-card">
+
+      <!-- Progress bar -->
+      <div class="quiz-progress-wrap" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="quiz-progress-{{ section.id }}">
+        <div class="quiz-progress-bar" id="quiz-progress-bar-{{ section.id }}"></div>
+        <span class="quiz-progress-label" id="quiz-progress-label-{{ section.id }}">Step 1 of 6</span>
+      </div>
+
+      <!-- Quiz steps -->
+      <div class="quiz-body" id="quiz-steps-{{ section.id }}">
+        <!-- Injected by JS -->
+      </div>
+
+      <!-- Result panel -->
+      <div class="quiz-result" id="quiz-result-{{ section.id }}">
+        <!-- Injected by JS -->
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+(function() {
+  'use strict';
+
+  var sectionId = '{{ section.id }}';
+
+  /* =============================================
+     QUIZ DATA — 6 Questions
+  ============================================= */
+  var QUIZ = {
+    questions: [
+      {
+        id: 'concern',
+        step: 1,
+        question: 'What is your primary skin concern?',
+        hint: 'Choose the one that matters most to you right now.',
+        options: [
+          { emoji: '✨', label: 'Fine lines & anti-aging',   value: 'aging'       },
+          { emoji: '🔵', label: 'Acne scars & large pores',  value: 'scars'       },
+          { emoji: '💧', label: 'Dull or uneven skin tone',  value: 'tone'        },
+          { emoji: '🌿', label: 'Hair loss & scalp health',  value: 'hair'        },
+          { emoji: '💪', label: 'Overall skin rejuvenation', value: 'rejuvenation'},
+          { emoji: '❓', label: 'I\'m not sure yet',         value: 'unsure'      }
+        ]
+      },
+      {
+        id: 'experience',
+        step: 2,
+        question: 'What is your microneedling experience level?',
+        hint: 'Be honest — this helps us pick the right device for you.',
+        options: [
+          { emoji: '🌱', label: 'Complete beginner — first time', value: 'beginner'     },
+          { emoji: '🔄', label: 'Tried it once or twice',         value: 'novice'       },
+          { emoji: '⚡', label: 'Regular user (6+ months)',        value: 'intermediate' },
+          { emoji: '🏆', label: 'Advanced / professional use',     value: 'advanced'     }
+        ]
+      },
+      {
+        id: 'depth',
+        step: 3,
+        question: 'How deep do you want to treat?',
+        hint: 'Deeper depths require more precision and experience.',
+        options: [
+          { emoji: '🪶', label: 'Superficial (0.25 – 0.5mm)',       value: 'superficial' },
+          { emoji: '🎯', label: 'Medium depth (0.5 – 1.5mm)',        value: 'medium'      },
+          { emoji: '⬇️', label: 'Deep treatment (1.5 – 2.5mm+)',     value: 'deep'        },
+          { emoji: '🤷', label: 'Not sure — show me what\'s best',   value: 'unsure'      }
+        ]
+      },
+      {
+        id: 'area',
+        step: 4,
+        question: 'Which area do you plan to treat most?',
+        hint: 'Some devices are optimised for specific treatment zones.',
+        options: [
+          { emoji: '😊', label: 'Face (cheeks, forehead, jaw)', value: 'face'   },
+          { emoji: '👁️', label: 'Eyes & delicate areas',        value: 'eyes'   },
+          { emoji: '💆', label: 'Scalp / hair loss',            value: 'scalp'  },
+          { emoji: '🧍', label: 'Body (arms, stomach, thighs)', value: 'body'   }
+        ]
+      },
+      {
+        id: 'budget',
+        step: 5,
+        question: 'What is your budget?',
+        hint: 'We have great options at every price point.',
+        options: [
+          { emoji: '💚', label: 'Under $80 — entry level', value: 'low'    },
+          { emoji: '💙', label: '$80 – $150 — mid range',  value: 'mid'    },
+          { emoji: '💜', label: '$150 – $200 — pro level',  value: 'high'   },
+          { emoji: '⭐', label: '$200+ — best of the best', value: 'premium'}
+        ]
+      },
+      {
+        id: 'priority',
+        step: 6,
+        question: 'What matters most to you in a device?',
+        hint: 'This helps us fine-tune your recommendation.',
+        options: [
+          { emoji: '📱', label: 'Easy wireless use',          value: 'wireless'   },
+          { emoji: '🔇', label: 'Quiet & comfortable',         value: 'quiet'      },
+          { emoji: '🎛️', label: 'Adjustable speed & depth',   value: 'adjustable' },
+          { emoji: '💼', label: 'Compact & travel-friendly',  value: 'compact'    }
+        ]
+      }
+    ],
+
+    /* ---- Device profiles ---- */
+    devices: {
+      A6s: {
+        name: 'Dr. Pen A6s',
+        desc: 'The perfect beginner device. Wireless, lightweight, and whisper-quiet. Ideal for face treatments with 6 adjustable speeds.',
+        tags: ['Beginner Friendly', 'Wireless', 'Face'],
+        url: '{{ section.settings.product_url_a6s | default: "/collections/dr-pen" }}',
+        match: function(a) {
+          return (a.experience === 'beginner' || a.experience === 'novice') &&
+                 (a.area === 'face' || a.area === 'eyes') &&
+                 (a.budget === 'low' || a.budget === 'mid');
+        }
+      },
+      A10: {
+        name: 'Dr. Pen A10',
+        desc: 'Versatile and powerful. A fan favourite for all skin types with precise depth control up to 2.5mm.',
+        tags: ['All Skin Types', 'Adjustable Depth', 'Popular'],
+        url: '{{ section.settings.product_url_a10 | default: "/collections/dr-pen" }}',
+        match: function(a) {
+          return (a.experience === 'novice' || a.experience === 'intermediate') &&
+                 (a.depth === 'medium' || a.depth === 'superficial') &&
+                 (a.budget === 'mid' || a.budget === 'high');
+        }
+      },
+      M8: {
+        name: 'Dr. Pen M8',
+        desc: 'Professional-grade performance. USB-C rechargeable, 16-speed motor, and 0.2–2.5mm range. For serious users.',
+        tags: ['Professional', 'High Performance', 'USB-C'],
+        url: '{{ section.settings.product_url_m8 | default: "/collections/dr-pen" }}',
+        match: function(a) {
+          return (a.experience === 'intermediate' || a.experience === 'advanced') &&
+                 (a.depth === 'deep' || a.depth === 'medium') &&
+                 (a.budget === 'high' || a.budget === 'premium');
+        }
+      },
+      A8s: {
+        name: 'Dr. Pen A8s',
+        desc: 'Next-level precision for advanced users. 11-pin nano needle cartridge, ultra-quiet motor, best for scarring and deep lines.',
+        tags: ['Advanced', 'Anti-Aging', 'Deep Treatment'],
+        url: '{{ section.settings.product_url_a8s | default: "/collections/dr-pen" }}',
+        match: function(a) {
+          return (a.concern === 'aging' || a.concern === 'scars') &&
+                 (a.experience === 'advanced' || a.experience === 'intermediate') &&
+                 (a.budget === 'premium' || a.budget === 'high');
+        }
+      },
+      N2: {
+        name: 'Dr. Pen N2',
+        desc: 'Purpose-built for scalp and hair loss treatment. Large cartridge head for efficient scalp coverage.',
+        tags: ['Scalp & Hair', 'Large Coverage', 'Specialist'],
+        url: '{{ section.settings.product_url_n2 | default: "/collections/dr-pen" }}',
+        match: function(a) {
+          return a.concern === 'hair' || a.area === 'scalp';
+        }
+      },
+      A1: {
+        name: 'Dr. Pen A1',
+        desc: 'Compact, affordable, and effective. Great for travel or starting your microneedling journey.',
+        tags: ['Budget Friendly', 'Compact', 'Travel'],
+        url: '{{ section.settings.product_url_a1 | default: "/collections/dr-pen" }}',
+        match: function(a) {
+          return a.budget === 'low' || a.priority === 'compact';
+        }
+      }
+    }
+  };
+
+  /* =============================================
+     STATE
+  ============================================= */
+  var state = {
+    current: 0,
+    answers: {}
+  };
+
+  /* =============================================
+     DOM REFS
+  ============================================= */
+  var stepsEl      = document.getElementById('quiz-steps-' + sectionId);
+  var resultEl     = document.getElementById('quiz-result-' + sectionId);
+  var progressBar  = document.getElementById('quiz-progress-bar-' + sectionId);
+  var progressWrap = document.getElementById('quiz-progress-' + sectionId);
+  var progressLbl  = document.getElementById('quiz-progress-label-' + sectionId);
+  var total        = QUIZ.questions.length;
+
+  /* =============================================
+     RENDER STEP
+  ============================================= */
+  function renderStep(idx) {
+    var q = QUIZ.questions[idx];
+    var pct = Math.round(((idx) / total) * 100);
+
+    // Progress
+    progressBar.style.width = pct + '%';
+    progressWrap.setAttribute('aria-valuenow', pct);
+    progressLbl.textContent = 'Step ' + (idx + 1) + ' of ' + total;
+
+    var optionsHtml = q.options.map(function(opt) {
+      var sel = state.answers[q.id] === opt.value ? ' selected' : '';
+      return '<button class="quiz-option' + sel + '" data-value="' + opt.value + '" aria-pressed="' + (sel ? 'true' : 'false') + '">' +
+               '<span class="quiz-option-icon">' + opt.emoji + '</span>' +
+               '<span class="quiz-option-text">' + opt.label + '</span>' +
+               '<span class="quiz-option-check" aria-hidden="true"></span>' +
+             '</button>';
+    }).join('');
+
+    stepsEl.innerHTML =
+      '<div class="quiz-step-content">' +
+        '<div class="quiz-step-label">Question ' + (idx + 1) + ' of ' + total + '</div>' +
+        '<h3 class="quiz-question">' + q.question + '</h3>' +
+        '<p class="quiz-question-hint">' + q.hint + '</p>' +
+        '<div class="quiz-options" role="group" aria-label="' + q.question + '">' +
+          optionsHtml +
+        '</div>' +
+        '<div class="quiz-nav">' +
+          '<button class="quiz-btn quiz-btn-secondary" id="quiz-back-' + sectionId + '"' + (idx === 0 ? ' disabled' : '') + '>' +
+            '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
+            'Back' +
+          '</button>' +
+          '<button class="quiz-btn quiz-btn-primary" id="quiz-next-' + sectionId + '"' + (!state.answers[q.id] ? ' disabled' : '') + '>' +
+            (idx === total - 1 ? 'See My Results' : 'Next') +
+            '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
+          '</button>' +
+        '</div>' +
+      '</div>';
+
+    bindStepEvents(q);
+  }
+
+  /* =============================================
+     BIND STEP EVENTS
+  ============================================= */
+  function bindStepEvents(q) {
+    var options  = stepsEl.querySelectorAll('.quiz-option');
+    var nextBtn  = document.getElementById('quiz-next-' + sectionId);
+    var backBtn  = document.getElementById('quiz-back-' + sectionId);
+
+    options.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        options.forEach(function(b) { b.classList.remove('selected'); b.setAttribute('aria-pressed','false'); });
+        btn.classList.add('selected');
+        btn.setAttribute('aria-pressed','true');
+        state.answers[q.id] = btn.dataset.value;
+        nextBtn.disabled = false;
+      });
+    });
+
+    nextBtn.addEventListener('click', function() {
+      if (!state.answers[q.id]) return;
+      if (state.current < total - 1) {
+        state.current++;
+        renderStep(state.current);
+      } else {
+        showResult();
+      }
+    });
+
+    backBtn.addEventListener('click', function() {
+      if (state.current > 0) {
+        state.current--;
+        renderStep(state.current);
+      }
+    });
+  }
+
+  /* =============================================
+     SCORE & RECOMMEND
+  ============================================= */
+  function getRecommendations() {
+    var a = state.answers;
+    var scores = {};
+
+    Object.keys(QUIZ.devices).forEach(function(key) {
+      scores[key] = QUIZ.devices[key].match(a) ? 2 : 0;
+    });
+
+    // Fallback scoring based on individual fields
+    if (a.concern === 'hair' || a.area === 'scalp') scores['N2'] += 3;
+    if (a.budget === 'low')    { scores['A1'] += 2; scores['A6s'] += 1; }
+    if (a.budget === 'mid')    { scores['A10'] += 2; scores['A6s'] += 1; }
+    if (a.budget === 'high')   { scores['M8'] += 2; scores['A10'] += 1;  }
+    if (a.budget === 'premium'){ scores['A8s'] += 2; scores['M8'] += 1; }
+    if (a.experience === 'beginner') { scores['A6s'] += 2; scores['A1'] += 1; }
+    if (a.experience === 'advanced') { scores['A8s'] += 2; scores['M8'] += 1; }
+    if (a.priority === 'wireless')   { scores['A6s'] += 1; scores['A10'] += 1; }
+    if (a.priority === 'compact')    { scores['A1'] += 2; }
+    if (a.priority === 'adjustable') { scores['M8'] += 1; scores['A8s'] += 1; }
+
+    var sorted = Object.keys(scores).sort(function(x,y){ return scores[y] - scores[x]; });
+    return sorted.slice(0, 3).filter(function(k){ return scores[k] > 0; });
+  }
+
+  /* =============================================
+     SHOW RESULT
+  ============================================= */
+  function showResult() {
+    var picks = getRecommendations();
+    if (!picks.length) picks = ['A10', 'M8']; // safe fallback
+
+    progressBar.style.width = '100%';
+    progressWrap.setAttribute('aria-valuenow', 100);
+    progressLbl.textContent = 'Complete!';
+    stepsEl.style.display = 'none';
+
+    var productsHtml = picks.map(function(key, i) {
+      var d = QUIZ.devices[key];
+      var isPrimary = i === 0;
+      var tagsHtml = d.tags.map(function(t){ return '<span class="quiz-tag">' + t + '</span>'; }).join('');
+      return '<div class="quiz-result-product' + (isPrimary ? ' primary-pick' : '') + '"' +
+             (isPrimary ? ' data-badge="{{ section.settings.top_pick_badge | default: "★ Best Match" }}"' : '') + '>' +
+               '<div class="quiz-result-product-name">' + d.name + '</div>' +
+               '<div class="quiz-result-product-desc">' + d.desc + '</div>' +
+               '<div class="quiz-result-product-tags">' + tagsHtml + '</div>' +
+               '<a href="' + d.url + '" class="quiz-result-link">' +
+                 'Shop now' +
+                 '<svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
+               '</a>' +
+             '</div>';
+    }).join('');
+
+    resultEl.innerHTML =
+      '<div class="quiz-step-content">' +
+        '<div class="quiz-result-badge">{{ section.settings.result_badge_text | default: "Your Results Are Ready" }}</div>' +
+        '<h3 class="quiz-result-title">{{ section.settings.result_heading | default: "Your Perfect Dr. Pen Match" }}</h3>' +
+        '<p class="quiz-result-subtitle">{{ section.settings.result_subheading | default: "Based on your answers, here are the devices we recommend — ranked for your skin goals." }}</p>' +
+        '<div class="quiz-result-products">' + productsHtml + '</div>' +
+        '<div class="quiz-result-actions">' +
+          '<a href="{{ section.settings.all_products_url | default: "/collections/dr-pen" }}" class="quiz-btn quiz-btn-primary">Shop All Dr. Pen Devices</a>' +
+          '<button class="quiz-btn quiz-btn-secondary" id="quiz-restart-' + sectionId + '">Retake Quiz</button>' +
+        '</div>' +
+      '</div>';
+
+    resultEl.classList.add('visible');
+
+    document.getElementById('quiz-restart-' + sectionId).addEventListener('click', restart);
+  }
+
+  /* =============================================
+     RESTART
+  ============================================= */
+  function restart() {
+    state.current = 0;
+    state.answers = {};
+    resultEl.classList.remove('visible');
+    resultEl.innerHTML = '';
+    stepsEl.style.display = '';
+    renderStep(0);
+  }
+
+  /* Init */
+  renderStep(0);
+
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Dr. Pen Quiz",
+  "tag": "section",
+  "class": "drpen-quiz-wrapper",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Header"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_header",
+      "label": "Show section header",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow label",
+      "default": "Find Your Device"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section heading",
+      "default": "Find Your Perfect Dr. Pen"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Section subheading",
+      "default": "Answer 6 quick questions and we'll match you with the right microneedling device for your skin goals."
+    },
+    {
+      "type": "header",
+      "content": "Result Text"
+    },
+    {
+      "type": "text",
+      "id": "result_badge_text",
+      "label": "Result badge text",
+      "default": "Your Results Are Ready"
+    },
+    {
+      "type": "text",
+      "id": "result_heading",
+      "label": "Result heading",
+      "default": "Your Perfect Dr. Pen Match"
+    },
+    {
+      "type": "textarea",
+      "id": "result_subheading",
+      "label": "Result subheading",
+      "default": "Based on your answers, here are the devices we recommend — ranked for your skin goals."
+    },
+    {
+      "type": "text",
+      "id": "top_pick_badge",
+      "label": "Top pick badge label",
+      "default": "★ Best Match"
+    },
+    {
+      "type": "header",
+      "content": "Product URLs"
+    },
+    {
+      "type": "url",
+      "id": "all_products_url",
+      "label": "Shop all products URL"
+    },
+    {
+      "type": "url",
+      "id": "product_url_a6s",
+      "label": "Dr. Pen A6s product URL"
+    },
+    {
+      "type": "url",
+      "id": "product_url_a10",
+      "label": "Dr. Pen A10 product URL"
+    },
+    {
+      "type": "url",
+      "id": "product_url_m8",
+      "label": "Dr. Pen M8 product URL"
+    },
+    {
+      "type": "url",
+      "id": "product_url_a8s",
+      "label": "Dr. Pen A8s product URL"
+    },
+    {
+      "type": "url",
+      "id": "product_url_n2",
+      "label": "Dr. Pen N2 product URL"
+    },
+    {
+      "type": "url",
+      "id": "product_url_a1",
+      "label": "Dr. Pen A1 product URL"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Heading font",
+      "default": "helvetica_n7"
+    },
+    {
+      "type": "font_picker",
+      "id": "body_font",
+      "label": "Body font",
+      "default": "helvetica_n4"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size (px)",
+      "min": 22,
+      "max": 52,
+      "step": 1,
+      "default": 34
+    },
+    {
+      "type": "range",
+      "id": "subheading_size",
+      "label": "Question / subheading size (px)",
+      "min": 16,
+      "max": 32,
+      "step": 1,
+      "default": 22
+    },
+    {
+      "type": "range",
+      "id": "body_size",
+      "label": "Body / option text size (px)",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "default": 15
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "primary_color",
+      "label": "Primary / brand color",
+      "default": "#1a5be0"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent / gradient color",
+      "default": "#00b4d8"
+    },
+    {
+      "type": "color",
+      "id": "section_bg",
+      "label": "Section background",
+      "default": "#f5f8ff"
+    },
+    {
+      "type": "color",
+      "id": "card_bg",
+      "label": "Card background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#1a1d23"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border / divider color",
+      "default": "#e4eaf5"
+    },
+    {
+      "type": "header",
+      "content": "Dimensions & Spacing"
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "label": "Content max width (px)",
+      "min": 600,
+      "max": 1400,
+      "step": 20,
+      "default": 860
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Section top padding (px)",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Section bottom padding (px)",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Card border radius (px)",
+      "min": 0,
+      "max": 32,
+      "step": 2,
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "button_radius",
+      "label": "Button border radius (px)",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "option_min_height",
+      "label": "Answer option min height (px)",
+      "min": 44,
+      "max": 100,
+      "step": 4,
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "progress_bar_height",
+      "label": "Progress bar height (px)",
+      "min": 3,
+      "max": 12,
+      "step": 1,
+      "default": 5
+    }
+  ],
+  "presets": [
+    {
+      "name": "Dr. Pen Device Quiz",
+      "category": "Interactive"
+    }
+  ]
+}
+{% endschema %}

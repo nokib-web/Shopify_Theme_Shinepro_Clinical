@@ -1,0 +1,79 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "t:sections.header.name",
+  "type": "header",
+  "sections": {
+    "header_countdown_hkGRhe": {
+      "type": "header-countdown",
+      "disabled": true,
+      "custom_css": [
+        ".timer-block {background: none; color: #ffffff; padding: 5px 5px; border-radius: 6px; text-align: center; min-width: 40px;}",
+        ".timer-num {display: block; font-size: 1.8rem; font-weight: bold; line-height: 0;}",
+        ".countdown-text {color: #ffffff; font-size: 14px; font-weight: 700; white-space: nowrap;}"
+      ],
+      "name": "Countdown Banner",
+      "settings": {
+        "bg_color": "#013c93",
+        "icon_width": 20,
+        "icon_height": 20,
+        "text": "Sale Ends In:",
+        "text_color": "#ffffff",
+        "font_size": 12,
+        "font_weight": "700",
+        "end_date": "2026-05-31 23:59:59",
+        "timer_bg_color": "#fdfcf8",
+        "timer_text_color": "#ffffff",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "header": {
+      "type": "header",
+      "custom_css": [
+        ".mega-menu__link--level-2 {font-size: 1.7rem; font-weight: bold;}",
+        ".list-menu__item {display: flex; align-items: center; line-height: calc(1 + 0.3 / var(--font-body-scale)); font-size: 1.6rem;}",
+        ".mega-menu__link {font-size: 1.5rem;}"
+      ],
+      "settings": {
+        "sticky_header_type": "on-scroll-up",
+        "show_line_separator": true,
+        "color_scheme": "background-1",
+        "logo_link": "/",
+        "logo_position": "middle-left",
+        "menu": "main-menu",
+        "menu_type_desktop": "mega",
+        "highlight_active_link": true,
+        "highlighted_link_color_scheme": "background-1",
+        "products_mega_menu_links": "",
+        "products_mega_menu_display_collection_products": true,
+        "products_mega_menu_display_collection_images": true,
+        "products_mega_menu_display_collection_images_on_mobile": true,
+        "mobile_menu_title": "",
+        "secondary_menu": "",
+        "menu_color_scheme": "background-1",
+        "mobile_logo_position": "center",
+        "display_search": true,
+        "margin_bottom": 0,
+        "padding_top": 20,
+        "padding_bottom": 20
+      }
+    },
+    "178056270300d651e8": {
+      "type": "_blocks",
+      "settings": {}
+    }
+  },
+  "order": [
+    "header_countdown_hkGRhe",
+    "header",
+    "178056270300d651e8"
+  ]
+}

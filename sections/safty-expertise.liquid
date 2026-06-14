@@ -1,0 +1,923 @@
+{% comment %}
+  Safety & Expertise Section
+  Compatible with Shine Pro theme
+  Version: 1.1 — All schema errors fixed
+{% endcomment %}
+
+{%- assign heading_font = section.settings.heading_font_family -%}
+{%- assign body_font = section.settings.body_font_family -%}
+
+<section
+  id="safety-expertise-{{ section.id }}"
+  class="safety-expertise-section"
+  style="
+    background-color: {{ section.settings.background_color }};
+    padding-top: {{ section.settings.section_padding_top }}px;
+    padding-bottom: {{ section.settings.section_padding_bottom }}px;
+  "
+>
+  <div class="sfe-container" style="max-width: {{ section.settings.container_max_width }}px; margin: 0 auto; padding: 0 20px;">
+
+    {% comment %} ── Header ── {% endcomment %}
+    <div class="sfe-header" style="margin-bottom: {{ section.settings.header_margin_bottom }}px;">
+
+      {% if section.settings.show_eyebrow and section.settings.eyebrow_text != blank %}
+        <div class="sfe-eyebrow" style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+          {% if section.settings.show_eyebrow_line %}
+            <span style="display:inline-block;width:{{ section.settings.eyebrow_line_width }}px;height:2px;background-color:{{ section.settings.eyebrow_color }};flex-shrink:0;"></span>
+          {% endif %}
+          <span style="
+            font-size:{{ section.settings.eyebrow_font_size }}px;
+            font-weight:{{ section.settings.eyebrow_font_weight }};
+            color:{{ section.settings.eyebrow_color }};
+            letter-spacing:{{ section.settings.eyebrow_letter_spacing }}px;
+            text-transform:uppercase;
+            font-family:{{ body_font.family }},{{ body_font.fallback_families }};
+          ">{{ section.settings.eyebrow_text }}</span>
+        </div>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <{{ section.settings.heading_tag }} style="
+          font-size:clamp({{ section.settings.heading_font_size_mobile }}px, 4vw, {{ section.settings.heading_font_size }}px);
+          font-weight:{{ section.settings.heading_font_weight }};
+          color:{{ section.settings.heading_color }};
+          line-height:{{ section.settings.heading_line_height }};
+          margin:0 0 16px 0;
+          font-family:{{ heading_font.family }},{{ heading_font.fallback_families }};
+          max-width:{{ section.settings.heading_max_width }}px;
+        ">{{ section.settings.heading }}</{{ section.settings.heading_tag }}>
+      {% endif %}
+
+      {% if section.settings.subheading != blank %}
+        <p style="
+          font-size:clamp({{ section.settings.subheading_font_size_mobile }}px, 2vw, {{ section.settings.subheading_font_size }}px);
+          color:{{ section.settings.subheading_color }};
+          line-height:{{ section.settings.subheading_line_height }};
+          margin:0;
+          max-width:{{ section.settings.subheading_max_width }}px;
+          font-family:{{ body_font.family }},{{ body_font.fallback_families }};
+        ">{{ section.settings.subheading }}</p>
+      {% endif %}
+
+    </div>
+
+    {% comment %} ── Cards Grid ── {% endcomment %}
+    {% if section.blocks.size > 0 %}
+      <div class="sfe-grid" style="
+        display:grid;
+        grid-template-columns:repeat({{ section.settings.columns_desktop }},1fr);
+        gap:{{ section.settings.card_gap }}px;
+      ">
+        {% for block in section.blocks %}
+          {% if block.type == 'card' %}
+            <div
+              class="sfe-card"
+              {{ block.shopify_attributes }}
+              style="
+                background-color:{{ block.settings.card_background }};
+                border-radius:{{ section.settings.card_border_radius }}px;
+                overflow:hidden;
+                border:{{ section.settings.card_border_width }}px solid {{ section.settings.card_border_color }};
+                box-shadow:{{ section.settings.card_shadow }};
+                display:flex;
+                flex-direction:column;
+              "
+            >
+              {% comment %} Image {% endcomment %}
+              <div class="sfe-card-img-wrap" style="
+                width:100%;
+                height:{{ section.settings.card_image_height }}px;
+                overflow:hidden;
+                position:relative;
+                flex-shrink:0;
+              ">
+                {% if block.settings.image != blank %}
+                  {%- assign img_url_400 = block.settings.image | img_url: '400x' -%}
+                  {%- assign img_url_600 = block.settings.image | img_url: '600x' -%}
+                  {%- assign img_url_800 = block.settings.image | img_url: '800x' -%}
+                  <img
+                    src="{{ img_url_800 }}"
+                    srcset="{{ img_url_400 }} 400w, {{ img_url_600 }} 600w, {{ img_url_800 }} 800w"
+                    sizes="(max-width:767px) 100vw, (max-width:1023px) 50vw, 33vw"
+                    alt="{{ block.settings.image_alt | escape | default: block.settings.card_title | escape }}"
+                    loading="lazy"
+                    width="800"
+                    height="{{ section.settings.card_image_height }}"
+                    class="sfe-card-img"
+                    style="
+                      width:100%;height:100%;
+                      object-fit:{{ section.settings.image_object_fit }};
+                      object-position:{{ section.settings.image_object_position }};
+                      display:block;
+                      transition:transform 0.4s ease;
+                    "
+                  >
+                {% else %}
+                  <div style="width:100%;height:100%;background:linear-gradient(135deg,#1a3a6b 0%,#2d5aa0 100%);display:flex;align-items:center;justify-content:center;">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect width="24" height="24" rx="4" fill="rgba(255,255,255,0.1)"/>
+                      <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linejoin="round"/>
+                      <path d="M2 17L12 22L22 17" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linejoin="round"/>
+                      <path d="M2 12L12 17L22 12" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                {% endif %}
+
+                {% if block.settings.image_overlay_text != blank %}
+                  <div style="
+                    position:absolute;inset:0;
+                    background:rgba(0,0,0,{{ section.settings.overlay_opacity | divided_by: 100.0 }});
+                    display:flex;align-items:center;justify-content:center;
+                  ">
+                    <span style="
+                      color:#fff;
+                      font-size:{{ section.settings.overlay_text_size }}px;
+                      font-weight:700;
+                      letter-spacing:2px;
+                      text-align:center;
+                      padding:0 16px;
+                      font-family:{{ heading_font.family }},{{ heading_font.fallback_families }};
+                    ">{{ block.settings.image_overlay_text }}</span>
+                  </div>
+                {% endif %}
+              </div>
+
+              {% comment %} Content {% endcomment %}
+              <div class="sfe-card-content" style="
+                padding:{{ section.settings.card_content_padding }}px;
+                flex:1;display:flex;flex-direction:column;
+              ">
+                {% if block.settings.card_title != blank %}
+                  <{{ section.settings.card_title_tag }} style="
+                    font-size:{{ section.settings.card_title_font_size }}px;
+                    font-weight:{{ section.settings.card_title_font_weight }};
+                    color:{{ section.settings.card_title_color }};
+                    margin:0 0 12px 0;
+                    line-height:1.3;
+                    font-family:{{ heading_font.family }},{{ heading_font.fallback_families }};
+                  ">{{ block.settings.card_title }}</{{ section.settings.card_title_tag }}>
+                {% endif %}
+
+                {% if block.settings.card_text != blank %}
+                  <p style="
+                    font-size:{{ section.settings.card_text_font_size }}px;
+                    color:{{ section.settings.card_text_color }};
+                    line-height:{{ section.settings.card_text_line_height }};
+                    margin:0;flex:1;
+                    font-family:{{ body_font.family }},{{ body_font.fallback_families }};
+                  ">{{ block.settings.card_text }}</p>
+                {% endif %}
+
+                {% if block.settings.card_button_text != blank and block.settings.card_button_url != blank %}
+                  <div style="margin-top:20px;">
+                    <a
+                      href="{{ block.settings.card_button_url }}"
+                      class="sfe-btn"
+                      style="
+                        display:inline-block;
+                        padding:{{ section.settings.button_padding_v }}px {{ section.settings.button_padding_h }}px;
+                        background-color:{{ section.settings.button_background }};
+                        color:{{ section.settings.button_text_color }};
+                        font-size:{{ section.settings.button_font_size }}px;
+                        font-weight:{{ section.settings.button_font_weight }};
+                        text-decoration:none;
+                        border-radius:{{ section.settings.button_border_radius }}px;
+                        border:{{ section.settings.button_border_width }}px solid {{ section.settings.button_border_color }};
+                        transition:all 0.2s ease;
+                        font-family:{{ body_font.family }},{{ body_font.fallback_families }};
+                      "
+                    >{{ block.settings.card_button_text }}</a>
+                  </div>
+                {% endif %}
+              </div>
+
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+  </div>
+</section>
+
+<style>
+  #safety-expertise-{{ section.id }} .sfe-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  {% if section.settings.card_hover_lift %}
+  #safety-expertise-{{ section.id }} .sfe-card:hover {
+    transform: translateY(-{{ section.settings.card_hover_lift_px }}px);
+    box-shadow: {{ section.settings.card_shadow_hover }};
+  }
+  #safety-expertise-{{ section.id }} .sfe-card:hover .sfe-card-img {
+    transform: scale({{ section.settings.image_hover_scale | divided_by: 100.0 }});
+  }
+  {% endif %}
+
+  @media screen and (max-width: 1023px) {
+    #safety-expertise-{{ section.id }} .sfe-grid {
+      grid-template-columns: repeat({{ section.settings.columns_tablet }}, 1fr) !important;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    #safety-expertise-{{ section.id }} .sfe-grid {
+      grid-template-columns: repeat({{ section.settings.columns_mobile }}, 1fr) !important;
+      gap: {{ section.settings.card_gap_mobile }}px !important;
+    }
+    #safety-expertise-{{ section.id }} .sfe-card-img-wrap {
+      height: {{ section.settings.card_image_height_mobile }}px !important;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Safety & Expertise",
+  "tag": "section",
+  "class": "section-safety-expertise",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout & Background"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#f0f4f8"
+    },
+    {
+      "type": "range",
+      "id": "container_max_width",
+      "label": "Container Max Width (px)",
+      "min": 800,
+      "max": 1600,
+      "step": 20,
+      "default": 1400
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Padding Top (px)",
+      "min": 0,
+      "max": 148,
+      "step": 4,
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Padding Bottom (px)",
+      "min": 0,
+      "max": 148,
+      "step": 4,
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "header_margin_bottom",
+      "label": "Header to Cards Gap (px)",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Eyebrow Label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_eyebrow",
+      "label": "Show Eyebrow Label",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "eyebrow_text",
+      "label": "Eyebrow Text",
+      "default": "SAFETY & EXPERTISE"
+    },
+    {
+      "type": "color",
+      "id": "eyebrow_color",
+      "label": "Eyebrow Color",
+      "default": "#1a3a6b"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_font_size",
+      "label": "Eyebrow Font Size (px)",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "default": 13
+    },
+    {
+      "type": "select",
+      "id": "eyebrow_font_weight",
+      "label": "Eyebrow Font Weight",
+      "options": [
+        { "value": "400", "label": "Regular" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi Bold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "600"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_letter_spacing",
+      "label": "Eyebrow Letter Spacing (px)",
+      "min": 0,
+      "max": 8,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "checkbox",
+      "id": "show_eyebrow_line",
+      "label": "Show Decorative Line",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_line_width",
+      "label": "Decorative Line Width (px)",
+      "min": 10,
+      "max": 60,
+      "step": 2,
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading Text",
+      "default": "Precision, from conception to certification."
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Heading HTML Tag",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#0d2340"
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size",
+      "label": "Heading Font Size Desktop (px)",
+      "min": 24,
+      "max": 72,
+      "step": 2,
+      "default": 42
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size_mobile",
+      "label": "Heading Font Size Mobile (px)",
+      "min": 18,
+      "max": 48,
+      "step": 2,
+      "default": 28
+    },
+    {
+      "type": "select",
+      "id": "heading_font_weight",
+      "label": "Heading Font Weight",
+      "options": [
+        { "value": "400", "label": "Regular" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi Bold" },
+        { "value": "700", "label": "Bold" },
+        { "value": "800", "label": "Extra Bold" }
+      ],
+      "default": "700"
+    },
+    {
+      "type": "text",
+      "id": "heading_line_height",
+      "label": "Heading Line Height",
+      "default": "1.15"
+    },
+    {
+      "type": "range",
+      "id": "heading_max_width",
+      "label": "Heading Max Width (px)",
+      "min": 300,
+      "max": 1200,
+      "step": 20,
+      "default": 700
+    },
+    {
+      "type": "header",
+      "content": "Subheading"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading / Description Text",
+      "default": "Trust is earned, not claimed. That's why every device carries the result of years of research and quality control, ensuring you feel safe and confident."
+    },
+    {
+      "type": "color",
+      "id": "subheading_color",
+      "label": "Subheading Color",
+      "default": "#4a5568"
+    },
+    {
+      "type": "range",
+      "id": "subheading_font_size",
+      "label": "Subheading Font Size Desktop (px)",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "subheading_font_size_mobile",
+      "label": "Subheading Font Size Mobile (px)",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "default": 14
+    },
+    {
+      "type": "text",
+      "id": "subheading_line_height",
+      "label": "Subheading Line Height",
+      "default": "1.6"
+    },
+    {
+      "type": "range",
+      "id": "subheading_max_width",
+      "label": "Subheading Max Width (px)",
+      "min": 300,
+      "max": 1200,
+      "step": 20,
+      "default": 900
+    },
+    {
+      "type": "header",
+      "content": "Fonts"
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font_family",
+      "label": "Heading Font",
+      "default": "assistant_n4"
+    },
+    {
+      "type": "font_picker",
+      "id": "body_font_family",
+      "label": "Body / Text Font",
+      "default": "assistant_n4"
+    },
+    {
+      "type": "header",
+      "content": "Grid / Columns"
+    },
+    {
+      "type": "select",
+      "id": "columns_desktop",
+      "label": "Columns (Desktop 1024px+)",
+      "options": [
+        { "value": "1", "label": "1 Column" },
+        { "value": "2", "label": "2 Columns" },
+        { "value": "3", "label": "3 Columns" },
+        { "value": "4", "label": "4 Columns" }
+      ],
+      "default": "3"
+    },
+    {
+      "type": "select",
+      "id": "columns_tablet",
+      "label": "Columns (Tablet 768-1023px)",
+      "options": [
+        { "value": "1", "label": "1 Column" },
+        { "value": "2", "label": "2 Columns" },
+        { "value": "3", "label": "3 Columns" }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Columns (Mobile up to 767px)",
+      "options": [
+        { "value": "1", "label": "1 Column" },
+        { "value": "2", "label": "2 Columns" }
+      ],
+      "default": "1"
+    },
+    {
+      "type": "range",
+      "id": "card_gap",
+      "label": "Card Gap Desktop (px)",
+      "min": 8,
+      "max": 60,
+      "step": 4,
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "card_gap_mobile",
+      "label": "Card Gap Mobile (px)",
+      "min": 8,
+      "max": 40,
+      "step": 4,
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Card Image Settings"
+    },
+    {
+      "type": "range",
+      "id": "card_image_height",
+      "label": "Card Image Height Desktop (px)",
+      "min": 100,
+      "max": 600,
+      "step": 10,
+      "default": 260
+    },
+    {
+      "type": "range",
+      "id": "card_image_height_mobile",
+      "label": "Card Image Height Mobile (px)",
+      "min": 100,
+      "max": 400,
+      "step": 10,
+      "default": 200
+    },
+    {
+      "type": "select",
+      "id": "image_object_fit",
+      "label": "Image Fit",
+      "options": [
+        { "value": "cover", "label": "Cover (fill, may crop)" },
+        { "value": "contain", "label": "Contain (show full image)" },
+        { "value": "fill", "label": "Fill (stretch)" }
+      ],
+      "default": "cover"
+    },
+    {
+      "type": "select",
+      "id": "image_object_position",
+      "label": "Image Position",
+      "options": [
+        { "value": "center center", "label": "Center" },
+        { "value": "top center", "label": "Top" },
+        { "value": "bottom center", "label": "Bottom" },
+        { "value": "left center", "label": "Left" },
+        { "value": "right center", "label": "Right" }
+      ],
+      "default": "center center"
+    },
+    {
+      "type": "header",
+      "content": "Image Overlay"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay Opacity (0=none, 80=dark)",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "default": 25
+    },
+    {
+      "type": "range",
+      "id": "overlay_text_size",
+      "label": "Overlay Text Size (px)",
+      "min": 12,
+      "max": 40,
+      "step": 2,
+      "default": 22
+    },
+    {
+      "type": "header",
+      "content": "Card Style"
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "label": "Card Border Radius (px)",
+      "min": 0,
+      "max": 32,
+      "step": 2,
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "card_border_width",
+      "label": "Card Border Width (px)",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "default": 1
+    },
+    {
+      "type": "color",
+      "id": "card_border_color",
+      "label": "Card Border Color",
+      "default": "#dce3ec"
+    },
+    {
+      "type": "text",
+      "id": "card_shadow",
+      "label": "Card Shadow (CSS box-shadow value)",
+      "default": "0 2px 12px rgba(0,0,0,0.07)"
+    },
+    {
+      "type": "range",
+      "id": "card_content_padding",
+      "label": "Card Content Padding (px)",
+      "min": 8,
+      "max": 48,
+      "step": 4,
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Card Hover Effects"
+    },
+    {
+      "type": "checkbox",
+      "id": "card_hover_lift",
+      "label": "Enable Hover Lift Effect",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "card_hover_lift_px",
+      "label": "Hover Lift Amount (px)",
+      "min": 2,
+      "max": 20,
+      "step": 2,
+      "default": 6
+    },
+    {
+      "type": "text",
+      "id": "card_shadow_hover",
+      "label": "Card Shadow on Hover (CSS box-shadow value)",
+      "default": "0 12px 32px rgba(0,0,0,0.14)"
+    },
+    {
+      "type": "range",
+      "id": "image_hover_scale",
+      "label": "Image Zoom on Hover (%)",
+      "min": 100,
+      "max": 115,
+      "step": 1,
+      "default": 105
+    },
+    {
+      "type": "header",
+      "content": "Card Text Style"
+    },
+    {
+      "type": "select",
+      "id": "card_title_tag",
+      "label": "Card Title HTML Tag",
+      "options": [
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" },
+        { "value": "h4", "label": "H4" },
+        { "value": "p", "label": "Paragraph" }
+      ],
+      "default": "h3"
+    },
+    {
+      "type": "range",
+      "id": "card_title_font_size",
+      "label": "Card Title Font Size (px)",
+      "min": 14,
+      "max": 36,
+      "step": 1,
+      "default": 20
+    },
+    {
+      "type": "select",
+      "id": "card_title_font_weight",
+      "label": "Card Title Font Weight",
+      "options": [
+        { "value": "400", "label": "Regular" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi Bold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "700"
+    },
+    {
+      "type": "color",
+      "id": "card_title_color",
+      "label": "Card Title Color",
+      "default": "#1a3a6b"
+    },
+    {
+      "type": "range",
+      "id": "card_text_font_size",
+      "label": "Card Body Text Font Size (px)",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "default": 15
+    },
+    {
+      "type": "color",
+      "id": "card_text_color",
+      "label": "Card Body Text Color",
+      "default": "#4a5568"
+    },
+    {
+      "type": "text",
+      "id": "card_text_line_height",
+      "label": "Card Text Line Height",
+      "default": "1.6"
+    },
+    {
+      "type": "header",
+      "content": "Card Button (Optional)"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button Background Color",
+      "default": "#1a3a6b"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Button Border Color",
+      "default": "#1a3a6b"
+    },
+    {
+      "type": "range",
+      "id": "button_border_width",
+      "label": "Button Border Width (px)",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "label": "Button Border Radius (px)",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "label": "Button Font Size (px)",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "default": 14
+    },
+    {
+      "type": "select",
+      "id": "button_font_weight",
+      "label": "Button Font Weight",
+      "options": [
+        { "value": "400", "label": "Regular" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi Bold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "600"
+    },
+    {
+      "type": "range",
+      "id": "button_padding_v",
+      "label": "Button Vertical Padding (px)",
+      "min": 4,
+      "max": 24,
+      "step": 2,
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "button_padding_h",
+      "label": "Button Horizontal Padding (px)",
+      "min": 8,
+      "max": 48,
+      "step": 4,
+      "default": 20
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Feature Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Card Image"
+        },
+        {
+          "type": "text",
+          "id": "image_alt",
+          "label": "Image Alt Text",
+          "info": "Describe the image for accessibility and SEO"
+        },
+        {
+          "type": "text",
+          "id": "image_overlay_text",
+          "label": "Image Overlay Text (optional)",
+          "info": "Bold text shown over the image, e.g. TESTED FOR EXCELLENCE"
+        },
+        {
+          "type": "color",
+          "id": "card_background",
+          "label": "Card Background Color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "text",
+          "id": "card_title",
+          "label": "Card Title",
+          "default": "Feature Title"
+        },
+        {
+          "type": "textarea",
+          "id": "card_text",
+          "label": "Card Description",
+          "default": "Describe this feature or highlight in a few sentences."
+        },
+        {
+          "type": "text",
+          "id": "card_button_text",
+          "label": "Button Label (optional)",
+          "info": "Leave blank to hide button"
+        },
+        {
+          "type": "url",
+          "id": "card_button_url",
+          "label": "Button Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Safety & Expertise",
+      "blocks": [
+        {
+          "type": "card",
+          "settings": {
+            "card_title": "Scientific R&D",
+            "card_text": "Every product is designed based on dermatological science and clinical research to ensure reliability and safety.",
+            "image_overlay_text": ""
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "card_title": "Rigorous Testing",
+            "card_text": "From needle precision to materials, each device undergoes thorough testing, giving users confidence in every use.",
+            "image_overlay_text": "TESTED FOR EXCELLENCE"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "card_title": "Transparent Verification",
+            "card_text": "Each product can be verified with a serial number or QR code, assuring authenticity and trust.",
+            "image_overlay_text": ""
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

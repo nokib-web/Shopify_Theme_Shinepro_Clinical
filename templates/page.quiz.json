@@ -1,0 +1,87 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "quize_TdCejK": {
+      "type": "quize",
+      "name": "Dr. Pen Device Quiz",
+      "settings": {
+        "show_header": true,
+        "eyebrow": "Find Your Device",
+        "heading": "Find Your Perfect Dr. Pen",
+        "subheading": "Answer 6 quick questions and we'll match you with the right microneedling device for your skin goals.",
+        "result_badge_text": "Your Results Are Ready",
+        "result_heading": "Your Perfect Dr. Pen Match",
+        "result_subheading": "Based on your answers, here are the devices we recommend — ranked for your skin goals.",
+        "top_pick_badge": "★ Best Match",
+        "all_products_url": "shopify://collections/all-the-dr-pen",
+        "product_url_a6s": "shopify://products/dr-pen-a11-microneedling-pen",
+        "product_url_a10": "shopify://products/dr-pen-a10-microneedling-pen",
+        "product_url_m8": "shopify://products/dr-pen-a10-microneedling-pen-copy",
+        "product_url_a8s": "shopify://products/dr-pen-a8s-microneedling-pen",
+        "product_url_n2": "shopify://products/dr-pen-a10-microneedling-pen-copy-4",
+        "product_url_a1": "shopify://products/dr-pen-a1-microneedling-pen",
+        "heading_font": "sans_serif_n7",
+        "body_font": "sans_serif_n4",
+        "heading_size": 34,
+        "subheading_size": 22,
+        "body_size": 15,
+        "primary_color": "#002e5c",
+        "accent_color": "#002e5c",
+        "section_bg": "#ffffff",
+        "card_bg": "#ffffff",
+        "text_color": "#1a1d23",
+        "border_color": "#ffffff",
+        "content_max_width": 1000,
+        "padding_top": 52,
+        "padding_bottom": 72,
+        "border_radius": 10,
+        "button_radius": 8,
+        "option_min_height": 64,
+        "progress_bar_height": 12
+      }
+    },
+    "you_may_also_like_FibLYz": {
+      "type": "you-may-also-like",
+      "name": "Product Carousel",
+      "settings": {
+        "heading": "Explore Our all products",
+        "collection": "all-products",
+        "products_to_show": 20,
+        "card_width": 240,
+        "image_height": 220,
+        "card_gap": 16,
+        "card_radius": 10,
+        "title_size": 13,
+        "price_size": 15,
+        "heading_size": 40,
+        "bg_color": "#f8f8f8",
+        "heading_color": "#1a1a1a",
+        "price_color": "#002e5c",
+        "scroll_speed": 3,
+        "section_padding": 40,
+        "show_dots": true
+      }
+    }
+  },
+  "order": [
+    "main",
+    "quize_TdCejK",
+    "you_may_also_like_FibLYz"
+  ]
+}

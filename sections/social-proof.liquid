@@ -1,0 +1,1253 @@
+{% comment %}
+  BAM Charcoal — Social Proof / Testimonials Section
+  Pixel-perfect Shopify Liquid section with full schema customization
+  Supports: desktop/mobile controls, responsive, icon, image, typography, spacing
+{% endcomment %}
+
+{%- comment -%}
+  Fonts: Add Barlow Condensed, Barlow, JetBrains Mono via your theme's layout/theme.liquid
+  or Shopify admin → Themes → Customize → Theme settings → Typography.
+  Remote font links are intentionally omitted here to comply with Shopify CDN best practices.
+{%- endcomment -%}
+
+{%- assign section_id = 'bam-social-proof-' | append: section.id -%}
+
+<style>
+  /* ─── CSS Variables ─────────────────────────────────── */
+  #{{ section_id }} {
+    --white:      #F1EFE8;
+    --mist:       #F1EFE8;
+    --charcoal:   #0A0A0A;
+    --ember:      #2D5A27;
+    --ember-dim:  #173404;
+    --ember-glow: rgba(192,221,151,0.15);
+    --ink:        #111111;
+    --slate:      #888780;
+    --mid:        #888780;
+    --border:     rgba(0,0,0,0.08);
+    --mono:       {{ settings.type_header_font.family | json }}, {{ settings.type_header_font.fallback_families }};
+    --head:       {{ settings.type_header_font.family | json }}, {{ settings.type_header_font.fallback_families }};
+    --body:       {{ settings.type_body_font.family | json }}, {{ settings.type_body_font.fallback_families }};
+
+    /* Schema-driven tokens */
+    --sp-bg:              {{ section.settings.bg_color }};
+    --sp-max-width:       {{ section.settings.max_width }}px;
+    --sp-pt:              {{ section.settings.padding_top }}px;
+    --sp-pb:              {{ section.settings.padding_bottom }}px;
+    --sp-label-color:     {{ section.settings.label_color }};
+    --sp-label-size:      {{ section.settings.label_font_size }}px;
+    --sp-heading-color:   {{ section.settings.heading_color }};
+    --sp-heading-size:    {{ section.settings.heading_font_size }}px;
+    --sp-heading-weight:  {{ section.settings.heading_font_weight }};
+    --sp-sub-color:       {{ section.settings.subtext_color }};
+    --sp-sub-size:        {{ section.settings.subtext_font_size }}px;
+    --sp-card-bg:         {{ section.settings.card_bg_color }};
+    --sp-card-border:     {{ section.settings.card_border_color }};
+    --sp-card-radius:     {{ section.settings.card_border_radius }}px;
+    --sp-quote-color:     {{ section.settings.quote_text_color }};
+    --sp-quote-size:      {{ section.settings.quote_font_size }}px;
+    --sp-quote-weight:    {{ section.settings.quote_font_weight }};
+    --sp-handle-color:    {{ section.settings.handle_color }};
+    --sp-handle-size:     {{ section.settings.handle_font_size }}px;
+    --sp-icon-color:      {{ section.settings.icon_color }};
+    --sp-icon-size:       {{ section.settings.icon_size }}px;
+    --sp-btn-color:       {{ section.settings.btn_bg_color }};
+    --sp-btn-icon:        {{ section.settings.btn_icon_color }};
+    --sp-dot-active:      {{ section.settings.dot_active_color }};
+    --sp-dot-inactive:    {{ section.settings.dot_inactive_color }};
+    --sp-divider-color:   {{ section.settings.divider_color }};
+  }
+
+  /* ─── Mobile overrides ──────────────────────────────── */
+  @media (max-width: 749px) {
+    #{{ section_id }} {
+      --sp-pt:           {{ section.settings.mobile_padding_top }}px;
+      --sp-pb:           {{ section.settings.mobile_padding_bottom }}px;
+      --sp-heading-size: {{ section.settings.mobile_heading_font_size }}px;
+      --sp-sub-size:     {{ section.settings.mobile_subtext_font_size }}px;
+      --sp-quote-size:   {{ section.settings.mobile_quote_font_size }}px;
+    }
+  }
+
+  /* ─── Section base ──────────────────────────────────── */
+  #{{ section_id }} {
+    background-color: var(--sp-bg);
+    padding-top: var(--sp-pt);
+    padding-bottom: var(--sp-pb);
+    overflow: hidden;
+  }
+
+  #{{ section_id }} .sp-inner {
+    max-width: var(--sp-max-width);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  /* ─── Header ────────────────────────────────────────── */
+  #{{ section_id }} .sp-header {
+    text-align: center;
+    margin-bottom: 52px;
+  }
+
+  #{{ section_id }} .sp-label {
+    font-family: var(--mono);
+    font-size: var(--sp-label-size);
+    color: var(--sp-label-color);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 14px;
+  }
+
+  #{{ section_id }} .sp-heading {
+    font-family: var(--head);
+    font-size: var(--sp-heading-size);
+    font-weight: var(--sp-heading-weight);
+    color: var(--sp-heading-color);
+    line-height: 0.92;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    margin: 0 0 20px;
+  }
+
+  #{{ section_id }} .sp-subtext {
+    font-family: var(--body);
+    font-size: var(--sp-sub-size);
+    color: var(--sp-sub-color);
+    line-height: 1.6;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  /* ─── Carousel wrapper ──────────────────────────────── */
+  #{{ section_id }} .sp-carousel-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0;
+  }
+
+  #{{ section_id }} .sp-track-outer {
+    overflow: hidden;
+    flex: 1;
+    min-width: 0;
+    padding: 12px 0 20px;
+    margin: -12px 0 -20px;
+  }
+
+  #{{ section_id }} .sp-track {
+    display: flex;
+    transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+    align-items: stretch;
+  }
+
+  /* ─── Slide ─────────────────────────────────────────── */
+  #{{ section_id }} .sp-slide {
+    flex: 0 0 calc(100% / {{ section.settings.cards_visible }});
+    padding: 0 10px;
+    box-sizing: border-box;
+    transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.4,0,0.2,1), filter 0.45s ease;
+    transform: scale(0.91);
+    opacity: 0.5;
+    filter: blur(1.5px);
+  }
+
+  #{{ section_id }} .sp-slide--active {
+    transform: scale(1);
+    opacity: 1;
+    filter: blur(0px);
+    z-index: 2;
+  }
+
+  @media (max-width: 1023px) {
+    #{{ section_id }} .sp-slide {
+      flex: 0 0 calc(100% / {{ section.settings.cards_visible_tablet }});
+    }
+  }
+
+  @media (max-width: 749px) {
+    #{{ section_id }} .sp-slide {
+      flex: 0 0 calc(100% / {{ section.settings.cards_visible_mobile }});
+      transform: scale(0.88);
+      opacity: 0.45;
+      filter: blur(1px);
+    }
+    #{{ section_id }} .sp-slide--active {
+      transform: scale(1);
+      opacity: 1;
+      filter: blur(0px);
+    }
+  }
+
+  /* ─── Card ──────────────────────────────────────────── */
+  #{{ section_id }} .sp-card {
+    background: var(--sp-card-bg);
+    border: 1.5px solid var(--sp-card-border);
+    border-radius: var(--sp-card-radius);
+    padding: 36px 32px 30px;
+    height: 100%;
+    box-sizing: border-box;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    transition: border-color 0.45s ease, box-shadow 0.45s ease;
+  }
+
+  #{{ section_id }} .sp-slide--active .sp-card {
+    border-color: var(--ember);
+    box-shadow: 0 12px 40px rgba(45,90,39,0.14);
+  }
+
+  /* Card with image watermark */
+  #{{ section_id }} .sp-card__media {
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    overflow: hidden;
+    opacity: 0.12;
+    pointer-events: none;
+  }
+
+  #{{ section_id }} .sp-card__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  /* ─── Quote icon ────────────────────────────────────── */
+  #{{ section_id }} .sp-quote-icon {
+    color: var(--sp-icon-color);
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    line-height: 1;
+  }
+
+  #{{ section_id }} .sp-quote-icon svg,
+  #{{ section_id }} .sp-quote-icon img {
+    width: var(--sp-icon-size);
+    height: var(--sp-icon-size);
+  }
+
+  /* ─── Quote text ────────────────────────────────────── */
+  #{{ section_id }} .sp-quote-text {
+    font-family: var(--body);
+    font-size: var(--sp-quote-size);
+    font-weight: var(--sp-quote-weight);
+    color: var(--sp-quote-color);
+    line-height: 1.45;
+    margin: 0 0 24px;
+    flex: 1;
+  }
+
+  /* ─── Divider ───────────────────────────────────────── */
+  #{{ section_id }} .sp-divider {
+    width: 28px;
+    height: 2px;
+    background: var(--sp-divider-color);
+    border-radius: 2px;
+    margin-bottom: 14px;
+  }
+
+  /* ─── Handle ────────────────────────────────────────── */
+  #{{ section_id }} .sp-handle {
+    font-family: var(--mono);
+    font-size: var(--sp-handle-size);
+    color: var(--sp-handle-color);
+    letter-spacing: 0.02em;
+  }
+
+  /* ─── Nav buttons ───────────────────────────────────── */
+  #{{ section_id }} .sp-btn {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1.5px solid var(--sp-card-border);
+    background: var(--sp-btn-color);
+    color: var(--sp-btn-icon);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s, transform 0.15s;
+    z-index: 2;
+    padding: 0;
+    margin: 0 6px;
+  }
+
+  #{{ section_id }} .sp-btn:hover {
+    background: var(--ember);
+    border-color: var(--ember);
+    color: #fff;
+    transform: scale(1.06);
+  }
+
+  #{{ section_id }} .sp-btn svg {
+    width: 16px;
+    height: 16px;
+    stroke-width: 2.2;
+  }
+
+  /* ─── Dots ──────────────────────────────────────────── */
+  #{{ section_id }} .sp-dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 32px;
+  }
+
+  #{{ section_id }} .sp-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--sp-dot-inactive);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: background 0.25s, width 0.25s;
+    flex-shrink: 0;
+  }
+
+  #{{ section_id }} .sp-dot--active {
+    background: var(--sp-dot-active);
+    width: 22px;
+    border-radius: 4px;
+  }
+
+  /* ─── Responsive tweaks ─────────────────────────────── */
+
+  /* Tablet */
+  @media (max-width: 1023px) {
+    #{{ section_id }} .sp-inner {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+    #{{ section_id }} .sp-card {
+      padding: 30px 26px 26px;
+    }
+    #{{ section_id }} .sp-btn {
+      width: 36px;
+      height: 36px;
+      margin: 0 4px;
+    }
+  }
+
+  /* ── Mobile: scroll-snap approach ───────────────────── */
+  @media (max-width: 749px) {
+    #{{ section_id }} .sp-inner {
+      padding-left: 0;
+      padding-right: 0;
+    }
+    #{{ section_id }} .sp-header {
+      margin-bottom: 28px;
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+    #{{ section_id }} .sp-carousel-wrap {
+      position: relative;
+      display: block;
+      padding: 0;
+    }
+    #{{ section_id }} .sp-track-outer {
+      overflow-x: scroll;
+      overflow-y: visible;
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      padding: 10px 0 20px;
+      margin: -10px 0 -20px;
+    }
+    #{{ section_id }} .sp-track-outer::-webkit-scrollbar {
+      display: none;
+    }
+    #{{ section_id }} .sp-track {
+      transform: none !important;
+      transition: none !important;
+      padding-left: calc(50% - 42vw);
+      padding-right: calc(50% - 42vw);
+    }
+    #{{ section_id }} .sp-slide {
+      flex: 0 0 84vw;
+      max-width: 84vw;
+      padding: 0 8px;
+      scroll-snap-align: center;
+      scroll-snap-stop: always;
+    }
+    #{{ section_id }} .sp-card {
+      padding: 24px 20px 22px;
+      min-height: 0;
+    }
+    #{{ section_id }} .sp-card__media {
+      width: 64px;
+      height: 64px;
+      right: 16px;
+    }
+    #{{ section_id }} .sp-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 34px;
+      height: 34px;
+      margin: 0;
+      z-index: 10;
+    }
+    #{{ section_id }} .sp-btn--prev { left: 4px; }
+    #{{ section_id }} .sp-btn--next { right: 4px; }
+    #{{ section_id }} .sp-dots {
+      margin-top: 24px;
+      padding: 0 16px;
+    }
+  }
+
+  /* Very small phones */
+  @media (max-width: 374px) {
+    #{{ section_id }} .sp-slide {
+      flex: 0 0 90vw;
+      max-width: 90vw;
+    }
+    #{{ section_id }} .sp-track {
+      padding-left: calc(50% - 45vw);
+      padding-right: calc(50% - 45vw);
+    }
+  }
+</style>
+
+<section id="{{ section_id }}" class="bam-social-proof">
+  <div class="sp-inner">
+
+    {%- comment %} ── Header ─────────────────────────────────── {%- endcomment %}
+    <div class="sp-header">
+      {%- if section.settings.label != blank -%}
+        <span class="sp-label">{{ section.settings.label }}</span>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <h2 class="sp-heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.subtext != blank -%}
+        <p class="sp-subtext">{{ section.settings.subtext }}</p>
+      {%- endif -%}
+    </div>
+
+    {%- comment %} ── Carousel ───────────────────────────────── {%- endcomment %}
+    <div class="sp-carousel-wrap">
+
+      {%- comment %} Prev button {%- endcomment %}
+      <button class="sp-btn sp-btn--prev" aria-label="Previous testimonial">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <polyline points="15 18 9 12 15 6"/>
+        </svg>
+      </button>
+
+      <div class="sp-track-outer">
+        <div class="sp-track" id="{{ section_id }}-track">
+
+          {%- for block in section.blocks -%}
+            {%- assign is_active = false -%}
+            {%- if forloop.index == 2 -%}{%- assign is_active = true -%}{%- endif -%}
+
+            <div class="sp-slide{% if is_active %} sp-slide--active{% else %} sp-slide--side{% endif %}" {{ block.shopify_attributes }}>
+              <div class="sp-card">
+
+                {%- comment %} Watermark image {%- endcomment %}
+                {%- if block.settings.card_image != blank -%}
+                  <div class="sp-card__media">
+                    <img
+                      src="{{ block.settings.card_image | image_url: width: 220 }}"
+                      alt="{{ block.settings.card_image.alt | escape }}"
+                      width="110"
+                      height="110"
+                      loading="lazy"
+                    >
+                  </div>
+                {%- elsif section.settings.default_watermark_image != blank -%}
+                  <div class="sp-card__media">
+                    <img
+                      src="{{ section.settings.default_watermark_image | image_url: width: 220 }}"
+                      alt="BAM Charcoal"
+                      width="110"
+                      height="110"
+                      loading="lazy"
+                    >
+                  </div>
+                {%- endif -%}
+
+                {%- comment %} Quote icon {%- endcomment %}
+                <div class="sp-quote-icon">
+                  {%- if block.settings.custom_icon != blank -%}
+                    <img
+                      src="{{ block.settings.custom_icon | image_url: width: 80 }}"
+                      alt="quote icon"
+                      width="80"
+                      height="80"
+                      style="width:var(--sp-icon-size);height:var(--sp-icon-size);object-fit:contain;"
+                      loading="lazy"
+                    >
+                  {%- else -%}
+                    {%- comment %} Default SVG quotation mark {%- endcomment %}
+                    <svg viewBox="0 0 36 28" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M0 28V17.5C0 12.833 1.167 9.083 3.5 6.25 5.833 3.417 9.333 1.5 14 .5L15.5 3.5C13 4.167 11 5.333 9.5 7S7.333 10.667 7 13h7V28H0Zm19 0V17.5c0-4.667 1.167-8.417 3.5-11.25C24.833 3.417 28.333 1.5 33 .5L34.5 3.5C32 4.167 30 5.333 28.5 7S26.333 10.667 26 13h7V28H19Z"/>
+                    </svg>
+                  {%- endif -%}
+                </div>
+
+                {%- comment %} Quote body {%- endcomment %}
+                {%- if block.settings.quote != blank -%}
+                  <p class="sp-quote-text">{{ block.settings.quote }}</p>
+                {%- endif -%}
+
+                <div class="sp-divider"></div>
+
+                {%- comment %} Handle / Attribution {%- endcomment %}
+                {%- if block.settings.handle != blank -%}
+                  <span class="sp-handle">{{ block.settings.handle }}</span>
+                {%- endif -%}
+
+              </div>
+            </div>
+          {%- endfor -%}
+
+        </div>
+      </div>
+
+      {%- comment %} Next button {%- endcomment %}
+      <button class="sp-btn sp-btn--next" aria-label="Next testimonial">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </button>
+
+    </div>
+
+    {%- comment %} ── Dots ───────────────────────────────────── {%- endcomment %}
+    {%- if section.settings.show_dots -%}
+      <div class="sp-dots" id="{{ section_id }}-dots" role="tablist" aria-label="Testimonial navigation">
+        {%- for block in section.blocks -%}
+          <button
+            class="sp-dot{% if forloop.index == 2 %} sp-dot--active{% endif %}"
+            aria-label="Go to testimonial {{ forloop.index }}"
+            role="tab"
+            data-index="{{ forloop.index0 }}"
+          ></button>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+  </div>
+</section>
+
+<script>
+(function () {
+  var sid       = {{ section_id | json }};
+  var section   = document.getElementById(sid);
+  if (!section) return;
+
+  var track     = section.querySelector('.sp-track');
+  var dotsWrap  = section.querySelector('.sp-dots');
+  var btnPrev   = section.querySelector('.sp-btn--prev');
+  var btnNext   = section.querySelector('.sp-btn--next');
+  var autoplay  = {{ section.settings.autoplay | json }};
+  var autoDelay = {{ section.settings.autoplay_delay | times: 1000 | json }};
+  var infinite  = {{ section.settings.infinite_loop | json }};
+  var timer     = null;
+
+  function visibleCount() {
+    var w = window.innerWidth;
+    if (w <= 749)  return 1;
+    if (w <= 1023) return {{ section.settings.cards_visible_tablet }};
+    return {{ section.settings.cards_visible }};
+  }
+
+  /* ── Infinite clone setup ────────────────────────────── */
+  var origSlides = Array.prototype.slice.call(track.querySelectorAll('.sp-slide'));
+  var total      = origSlides.length;
+  var cloneCount = total;
+
+  if (infinite && total > 1) {
+    for (var i = total - 1; i >= 0; i--) {
+      var pre = origSlides[i].cloneNode(true);
+      pre.setAttribute('aria-hidden', 'true');
+      pre.classList.add('sp-clone');
+      track.insertBefore(pre, track.firstChild);
+    }
+    for (var j = 0; j < total; j++) {
+      var app = origSlides[j].cloneNode(true);
+      app.setAttribute('aria-hidden', 'true');
+      app.classList.add('sp-clone');
+      track.appendChild(app);
+    }
+  } else {
+    cloneCount = 0;
+  }
+
+  var allSlides = track.querySelectorAll('.sp-slide');
+  var allTotal  = allSlides.length;
+
+  var activeIndex = cloneCount + Math.min(1, total - 1);
+
+  var dots = dotsWrap ? dotsWrap.querySelectorAll('.sp-dot') : [];
+
+  function isMobile() { return window.innerWidth <= 749; }
+
+  /* ── Desktop: translateX ─────────────────────────────── */
+  function translateTo(idx, animated) {
+    if (isMobile()) return; /* mobile uses scrollTo — handled separately */
+
+    var slideW   = allSlides[0].offsetWidth;
+    var trackW   = track.parentElement.offsetWidth;
+    var leftEdge    = idx * slideW;
+    var cardCentre  = leftEdge + slideW / 2;
+    var translatePx = cardCentre - trackW / 2;
+
+    if (animated === false) {
+      track.style.transition = 'none';
+    } else {
+      track.style.transition = 'transform 0.45s cubic-bezier(0.4,0,0.2,1)';
+    }
+    track.style.transform = 'translateX(-' + translatePx + 'px)';
+  }
+
+  /* ── Mobile: scrollTo a slide by index ──────────────── */
+  function mobileScrollTo(idx, smooth) {
+    var trackOuter = track.parentElement;
+    var targetSlide = allSlides[idx];
+    if (!targetSlide) return;
+    var slideLeft = targetSlide.offsetLeft;
+    var slideW    = targetSlide.offsetWidth;
+    var outerW    = trackOuter.offsetWidth;
+    var scrollTarget = slideLeft - (outerW / 2) + (slideW / 2);
+    trackOuter.scrollTo({ left: scrollTarget, behavior: smooth ? 'smooth' : 'instant' });
+  }
+
+  /* ── Apply active/side classes + update dots ─────────── */
+  function applyClasses(idx) {
+    allSlides.forEach(function (s, i) {
+      s.classList.toggle('sp-slide--active', i === idx);
+    });
+    var realIdx = (idx - cloneCount + total) % total;
+    if (dots.length) {
+      dots.forEach(function (d, i) {
+        d.classList.toggle('sp-dot--active', i === realIdx);
+      });
+    }
+  }
+
+  /* ── Desktop go-to (with infinite jump on transitionend) */
+  function goTo(idx) {
+    activeIndex = idx;
+    translateTo(activeIndex, true);
+    applyClasses(activeIndex);
+  }
+
+  /* Desktop: silent clone-jump after transition */
+  track.addEventListener('transitionend', function () {
+    if (!infinite || isMobile()) return;
+    var jumped = false;
+    if (activeIndex < cloneCount) {
+      activeIndex = activeIndex + total;
+      jumped = true;
+    } else if (activeIndex >= cloneCount + total) {
+      activeIndex = activeIndex - total;
+      jumped = true;
+    }
+    if (jumped) {
+      translateTo(activeIndex, false);
+      track.getBoundingClientRect(); /* force reflow */
+      track.style.transition = 'transform 0.45s cubic-bezier(0.4,0,0.2,1)';
+      applyClasses(activeIndex);
+    }
+  });
+
+  /* ────────────────────────────────────────────────────────
+     MOBILE INFINITE SCROLL FIX
+     ─────────────────────────────────────────────────────────
+     Strategy:
+       • Clones exist on both ends of the track (same as desktop).
+       • After a scroll-snap settles, detect if we landed on a clone.
+       • If yes: instantly jump (no animation) to the real equivalent,
+         then re-apply classes and dots.
+       • A `isJumping` flag prevents the scroll listener re-firing
+         during the instant jump.
+  ─────────────────────────────────────────────────────────── */
+  (function () {
+    var trackOuter  = track.parentElement;
+    var scrollTimer = null;
+    var isJumping   = false;
+
+    trackOuter.addEventListener('scroll', function () {
+      if (!isMobile()) return;
+      clearTimeout(scrollTimer);
+
+      scrollTimer = setTimeout(function () {
+        if (isJumping) return;
+
+        /* Find which slide is most centred */
+        var outerCentre = trackOuter.scrollLeft + trackOuter.offsetWidth / 2;
+        var closest  = 0;
+        var minDist  = Infinity;
+        allSlides.forEach(function (s, i) {
+          var slideCentre = s.offsetLeft + s.offsetWidth / 2;
+          var dist = Math.abs(slideCentre - outerCentre);
+          if (dist < minDist) { minDist = dist; closest = i; }
+        });
+
+        activeIndex = closest;
+
+        /* ── Infinite: landed on a clone? Jump to real slide ── */
+        if (infinite && total > 1) {
+          var jumped    = false;
+          var jumpTarget = activeIndex;
+
+          if (activeIndex < cloneCount) {
+            /* Scrolled before first real slide → jump to last real */
+            jumpTarget = activeIndex + total;
+            jumped = true;
+          } else if (activeIndex >= cloneCount + total) {
+            /* Scrolled past last real slide → jump to first real */
+            jumpTarget = activeIndex - total;
+            jumped = true;
+          }
+
+          if (jumped) {
+            isJumping   = true;
+            activeIndex = jumpTarget;
+            /* Instant scroll (no animation) to the real equivalent */
+            mobileScrollTo(activeIndex, false);
+
+            /* Wait one frame for the scroll to settle, then unlock */
+            requestAnimationFrame(function () {
+              requestAnimationFrame(function () {
+                isJumping = false;
+              });
+            });
+          }
+        }
+
+        applyClasses(activeIndex);
+      }, 80); /* wait for scroll-snap to settle */
+    }, { passive: true });
+  })();
+
+  /* ── Next / Prev shared logic ────────────────────────── */
+  function next() {
+    if (isMobile()) {
+      activeIndex = activeIndex + 1;
+      /* Clamp with wrap if not infinite, or let scroll handler fix if infinite */
+      if (!infinite && activeIndex >= allTotal) activeIndex = allTotal - 1;
+      mobileScrollTo(activeIndex, true);
+      applyClasses(activeIndex);
+    } else {
+      goTo(activeIndex + 1);
+    }
+  }
+
+  function prev() {
+    if (isMobile()) {
+      activeIndex = activeIndex - 1;
+      if (!infinite && activeIndex < 0) activeIndex = 0;
+      mobileScrollTo(activeIndex, true);
+      applyClasses(activeIndex);
+    } else {
+      goTo(activeIndex - 1);
+    }
+  }
+
+  btnNext && btnNext.addEventListener('click', function () { resetTimer(); next(); });
+  btnPrev && btnPrev.addEventListener('click', function () { resetTimer(); prev(); });
+
+  if (dots.length) {
+    dots.forEach(function (dot, i) {
+      dot.addEventListener('click', function () {
+        resetTimer();
+        var target = cloneCount + i;
+        if (isMobile()) {
+          activeIndex = target;
+          mobileScrollTo(activeIndex, true);
+          applyClasses(activeIndex);
+        } else {
+          goTo(target);
+        }
+      });
+    });
+  }
+
+  /* Touch / swipe (desktop fallback — mobile uses native scroll) */
+  var touchStartX = null;
+  track.addEventListener('touchstart', function (e) {
+    if (isMobile()) return; /* let native scroll handle mobile */
+    touchStartX = e.touches[0].clientX;
+  }, { passive: true });
+  track.addEventListener('touchend', function (e) {
+    if (isMobile() || touchStartX === null) return;
+    var dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 40) { resetTimer(); dx < 0 ? next() : prev(); }
+    touchStartX = null;
+  }, { passive: true });
+
+  /* Keyboard */
+  section.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight') { resetTimer(); next(); }
+    if (e.key === 'ArrowLeft')  { resetTimer(); prev(); }
+  });
+
+  /* Autoplay */
+  function startTimer() {
+    if (!autoplay) return;
+    timer = setInterval(next, autoDelay);
+  }
+  function resetTimer() {
+    clearInterval(timer);
+    startTimer();
+  }
+
+  /* Responsive recalc */
+  var resizeTimeout;
+  window.addEventListener('resize', function () {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(function () {
+      if (isMobile()) {
+        mobileScrollTo(activeIndex, false);
+      } else {
+        translateTo(activeIndex, false);
+      }
+    }, 100);
+  });
+
+  /* ── Init ────────────────────────────────────────────── */
+  if (isMobile()) {
+    mobileScrollTo(activeIndex, false);
+  } else {
+    translateTo(activeIndex, false);
+  }
+  applyClasses(activeIndex);
+  startTimer();
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Social Proof",
+  "tag": "section",
+  "class": "bam-section",
+  "settings": [
+
+    {
+      "type": "header",
+      "content": "⚙️ Layout & Spacing"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Max Width (px)",
+      "min": 800, "max": 1600, "step": 20,
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Desktop — Padding Top (px)",
+      "min": 0, "max": 160, "step": 4,
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Desktop — Padding Bottom (px)",
+      "min": 0, "max": 160, "step": 4,
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile — Padding Top (px)",
+      "min": 0, "max": 120, "step": 4,
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile — Padding Bottom (px)",
+      "min": 0, "max": 120, "step": 4,
+      "default": 60
+    },
+
+    {
+      "type": "header",
+      "content": "🎨 Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section Background",
+      "default": "#F1EFE8"
+    },
+    {
+      "type": "color",
+      "id": "card_bg_color",
+      "label": "Card Background",
+      "default": "#F1EFE8"
+    },
+    {
+      "type": "color",
+      "id": "card_border_color",
+      "label": "Card Border",
+      "default": "#DDDBD3"
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Card Divider Line",
+      "default": "#888780"
+    },
+    {
+      "type": "color",
+      "id": "btn_bg_color",
+      "label": "Nav Button Background",
+      "default": "#F1EFE8"
+    },
+    {
+      "type": "color",
+      "id": "btn_icon_color",
+      "label": "Nav Button Icon Color",
+      "default": "#0A0A0A"
+    },
+    {
+      "type": "color",
+      "id": "dot_active_color",
+      "label": "Active Dot Color",
+      "default": "#2D5A27"
+    },
+    {
+      "type": "color",
+      "id": "dot_inactive_color",
+      "label": "Inactive Dot Color",
+      "default": "#DDDBD3"
+    },
+
+    {
+      "type": "header",
+      "content": "🏷️ Label"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Label Text",
+      "default": "SOCIAL PROOF"
+    },
+    {
+      "type": "color",
+      "id": "label_color",
+      "label": "Label Color",
+      "default": "#2D5A27"
+    },
+    {
+      "type": "range",
+      "id": "label_font_size",
+      "label": "Label Font Size (px)",
+      "min": 8, "max": 18, "step": 1,
+      "default": 11
+    },
+
+    {
+      "type": "header",
+      "content": "✍️ Heading"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "REAL PITMASTERS.\nREAL RESULTS."
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#0A0A0A"
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size",
+      "label": "Desktop — Heading Size (px)",
+      "min": 32, "max": 120, "step": 2,
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_font_size",
+      "label": "Mobile — Heading Size (px)",
+      "min": 28, "max": 72, "step": 2,
+      "default": 48
+    },
+    {
+      "type": "select",
+      "id": "heading_font_weight",
+      "label": "Heading Font Weight",
+      "options": [
+        { "value": "700", "label": "Bold (700)" },
+        { "value": "800", "label": "Extra Bold (800)" },
+        { "value": "900", "label": "Black (900)" }
+      ],
+      "default": "900"
+    },
+
+    {
+      "type": "header",
+      "content": "📝 Subtext"
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "We don't have to tell you BAM works.\nHere's what pitmasters, restaurants, and backyard legends are saying."
+    },
+    {
+      "type": "color",
+      "id": "subtext_color",
+      "label": "Subtext Color",
+      "default": "#888780"
+    },
+    {
+      "type": "range",
+      "id": "subtext_font_size",
+      "label": "Desktop — Subtext Size (px)",
+      "min": 12, "max": 24, "step": 1,
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "mobile_subtext_font_size",
+      "label": "Mobile — Subtext Size (px)",
+      "min": 12, "max": 20, "step": 1,
+      "default": 14
+    },
+
+    {
+      "type": "header",
+      "content": "💬 Quote Card Typography"
+    },
+    {
+      "type": "color",
+      "id": "quote_text_color",
+      "label": "Quote Text Color",
+      "default": "#0A0A0A"
+    },
+    {
+      "type": "range",
+      "id": "quote_font_size",
+      "label": "Desktop — Quote Font Size (px)",
+      "min": 12, "max": 28, "step": 1,
+      "default": 17
+    },
+    {
+      "type": "range",
+      "id": "mobile_quote_font_size",
+      "label": "Mobile — Quote Font Size (px)",
+      "min": 12, "max": 22, "step": 1,
+      "default": 15
+    },
+    {
+      "type": "select",
+      "id": "quote_font_weight",
+      "label": "Quote Font Weight",
+      "options": [
+        { "value": "400", "label": "Regular (400)" },
+        { "value": "500", "label": "Medium (500)" },
+        { "value": "600", "label": "Semi-Bold (600)" },
+        { "value": "700", "label": "Bold (700)" }
+      ],
+      "default": "600"
+    },
+    {
+      "type": "color",
+      "id": "handle_color",
+      "label": "Handle / Attribution Color",
+      "default": "#888780"
+    },
+    {
+      "type": "range",
+      "id": "handle_font_size",
+      "label": "Handle Font Size (px)",
+      "min": 10, "max": 16, "step": 1,
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "label": "Card Corner Radius (px)",
+      "min": 0, "max": 24, "step": 2,
+      "default": 8
+    },
+
+    {
+      "type": "header",
+      "content": "❝ Icon Settings"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Quote Icon Color",
+      "default": "#2D5A27"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Quote Icon Size (px)",
+      "min": 16, "max": 60, "step": 2,
+      "default": 28
+    },
+
+    {
+      "type": "header",
+      "content": "🖼️ Default Watermark Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "default_watermark_image",
+      "label": "Default Watermark / Logo Image",
+      "info": "Shown as a faint watermark on all cards unless the card has its own image."
+    },
+
+    {
+      "type": "header",
+      "content": "🎠 Carousel Settings"
+    },
+    {
+      "type": "range",
+      "id": "cards_visible",
+      "label": "Desktop — Visible Cards",
+      "min": 1, "max": 5, "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "cards_visible_tablet",
+      "label": "Tablet — Visible Cards",
+      "min": 1, "max": 3, "step": 1,
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "cards_visible_mobile",
+      "label": "Mobile — Visible Cards",
+      "min": 1, "max": 3, "step": 1,
+      "default": 1
+    },
+    {
+      "type": "checkbox",
+      "id": "infinite_loop",
+      "label": "Infinite Loop",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dots",
+      "label": "Show Dot Navigation",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Autoplay",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "autoplay_delay",
+      "label": "Autoplay Delay (seconds)",
+      "min": 2, "max": 10, "step": 1,
+      "default": 5
+    }
+
+  ],
+
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "limit": 12,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Quote Text",
+          "default": "Finally, a charcoal that doesn't add weird flavors. Just pure, clean heat every time."
+        },
+        {
+          "type": "text",
+          "id": "handle",
+          "label": "Handle / Name",
+          "default": "@smokeandbarrel"
+        },
+        {
+          "type": "image_picker",
+          "id": "card_image",
+          "label": "Card Watermark Image",
+          "info": "Optional. Shown as a faint watermark inside this card only."
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_icon",
+          "label": "Custom Quote Icon",
+          "info": "Optional. Replaces the default quotation mark SVG for this card."
+        }
+      ]
+    }
+  ],
+
+  "presets": [
+    {
+      "name": "Social Proof",
+      "blocks": [
+        {
+          "type": "testimonial",
+          "settings": {
+            "quote": "BAM burns cleaner, hotter, and longer than anything I've used. It just makes better BBQ.",
+            "handle": "@pitmasterpat"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Finally, a charcoal that doesn't add weird flavors. Just pure, clean heat every time.",
+            "handle": "@smokeandbarrel"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "quote": "From brisket to veggies, BAM delivers consistent results. No fillers, just 100% performance.",
+            "handle": "@grilldadlife"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Switched to BAM six months ago and haven't looked back. My restaurant guests noticed the difference immediately.",
+            "handle": "@chefjamesbbq"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "quote": "The ash is minimal, the heat is even, and the flavors are completely neutral. This is the real deal.",
+            "handle": "@backyard_smoke"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

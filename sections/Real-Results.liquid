@@ -1,0 +1,737 @@
+{% comment %}
+  ============================================================
+  Section: Dr. Pen - Professional Microneedling Real Results Section
+  Features:
+    - Heading, subheading, images (6 grid)
+    - Max-width, padding, margin, font-size, color, font-weight controls
+    - Separate Desktop & Mobile customization
+    - Icon support (SVG/emoji) per image card
+    - Fully responsive
+    - Font family inherited from global theme
+  ============================================================
+{% endcomment %}
+
+{%- liquid
+  assign section_id = 'drpen-real-results-' | append: section.id
+-%}
+
+<style>
+  #{{ section_id }} {
+    background-color: {{ section.settings.bg_color }};
+    padding-top: {{ section.settings.desktop_padding_top }}px;
+    padding-bottom: {{ section.settings.desktop_padding_bottom }}px;
+    padding-left: {{ section.settings.desktop_padding_lr }}px;
+    padding-right: {{ section.settings.desktop_padding_lr }}px;
+    margin-top: {{ section.settings.margin_top }}px;
+    margin-bottom: {{ section.settings.margin_bottom }}px;
+    font-family: inherit;
+  }
+
+  #{{ section_id }} .drpen-inner {
+    max-width: {{ section.settings.max_width }}px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ---- Heading ---- */
+  #{{ section_id }} .drpen-heading {
+    text-align: {{ section.settings.heading_align }};
+    color: {{ section.settings.heading_color }};
+    font-size: {{ section.settings.desktop_heading_size }}px;
+    font-weight: {{ section.settings.heading_weight }};
+    line-height: 1.2;
+    margin: 0 0 {{ section.settings.heading_margin_bottom }}px 0;
+    font-family: inherit;
+  }
+
+  /* ---- Subheading ---- */
+  #{{ section_id }} .drpen-subheading {
+    text-align: {{ section.settings.subheading_align }};
+    color: {{ section.settings.subheading_color }};
+    font-size: {{ section.settings.desktop_subheading_size }}px;
+    font-weight: {{ section.settings.subheading_weight }};
+    line-height: 1.6;
+    margin: 0 auto {{ section.settings.subheading_margin_bottom }}px auto;
+    max-width: {{ section.settings.subheading_max_width }}px;
+    font-family: inherit;
+  }
+
+  /* ---- Image Grid ---- */
+  #{{ section_id }} .drpen-grid {
+    display: grid;
+    grid-template-columns: repeat({{ section.settings.desktop_columns }}, 1fr);
+    gap: {{ section.settings.desktop_gap }}px;
+  }
+
+  #{{ section_id }} .drpen-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: {{ section.settings.card_border_radius }}px;
+    background: {{ section.settings.card_bg_color }};
+    box-shadow: {{ section.settings.card_shadow }};
+    aspect-ratio: {{ section.settings.card_aspect_ratio }};
+  }
+
+  #{{ section_id }} .drpen-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  {% if section.settings.card_hover_zoom %}
+  #{{ section_id }} .drpen-card:hover img {
+    transform: scale(1.05);
+  }
+  {% endif %}
+
+  /* ---- Icon overlay on card ---- */
+  #{{ section_id }} .drpen-card-icon {
+    position: absolute;
+    bottom: {{ section.settings.icon_bottom }}px;
+    right: {{ section.settings.icon_right }}px;
+    font-size: {{ section.settings.icon_size }}px;
+    line-height: 1;
+    background: {{ section.settings.icon_bg_color }};
+    color: {{ section.settings.icon_color }};
+    border-radius: {{ section.settings.icon_border_radius }}px;
+    padding: {{ section.settings.icon_padding }}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+
+  #{{ section_id }} .drpen-card-icon svg {
+    width: {{ section.settings.icon_size }}px;
+    height: {{ section.settings.icon_size }}px;
+    fill: currentColor;
+  }
+
+  /* ---- Placeholder (no image) ---- */
+  #{{ section_id }} .drpen-placeholder {
+    width: 100%;
+    height: 100%;
+    background: #e8edf2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #9aafbf;
+    font-size: 14px;
+    font-family: inherit;
+  }
+
+  /* ========== RESPONSIVE: Tablet ========== */
+  @media screen and (max-width: 1024px) {
+    #{{ section_id }} .drpen-grid {
+      grid-template-columns: repeat({{ section.settings.tablet_columns }}, 1fr);
+      gap: {{ section.settings.tablet_gap }}px;
+    }
+    #{{ section_id }} .drpen-heading {
+      font-size: {{ section.settings.tablet_heading_size }}px;
+    }
+    #{{ section_id }} .drpen-subheading {
+      font-size: {{ section.settings.tablet_subheading_size }}px;
+    }
+  }
+
+  /* ========== RESPONSIVE: Mobile ========== */
+  @media screen and (max-width: 749px) {
+    #{{ section_id }} {
+      padding-top: {{ section.settings.mobile_padding_top }}px;
+      padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
+      padding-left: {{ section.settings.mobile_padding_lr }}px;
+      padding-right: {{ section.settings.mobile_padding_lr }}px;
+    }
+
+    #{{ section_id }} .drpen-heading {
+      font-size: {{ section.settings.mobile_heading_size }}px;
+      font-weight: {{ section.settings.mobile_heading_weight }};
+    }
+
+    #{{ section_id }} .drpen-subheading {
+      font-size: {{ section.settings.mobile_subheading_size }}px;
+    }
+
+    #{{ section_id }} .drpen-grid {
+      grid-template-columns: repeat({{ section.settings.mobile_columns }}, 1fr);
+      gap: {{ section.settings.mobile_gap }}px;
+    }
+  }
+</style>
+
+<section id="{{ section_id }}" class="drpen-hero-section">
+  <div class="drpen-inner">
+
+    {%- if section.settings.heading != blank -%}
+      <h2 class="drpen-heading">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+
+    {%- if section.settings.subheading != blank -%}
+      <p class="drpen-subheading">{{ section.settings.subheading }}</p>
+    {%- endif -%}
+
+    <div class="drpen-grid">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'image_card' -%}
+          <div class="drpen-card" {{ block.shopify_attributes }}>
+
+            {%- if block.settings.image != blank -%}
+              {{
+                block.settings.image
+                | image_url: width: 800
+                | image_tag:
+                  loading: 'lazy',
+                  alt: block.settings.image.alt | default: block.settings.icon_text,
+                  widths: '400, 600, 800'
+              }}
+            {%- else -%}
+              <div class="drpen-placeholder">
+                <span>{{ 'image' | placeholder_svg_tag }}</span>
+              </div>
+            {%- endif -%}
+
+            {%- if block.settings.show_icon and block.settings.icon_text != blank -%}
+              <div class="drpen-card-icon">
+                {%- if block.settings.icon_type == 'emoji' -%}
+                  {{ block.settings.icon_text }}
+                {%- elsif block.settings.icon_type == 'svg' -%}
+                  {{ block.settings.icon_svg }}
+                {%- else -%}
+                  {{ block.settings.icon_text }}
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Real Results",
+  "tag": "section",
+  "class": "drpen-real-results-wrapper",
+  "settings": [
+    {
+      "type": "header",
+      "content": "📝 Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Professional microneedling. Real results. From home."
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Dr. Pen advances personal skincare by translating professional microneedling standards into carefully designed solutions for home use."
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+
+    {
+      "type": "header",
+      "content": "📐 Layout & Max Width"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Section Max Width (px)",
+      "min": 600,
+      "max": 1800,
+      "step": 50,
+      "default": 1400
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin Top (px)",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin Bottom (px)",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 0
+    },
+
+    {
+      "type": "header",
+      "content": "🖥️ Desktop Settings"
+    },
+    {
+      "type": "range",
+      "id": "desktop_padding_top",
+      "label": "Padding Top (px)",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "desktop_padding_bottom",
+      "label": "Padding Bottom (px)",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "desktop_padding_lr",
+      "label": "Padding Left/Right (px)",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "desktop_heading_size",
+      "label": "Heading Font Size (px)",
+      "min": 18,
+      "max": 72,
+      "step": 1,
+      "default": 38
+    },
+    {
+      "type": "range",
+      "id": "desktop_subheading_size",
+      "label": "Subheading Font Size (px)",
+      "min": 12,
+      "max": 28,
+      "step": 1,
+      "default": 16
+    },
+    {
+      "type": "select",
+      "id": "desktop_columns",
+      "label": "Grid Columns (Desktop)",
+      "options": [
+        { "value": "2", "label": "2 Columns" },
+        { "value": "3", "label": "3 Columns" },
+        { "value": "4", "label": "4 Columns" }
+      ],
+      "default": "3"
+    },
+    {
+      "type": "range",
+      "id": "desktop_gap",
+      "label": "Grid Gap (px)",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "default": 8
+    },
+
+    {
+      "type": "header",
+      "content": "📱 Tablet Settings"
+    },
+    {
+      "type": "select",
+      "id": "tablet_columns",
+      "label": "Grid Columns (Tablet)",
+      "options": [
+        { "value": "1", "label": "1 Column" },
+        { "value": "2", "label": "2 Columns" },
+        { "value": "3", "label": "3 Columns" }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "range",
+      "id": "tablet_gap",
+      "label": "Grid Gap (px)",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "tablet_heading_size",
+      "label": "Heading Font Size (px)",
+      "min": 18,
+      "max": 56,
+      "step": 1,
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "tablet_subheading_size",
+      "label": "Subheading Font Size (px)",
+      "min": 12,
+      "max": 22,
+      "step": 1,
+      "default": 15
+    },
+
+    {
+      "type": "header",
+      "content": "📲 Mobile Settings"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Padding Top (px)",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Padding Bottom (px)",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_lr",
+      "label": "Padding Left/Right (px)",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "label": "Heading Font Size (px)",
+      "min": 16,
+      "max": 42,
+      "step": 1,
+      "default": 24
+    },
+    {
+      "type": "select",
+      "id": "mobile_heading_weight",
+      "label": "Heading Font Weight (Mobile)",
+      "options": [
+        { "value": "400", "label": "Regular (400)" },
+        { "value": "500", "label": "Medium (500)" },
+        { "value": "600", "label": "Semi Bold (600)" },
+        { "value": "700", "label": "Bold (700)" },
+        { "value": "800", "label": "Extra Bold (800)" }
+      ],
+      "default": "700"
+    },
+    {
+      "type": "range",
+      "id": "mobile_subheading_size",
+      "label": "Subheading Font Size (px)",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "default": 14
+    },
+    {
+      "type": "select",
+      "id": "mobile_columns",
+      "label": "Grid Columns (Mobile)",
+      "options": [
+        { "value": "1", "label": "1 Column" },
+        { "value": "2", "label": "2 Columns" }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "range",
+      "id": "mobile_gap",
+      "label": "Grid Gap (px)",
+      "min": 0,
+      "max": 24,
+      "step": 2,
+      "default": 6
+    },
+
+    {
+      "type": "header",
+      "content": "🎨 Heading Typography"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#0f2e4e"
+    },
+    {
+      "type": "select",
+      "id": "heading_weight",
+      "label": "Heading Font Weight",
+      "options": [
+        { "value": "400", "label": "Regular (400)" },
+        { "value": "500", "label": "Medium (500)" },
+        { "value": "600", "label": "Semi Bold (600)" },
+        { "value": "700", "label": "Bold (700)" },
+        { "value": "800", "label": "Extra Bold (800)" },
+        { "value": "900", "label": "Black (900)" }
+      ],
+      "default": "800"
+    },
+    {
+      "type": "select",
+      "id": "heading_align",
+      "label": "Heading Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "heading_margin_bottom",
+      "label": "Heading Bottom Margin (px)",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "default": 16
+    },
+
+    {
+      "type": "header",
+      "content": "🎨 Subheading Typography"
+    },
+    {
+      "type": "color",
+      "id": "subheading_color",
+      "label": "Subheading Color",
+      "default": "#555555"
+    },
+    {
+      "type": "select",
+      "id": "subheading_weight",
+      "label": "Subheading Font Weight",
+      "options": [
+        { "value": "300", "label": "Light (300)" },
+        { "value": "400", "label": "Regular (400)" },
+        { "value": "500", "label": "Medium (500)" },
+        { "value": "600", "label": "Semi Bold (600)" }
+      ],
+      "default": "400"
+    },
+    {
+      "type": "select",
+      "id": "subheading_align",
+      "label": "Subheading Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "subheading_max_width",
+      "label": "Subheading Max Width (px)",
+      "min": 300,
+      "max": 1200,
+      "step": 20,
+      "default": 860
+    },
+    {
+      "type": "range",
+      "id": "subheading_margin_bottom",
+      "label": "Subheading Bottom Margin (px)",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "default": 32
+    },
+
+    {
+      "type": "header",
+      "content": "🖼️ Card Styling"
+    },
+    {
+      "type": "select",
+      "id": "card_aspect_ratio",
+      "label": "Card Aspect Ratio",
+      "options": [
+        { "value": "1 / 1", "label": "Square (1:1)" },
+        { "value": "4 / 3", "label": "Landscape (4:3)" },
+        { "value": "3 / 4", "label": "Portrait (3:4)" },
+        { "value": "16 / 9", "label": "Widescreen (16:9)" },
+        { "value": "5 / 4", "label": "5:4" }
+      ],
+      "default": "4 / 3"
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "label": "Card Border Radius (px)",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "default": 8
+    },
+    {
+      "type": "color",
+      "id": "card_bg_color",
+      "label": "Card Background Color",
+      "default": "#f0f4f8"
+    },
+    {
+      "type": "text",
+      "id": "card_shadow",
+      "label": "Card Box Shadow (CSS value)",
+      "default": "0 2px 12px rgba(0,0,0,0.08)"
+    },
+    {
+      "type": "checkbox",
+      "id": "card_hover_zoom",
+      "label": "Enable Hover Zoom on Images",
+      "default": true
+    },
+
+    {
+      "type": "header",
+      "content": "✨ Icon Global Settings"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Icon Size (px)",
+      "min": 12,
+      "max": 60,
+      "step": 2,
+      "default": 22
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "icon_bg_color",
+      "label": "Icon Background Color",
+      "default": "rgba(15, 46, 78, 0.75)"
+    },
+    {
+      "type": "range",
+      "id": "icon_border_radius",
+      "label": "Icon Border Radius (px)",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "icon_padding",
+      "label": "Icon Padding (px)",
+      "min": 4,
+      "max": 20,
+      "step": 2,
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "icon_bottom",
+      "label": "Icon Position: Bottom (px)",
+      "min": 4,
+      "max": 40,
+      "step": 2,
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "icon_right",
+      "label": "Icon Position: Right (px)",
+      "min": 4,
+      "max": 40,
+      "step": 2,
+      "default": 12
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image_card",
+      "name": "Image Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "header",
+          "content": "Icon Settings"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_icon",
+          "label": "Show Icon",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "icon_type",
+          "label": "Icon Type",
+          "options": [
+            { "value": "emoji", "label": "Emoji / Text" },
+            { "value": "svg", "label": "Custom SVG" }
+          ],
+          "default": "emoji"
+        },
+        {
+          "type": "text",
+          "id": "icon_text",
+          "label": "Emoji or Text Icon",
+          "info": "e.g. ✨ or ★ — used when Icon Type is Emoji",
+          "default": "✨"
+        },
+        {
+          "type": "textarea",
+          "id": "icon_svg",
+          "label": "Custom SVG Code",
+          "info": "Paste full <svg>...</svg> code here. Used when Icon Type is Custom SVG.",
+          "default": "/"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Real Results",
+      "blocks": [
+        { "type": "image_card" },
+        { "type": "image_card" },
+        { "type": "image_card" },
+        { "type": "image_card" },
+        { "type": "image_card" },
+        { "type": "image_card" }
+      ]
+    }
+  ],
+  "max_blocks": 12
+}
+{% endschema %}

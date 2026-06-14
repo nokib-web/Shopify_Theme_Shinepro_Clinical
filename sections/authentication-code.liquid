@@ -1,0 +1,1358 @@
+{% comment %}
+  Dr.pen Anti-Counterfeit Verification Section — v3 Redesign
+  Drop into: sections/drpen-verification.liquid
+{% endcomment %}
+
+<style>
+  #drpen-{{ section.id }} {
+    --dp-max-width: {{ section.settings.max_width }}px;
+    --dp-font-size: {{ section.settings.font_size }}px;
+    --dp-font-weight: {{ section.settings.font_weight }};
+    --dp-bg: {{ section.settings.bg_color }};
+    --dp-title-color: {{ section.settings.title_color }};
+    --dp-btn-bg: {{ section.settings.button_bg_color }};
+    --dp-btn-color: {{ section.settings.button_text_color }};
+    --dp-pt: {{ section.settings.padding_top }}px;
+    --dp-pb: {{ section.settings.padding_bottom }}px;
+    --dp-card-bg: {{ section.settings.card_bg }};
+    --dp-card-header-bg: {{ section.settings.card_header_bg }};
+    --dp-card-accent: #1e4a8a;
+    --dp-card-width: {{ section.settings.card_width }}px;
+    --dp-card-height: {{ section.settings.card_height }}px;
+    --dp-card-radius: {{ section.settings.card_radius }}px;
+    --dp-card-gap: {{ section.settings.card_gap }}px;
+    --dp-qr-bg: {{ section.settings.qr_bg }};
+    --dp-card-url-bg: {{ section.settings.card_url_bg }};
+    --dp-card-url-color: {{ section.settings.card_url_color }};
+    --dp-step-bg: {{ section.settings.step_bg }};
+    --dp-step-color: {{ section.settings.step_color }};
+  }
+
+  #drpen-{{ section.id }} .dp-wrap {
+    background: var(--dp-bg);
+    padding: var(--dp-pt) 0 var(--dp-pb);
+    font-family: {{ section.settings.font_family }}, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: var(--dp-font-size);
+    font-weight: var(--dp-font-weight);
+    {% if section.settings.bg_image != blank %}
+      background-image: url('{{ section.settings.bg_image | image_url: width: 2000 }}');
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    {% endif %}
+  }
+
+  {% if section.settings.bg_image != blank %}
+  #drpen-{{ section.id }} .dp-wrap::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: {{ section.settings.bg_color }}d8;
+    pointer-events: none;
+  }
+  {% endif %}
+
+  #drpen-{{ section.id }} .dp-container {
+    max-width: var(--dp-max-width);
+    margin: 0 auto;
+    padding: 0 40px;
+    position: relative;
+    z-index: 1;
+  }
+
+  #drpen-{{ section.id }} .dp-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    align-items: stretch;
+    min-height: {{ section.settings.min_height }}px;
+  }
+
+  #drpen-{{ section.id }} .dp-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 56px 56px 56px 0;
+    border-right: 1.5px solid #dce6f0;
+  }
+
+  #drpen-{{ section.id }} .dp-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #e8f0fa;
+    color: #1a3a6b;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 999px;
+    margin-bottom: 18px;
+    width: fit-content;
+  }
+
+  #drpen-{{ section.id }} .dp-badge svg {
+    width: 13px;
+    height: 13px;
+    fill: none;
+    stroke: #1a3a6b;
+    stroke-width: 2;
+    flex-shrink: 0;
+  }
+
+  #drpen-{{ section.id }} .dp-title {
+    font-size: clamp(20px, 2.4vw, 32px);
+    font-weight: 700;
+    color: var(--dp-title-color);
+    line-height: 1.2;
+    margin: 0 0 10px;
+    letter-spacing: -0.01em;
+  }
+
+  #drpen-{{ section.id }} .dp-subtitle {
+    font-size: 14px;
+    color: #6b7c93;
+    line-height: 1.6;
+    margin: 0 0 32px;
+  }
+
+  #drpen-{{ section.id }} .dp-input-group {
+    display: flex;
+    align-items: center;
+    background: var(--dp-qr-bg);
+    border: 1.5px solid #c8d8ea;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+    margin-bottom: 14px;
+  }
+
+  #drpen-{{ section.id }} .dp-input-group:focus-within {
+    border-color: #1a3a6b;
+    box-shadow: 0 0 0 3px rgba(26,58,107,0.1);
+  }
+
+  #drpen-{{ section.id }} .dp-input-icon {
+    padding: 0 0 0 16px;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  #drpen-{{ section.id }} .dp-input-icon svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: #aab3c0;
+    stroke-width: 1.8;
+  }
+
+  #drpen-{{ section.id }} .dp-input-group input[type="text"] {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 14px 14px 14px 10px;
+    font-size: 15px;
+    font-family: inherit;
+    background: transparent;
+    color: #1a2a3a;
+    letter-spacing: 0.03em;
+    box-shadow: none;
+    -webkit-appearance: none;
+    appearance: none;
+    min-width: 0;
+  }
+
+  #drpen-{{ section.id }} .dp-input-group input::placeholder {
+    color: #b0bac8;
+    letter-spacing: 0;
+  }
+
+  #drpen-{{ section.id }} .dp-verify-btn {
+    background: var(--dp-btn-bg);
+    color: var(--dp-btn-color);
+    border: none;
+    padding: 14px 20px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    transition: background 0.2s, transform 0.1s;
+    border-radius: 0 10px 10px 0;
+    flex-shrink: 0;
+    font-family: inherit;
+  }
+
+  #drpen-{{ section.id }} .dp-verify-btn:hover { background: #0f2548; }
+  #drpen-{{ section.id }} .dp-verify-btn:active { transform: scale(0.98); }
+
+  /* ── Inline result (shown below input) ── */
+  #drpen-{{ section.id }} .dp-result {
+    display: none;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 14px 16px;
+    border-radius: 10px;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 6px;
+    animation: dp-result-in 0.3s ease forwards;
+  }
+
+  @keyframes dp-result-in {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  #drpen-{{ section.id }} .dp-result.dp-success {
+    background: linear-gradient(135deg, #e6f7ed 0%, #d0f0de 100%);
+    color: #0d5c26;
+    border: 1.5px solid #6ecb96;
+    box-shadow: 0 4px 18px rgba(16, 120, 60, 0.13), 0 1px 4px rgba(16,120,60,0.08);
+    display: flex;
+    font-weight: 600;
+  }
+
+  #drpen-{{ section.id }} .dp-result.dp-error {
+    background: #fef2f2;
+    color: #911b1b;
+    border: 1px solid #f5aaaa;
+    display: flex;
+  }
+
+  #drpen-{{ section.id }} .dp-result svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+  }
+
+  /* ── Success Popup Overlay ── */
+  #dp-popup-{{ section.id }} {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(10, 22, 44, 0.45);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    animation: dp-overlay-in 0.25s ease forwards;
+  }
+
+  #dp-popup-{{ section.id }}.dp-popup-visible {
+    display: flex;
+  }
+
+  @keyframes dp-overlay-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  #dp-popup-{{ section.id }} .dp-popup-card {
+    background: #fff;
+    border-radius: 24px;
+    padding: 44px 40px 36px;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    box-shadow:
+      0 32px 80px rgba(13,33,64,0.28),
+      0 8px 24px rgba(13,33,64,0.14);
+    animation: dp-popup-in 0.35s cubic-bezier(0.34,1.56,0.64,1) forwards;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #dp-popup-{{ section.id }} .dp-popup-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, #22c55e, #16a34a, #4ade80);
+    border-radius: 24px 24px 0 0;
+  }
+
+  @keyframes dp-popup-in {
+    from { opacity: 0; transform: scale(0.82) translateY(24px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  #dp-popup-{{ section.id }} .dp-popup-icon-wrap {
+    width: 72px;
+    height: 72px;
+    background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    position: relative;
+  }
+
+  #dp-popup-{{ section.id }} .dp-popup-icon-wrap::after {
+    content: '';
+    position: absolute;
+    inset: -5px;
+    border-radius: 50%;
+    border: 2px solid rgba(34,197,94,0.25);
+    animation: dp-ring-pulse 1.8s ease-out infinite;
+  }
+
+  @keyframes dp-ring-pulse {
+    0%   { transform: scale(1); opacity: 0.7; }
+    100% { transform: scale(1.35); opacity: 0; }
+  }
+
+  #dp-popup-{{ section.id }} .dp-popup-icon-wrap svg {
+    width: 36px;
+    height: 36px;
+    fill: none;
+    stroke: #16a34a;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    animation: dp-check-draw 0.5s ease 0.15s both;
+    stroke-dasharray: 60;
+    stroke-dashoffset: 60;
+  }
+
+  @keyframes dp-check-draw {
+    to { stroke-dashoffset: 0; }
+  }
+
+  #dp-popup-{{ section.id }} .dp-popup-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: #0d5c26;
+    margin: 0 0 10px;
+    letter-spacing: -0.02em;
+    font-family: inherit;
+  }
+
+  #dp-popup-{{ section.id }} .dp-popup-msg {
+    font-size: 14px;
+    color: #4b6a55;
+    line-height: 1.65;
+    margin: 0 0 8px;
+    font-family: inherit;
+  }
+
+  #dp-popup-{{ section.id }} .dp-popup-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    color: #15803d;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 999px;
+    margin-top: 10px;
+  }
+
+  #dp-popup-{{ section.id }} .dp-popup-badge svg {
+    width: 12px;
+    height: 12px;
+    fill: none;
+    stroke: #15803d;
+    stroke-width: 2.5;
+  }
+
+  #dp-popup-{{ section.id }} .dp-popup-progress {
+    position: absolute;
+    bottom: 0; left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #22c55e, #4ade80);
+    border-radius: 0 0 24px 24px;
+    width: 100%;
+    transform-origin: left;
+    animation: dp-progress-bar var(--dp-popup-duration, 2.5s) linear forwards;
+  }
+
+  @keyframes dp-progress-bar {
+    from { transform: scaleX(1); }
+    to   { transform: scaleX(0); }
+  }
+
+  /* ── Trust row ── */
+  #drpen-{{ section.id }} .dp-trust-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 1px solid #e4eaf2;
+    flex-wrap: wrap;
+  }
+
+  #drpen-{{ section.id }} .dp-trust-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12px;
+    color: #7a8fa6;
+  }
+
+  #drpen-{{ section.id }} .dp-trust-item svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: #5a9a6a;
+    stroke-width: 2;
+    flex-shrink: 0;
+  }
+
+  #drpen-{{ section.id }} .dp-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 56px 0 56px 48px;
+  }
+
+  #drpen-{{ section.id }} .dp-cards-row {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--dp-card-gap);
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  #drpen-{{ section.id }} .dp-card-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: var(--dp-card-width);
+    max-width: 100%;
+  }
+
+  #drpen-{{ section.id }} .dp-card {
+    background: var(--dp-card-bg);
+    border-radius: var(--dp-card-radius);
+    width: 100%;
+    min-height: var(--dp-card-height);
+    flex-shrink: 0;
+    overflow: hidden;
+    position: relative;
+  }
+
+  #drpen-{{ section.id }} .dp-card-col:first-child .dp-card {
+    box-shadow: 0 4px 12px rgba(13,33,64,0.15), 0 1px 4px rgba(13,33,64,0.08);
+  }
+
+  #drpen-{{ section.id }} .dp-card-col:last-child .dp-card {
+    box-shadow:
+      0 20px 48px rgba(13,33,64,0.32),
+      0 8px 20px rgba(13,33,64,0.18),
+      0 2px 6px rgba(13,33,64,0.12),
+      inset 0 1px 0 rgba(255,255,255,0.07);
+    transform: translateY(-6px);
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  #drpen-{{ section.id }} .dp-card-header {
+    background: var(--dp-card-header-bg);
+    padding: 10px 12px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+  }
+
+  #drpen-{{ section.id }} .dp-card-header-text {
+    font-size: clamp(9px, 0.9vw, 13px);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #fff;
+    text-align: center;
+    line-height: 1.3;
+  }
+
+  #drpen-{{ section.id }} .dp-card-header svg {
+    width: 12px;
+    height: 12px;
+    fill: none;
+    stroke: #f0c040;
+    stroke-width: 2;
+    flex-shrink: 0;
+  }
+
+  #drpen-{{ section.id }} .dp-card-body { padding: 10px 14px 0; }
+
+  #drpen-{{ section.id }} .dp-card-inst {
+    font-size: 9px;
+    color: #a8c0dc;
+    text-align: center;
+    line-height: 1.5;
+    margin-bottom: 8px;
+  }
+
+  #drpen-{{ section.id }} .dp-card-qr {
+    background: var(--dp-qr-bg);
+    border-radius: 8px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  #drpen-{{ section.id }} .dp-card-qr img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 4px;
+    object-fit: contain;
+  }
+
+  #drpen-{{ section.id }} .dp-card-qr svg {
+    width: 65%;
+    height: auto;
+    display: block;
+  }
+
+  #drpen-{{ section.id }} .dp-scratch-bar {
+    background: #7a94b0;
+    text-align: center;
+    font-size: 8.5px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    padding: 7px 6px;
+    color: #0e2140;
+    margin-top: 10px;
+  }
+
+  #drpen-{{ section.id }} .dp-card-code-revealed {
+    background: #1a3f75;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: #d8eaff;
+    text-align: center;
+    padding: 8px;
+    margin-top: 10px;
+  }
+
+  #drpen-{{ section.id }} .dp-card-footer { padding: 8px 14px 14px; }
+
+  #drpen-{{ section.id }} .dp-card-url {
+    width: 100%;
+    box-sizing: border-box;
+    background: var(--dp-card-url-bg);
+    color: var(--dp-card-url-color);
+    text-align: center;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 5px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+  }
+
+  #drpen-{{ section.id }} .dp-card-brand {
+    text-align: center;
+    font-style: italic;
+    font-size: 15px;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.01em;
+  }
+
+  #drpen-{{ section.id }} .dp-card-tagline {
+    font-style: normal;
+    font-size: 9px;
+    font-weight: 400;
+    color: #7a9cc0;
+    letter-spacing: 0.06em;
+    display: block;
+    text-align: center;
+    margin-top: 2px;
+    padding-bottom: 2px;
+  }
+
+  #drpen-{{ section.id }} .dp-card-label {
+    text-align: center;
+    width: 100%;
+  }
+
+  #drpen-{{ section.id }} .dp-info-step {
+    width: 24px;
+    height: 24px;
+    background: var(--dp-step-bg);
+    color: var(--dp-step-color);
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 8px;
+  }
+
+  #drpen-{{ section.id }} .dp-info-text {
+    font-size: 13px;
+    color: #5a6e82;
+    line-height: 1.65;
+    text-align: center;
+  }
+
+  #drpen-{{ section.id }} .dp-info-text strong {
+    color: #1a2a3a;
+    font-weight: 600;
+  }
+
+  #drpen-{{ section.id }} .dp-cards-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 80px;
+    flex-shrink: 0;
+    color: #a0b4cc;
+  }
+
+  #drpen-{{ section.id }} .dp-cards-arrow svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+  }
+
+  /* ── Laptop (701px – 1200px): slider in the right column ── */
+  @media (min-width: 701px) and (max-width: 1200px) {
+    #drpen-{{ section.id }} .dp-container { padding: 0 28px; }
+
+    #drpen-{{ section.id }} .dp-grid {
+      grid-template-columns: 1fr 1fr;
+      min-height: unset;
+    }
+
+    #drpen-{{ section.id }} .dp-left {
+      padding: 40px 32px 40px 0;
+    }
+
+    #drpen-{{ section.id }} .dp-right {
+      padding: 32px 0 32px 24px;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    /* Slider wrapper replaces the free-flow row */
+    #drpen-{{ section.id }} .dp-cards-row {
+      display: block;           /* slider takes over layout */
+      width: 100%;
+      position: relative;
+    }
+
+    /* Viewport / clip window */
+    #drpen-{{ section.id }} .dp-slider-viewport {
+      overflow: hidden;
+      width: 100%;
+      border-radius: 4px;
+    }
+
+    /* Track that slides */
+    #drpen-{{ section.id }} .dp-slider-track {
+      display: flex;
+      flex-direction: row;
+      transition: transform 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+      will-change: transform;
+    }
+
+    /* Each slide = one card-col */
+    #drpen-{{ section.id }} .dp-slider-track .dp-card-col {
+      flex: 0 0 100%;
+      width: 100%;
+      max-width: 100%;
+      padding: 0 8px;
+      box-sizing: border-box;
+      align-items: center;
+    }
+
+    /* Card itself: constrain width nicely */
+    #drpen-{{ section.id }} .dp-slider-track .dp-card {
+      min-height: unset;
+      width: clamp(160px, 80%, 240px);
+      margin: 0 auto;
+    }
+
+    /* Hide the static arrow — slider nav replaces it */
+    #drpen-{{ section.id }} .dp-cards-arrow { display: none; }
+
+    /* Slider nav row: prev · dots · next */
+    #drpen-{{ section.id }} .dp-slider-nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    #drpen-{{ section.id }} .dp-slider-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1.5px solid #c8d8ea;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.18s, border-color 0.18s;
+      flex-shrink: 0;
+    }
+
+    #drpen-{{ section.id }} .dp-slider-btn:hover {
+      background: #e8f0fa;
+      border-color: #1a3a6b;
+    }
+
+    #drpen-{{ section.id }} .dp-slider-btn svg {
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: #1a3a6b;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    #drpen-{{ section.id }} .dp-slider-dots {
+      display: flex;
+      gap: 7px;
+      align-items: center;
+    }
+
+    #drpen-{{ section.id }} .dp-slider-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #c8d8ea;
+      transition: background 0.2s, transform 0.2s;
+      cursor: pointer;
+    }
+
+    #drpen-{{ section.id }} .dp-slider-dot.dp-dot-active {
+      background: #1a3a6b;
+      transform: scale(1.25);
+    }
+
+    /* Step label below each slide */
+    #drpen-{{ section.id }} .dp-slider-track .dp-card-label {
+      margin-top: 14px;
+    }
+
+    #drpen-{{ section.id }} .dp-title { font-size: clamp(17px, 2vw, 26px); }
+    #drpen-{{ section.id }} .dp-subtitle { font-size: 13px; margin-bottom: 20px; }
+    #drpen-{{ section.id }} .dp-trust-row { gap: 12px; margin-top: 20px; padding-top: 18px; }
+    #drpen-{{ section.id }} .dp-trust-item { font-size: 11px; }
+    #drpen-{{ section.id }} .dp-card-header-text { font-size: clamp(7px, 0.9vw, 11px); }
+    #drpen-{{ section.id }} .dp-info-text { font-size: 11px; }
+    #drpen-{{ section.id }} .dp-card-brand { font-size: 12px; }
+    #drpen-{{ section.id }} .dp-verify-btn { padding: 14px 14px; font-size: 11px; letter-spacing: 0.06em; }
+    #drpen-{{ section.id }} .dp-input-group input[type="text"] { font-size: 14px; }
+    #drpen-{{ section.id }} .dp-badge { font-size: 10px; margin-bottom: 14px; }
+  }
+
+  /* ── Narrow laptop (701px – 960px): tighter padding only ── */
+  @media (min-width: 701px) and (max-width: 960px) {
+    #drpen-{{ section.id }} .dp-container { padding: 0 20px; }
+    #drpen-{{ section.id }} .dp-left { padding: 32px 20px 32px 0; }
+    #drpen-{{ section.id }} .dp-right { padding: 28px 0 28px 16px; }
+    #drpen-{{ section.id }} .dp-verify-btn { padding: 14px 10px; font-size: 10px; }
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 700px) {
+    #drpen-{{ section.id }} .dp-container { padding: 0 {{ section.settings.mobile_padding }}px; }
+    #drpen-{{ section.id }} .dp-grid { grid-template-columns: 1fr; min-height: unset; }
+    #drpen-{{ section.id }} .dp-left {
+      padding: {{ section.settings.mobile_padding }}px 0 28px 0;
+      border-right: none;
+      border-bottom: 1.5px solid #dce6f0;
+    }
+    #drpen-{{ section.id }} .dp-right {
+      padding: 28px 0 {{ section.settings.mobile_padding }}px 0;
+      justify-content: center;
+    }
+    #drpen-{{ section.id }} .dp-title { font-size: {{ section.settings.mobile_font_size | times: 1.4 | round }}px; }
+    #drpen-{{ section.id }} .dp-subtitle {
+      font-size: {{ section.settings.mobile_font_size | minus: 2 }}px;
+      margin-bottom: 20px;
+    }
+    #drpen-{{ section.id }} .dp-trust-row { gap: 10px; margin-top: 20px; padding-top: 16px; }
+    #drpen-{{ section.id }} .dp-trust-item { font-size: 11px; }
+    #drpen-{{ section.id }} .dp-badge { font-size: 10px; margin-bottom: 12px; }
+    #drpen-{{ section.id }} .dp-cards-row {
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: nowrap;
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 4px;
+    }
+    #drpen-{{ section.id }} .dp-card-col {
+      width: clamp(130px, 40vw, 180px);
+      flex-shrink: 0;
+    }
+    #drpen-{{ section.id }} .dp-cards-arrow { padding-top: 60px; flex-shrink: 0; }
+    #drpen-{{ section.id }} .dp-card-header-text { font-size: 8px; }
+    #drpen-{{ section.id }} .dp-info-text { font-size: 11px; }
+    #drpen-{{ section.id }} .dp-card-brand { font-size: 12px; }
+    #drpen-{{ section.id }} .dp-verify-btn { padding: 14px 14px; font-size: 11px; letter-spacing: 0.06em; }
+    #drpen-{{ section.id }} .dp-input-group input[type="text"] { font-size: 14px; }
+    #dp-popup-{{ section.id }} .dp-popup-card { padding: 36px 24px 28px; }
+    #dp-popup-{{ section.id }} .dp-popup-title { font-size: 18px; }
+  }
+
+  /* ── Very Small Mobile ── */
+  @media (max-width: 380px) {
+    #drpen-{{ section.id }} .dp-container { padding: 0 14px; }
+    #drpen-{{ section.id }} .dp-cards-row { gap: 8px; }
+    #drpen-{{ section.id }} .dp-card-col { width: clamp(115px, 38vw, 150px); }
+    #drpen-{{ section.id }} .dp-cards-arrow { display: none; }
+    #drpen-{{ section.id }} .dp-verify-btn { padding: 14px 10px; font-size: 10px; }
+  }
+</style>
+
+<!-- ══ Success Popup ══ -->
+<div id="dp-popup-{{ section.id }}" role="dialog" aria-modal="true" aria-label="Verification successful">
+  <div class="dp-popup-card">
+    <div class="dp-popup-icon-wrap">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <polyline points="5 13 9 17 19 7"/>
+      </svg>
+    </div>
+    <div class="dp-popup-title">Verified!</div>
+    <div class="dp-popup-msg" id="dp-popup-msg-{{ section.id }}"></div>
+    <div class="dp-popup-badge">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Genuine Dr.pen Product
+    </div>
+    <div class="dp-popup-progress" id="dp-popup-prog-{{ section.id }}"></div>
+  </div>
+</div>
+
+<div id="drpen-{{ section.id }}">
+  <div class="dp-wrap">
+    <div class="dp-container">
+      <div class="dp-grid">
+
+        <!-- ══ LEFT: Verify form ══ -->
+        <div class="dp-left">
+          <div class="dp-badge">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Authentic Product Check
+          </div>
+          <h2 class="dp-title">{{ section.settings.section_title }}</h2>
+          <p class="dp-subtitle">Scratch the security label on your product to reveal the code, then enter it below to confirm authenticity.</p>
+          <div class="dp-input-group" id="dp-ig-{{ section.id }}">
+            <span class="dp-input-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </span>
+            <input
+              type="text"
+              id="dp-input-{{ section.id }}"
+              placeholder="{{ section.settings.input_placeholder }}"
+              autocomplete="off"
+              aria-label="Authentication code"
+              spellcheck="false"
+            >
+            <button
+              class="dp-verify-btn"
+              id="dp-btn-{{ section.id }}"
+              aria-label="Verify product authenticity"
+            >{{ section.settings.button_label }}</button>
+          </div>
+          <div class="dp-result" id="dp-result-{{ section.id }}" role="alert" aria-live="polite">
+            <svg id="dp-ricon-{{ section.id }}" viewBox="0 0 24 24" aria-hidden="true"></svg>
+            <span id="dp-rtext-{{ section.id }}"></span>
+          </div>
+          <div class="dp-trust-row">
+            <div class="dp-trust-item">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              100% Secure check
+            </div>
+            <div class="dp-trust-item">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              Instant result
+            </div>
+            <div class="dp-trust-item">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              Official Dr.pen check
+            </div>
+          </div>
+        </div>
+
+        <!-- ══ RIGHT: Cards ══ -->
+        <div class="dp-right">
+          <div class="dp-cards-row">
+
+            <!-- Card 1: Before scratch -->
+            <div class="dp-card-col">
+              <div class="dp-card">
+                <div class="dp-card-header">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                  <span class="dp-card-header-text">VERIFY YOUR DEVICE</span>
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                </div>
+                <div class="dp-card-body">
+                  <div class="dp-card-inst">Scan the QR code or use the verification code at the website below</div>
+                  <div class="dp-card-qr">
+                    {% if section.settings.qr_image_card1 != blank %}
+                      <img
+                        src="{{ section.settings.qr_image_card1 | image_url: width: 300 }}"
+                        alt="QR code for verification"
+                        width="300"
+                        height="300"
+                        loading="lazy"
+                      >
+                    {% else %}
+                      <svg viewBox="0 0 90 90" xmlns="http://www.w3.org/2000/svg" aria-label="QR code placeholder">
+                        <rect width="90" height="90" fill="#fff"/>
+                        <rect x="5" y="5" width="28" height="28" rx="3" fill="none" stroke="#1a3a6b" stroke-width="3"/>
+                        <rect x="11" y="11" width="16" height="16" fill="#1a3a6b"/>
+                        <rect x="57" y="5" width="28" height="28" rx="3" fill="none" stroke="#1a3a6b" stroke-width="3"/>
+                        <rect x="63" y="11" width="16" height="16" fill="#1a3a6b"/>
+                        <rect x="5" y="57" width="28" height="28" rx="3" fill="none" stroke="#1a3a6b" stroke-width="3"/>
+                        <rect x="11" y="63" width="16" height="16" fill="#1a3a6b"/>
+                        <rect x="40" y="5" width="6" height="6" fill="#1a3a6b"/>
+                        <rect x="48" y="5" width="6" height="6" fill="#1a3a6b"/>
+                        <rect x="40" y="13" width="6" height="6" fill="#1a3a6b"/>
+                        <rect x="5" y="40" width="6" height="6" fill="#1a3a6b"/>
+                        <rect x="13" y="40" width="6" height="6" fill="#1a3a6b"/>
+                        <rect x="5" y="48" width="6" height="6" fill="#1a3a6b"/>
+                        <rect x="40" y="40" width="6" height="6" fill="#1a3a6b"/>
+                        <rect x="50" y="40" width="6" height="6" fill="#1a3a6b"/>
+                        <rect x="60" y="40" width="6" height="6" fill="#1a3a6b"/>
+                        <rect x="70" y="40" width="6" height="6" fill="#1a3a6b"/>
+                        <rect x="80" y="40" width="5" height="6" fill="#1a3a6b"/>
+                        <rect x="40" y="50" width="6" height="6" fill="#1a3a6b"/>
+                        <rect x="55" y="50" width="6" height="6" fill="#1a3a6b"/>
+                        <rect x="68" y="50" width="6" height="6" fill="#1a3a6b"/>
+                        <rect x="40" y="60" width="6" height="6" fill="#1a3a6b"/>
+                        <rect x="48" y="60" width="6" height="6" fill="#1a3a6b"/>
+                        <rect x="62" y="60" width="6" height="6" fill="#1a3a6b"/>
+                        <rect x="74" y="60" width="6" height="6" fill="#1a3a6b"/>
+                        <rect x="40" y="70" width="6" height="6" fill="#1a3a6b"/>
+                        <rect x="52" y="70" width="6" height="6" fill="#1a3a6b"/>
+                        <rect x="64" y="70" width="6" height="6" fill="#1a3a6b"/>
+                        <rect x="78" y="70" width="7" height="6" fill="#1a3a6b"/>
+                        <rect x="40" y="80" width="6" height="5" fill="#1a3a6b"/>
+                        <rect x="58" y="80" width="6" height="5" fill="#1a3a6b"/>
+                        <rect x="72" y="80" width="13" height="5" fill="#1a3a6b"/>
+                      </svg>
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="dp-scratch-bar">✦ SCRATCH AND CHECK ✦</div>
+                <div class="dp-card-footer">
+                  <div class="dp-card-url">{{ section.settings.website_url }}</div>
+                  <div class="dp-card-brand">{{ section.settings.brand_name }}</div>
+                  <span class="dp-card-tagline">{{ section.settings.brand_tagline }}</span>
+                </div>
+              </div>
+              <div class="dp-card-label">
+                <div class="dp-info-step">1</div>
+                <div class="dp-info-text"><strong>Scratch to reveal</strong> the full QR code and your unique security code.</div>
+              </div>
+            </div>
+
+            <!-- Arrow -->
+            <div class="dp-cards-arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+
+            <!-- Card 2: Code revealed -->
+            <div class="dp-card-col">
+              <div class="dp-card">
+                <div class="dp-card-header">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                  <span class="dp-card-header-text">VERIFY YOUR DEVICE</span>
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                </div>
+                <div class="dp-card-body">
+                  <div class="dp-card-inst">Scan the QR code or use the verification code at the website below</div>
+                  <div class="dp-card-qr">
+                    {% if section.settings.qr_image_card2 != blank %}
+                      <img
+                        src="{{ section.settings.qr_image_card2 | image_url: width: 300 }}"
+                        alt="QR code revealed after scratching"
+                        width="300"
+                        height="300"
+                        loading="lazy"
+                      >
+                    {% elsif section.settings.qr_image_card1 != blank %}
+                      <img
+                        src="{{ section.settings.qr_image_card1 | image_url: width: 300 }}"
+                        alt="QR code revealed after scratching"
+                        width="300"
+                        height="300"
+                        loading="lazy"
+                      >
+                    {% else %}
+                      <svg viewBox="0 0 90 90" xmlns="http://www.w3.org/2000/svg" aria-label="QR code revealed">
+                        <rect width="90" height="90" fill="#fff"/>
+                        <rect x="5" y="5" width="28" height="28" rx="3" fill="none" stroke="#1a3a6b" stroke-width="3"/>
+                        <rect x="11" y="11" width="16" height="16" fill="#1a3a6b"/>
+                        <rect x="57" y="5" width="28" height="28" rx="3" fill="none" stroke="#1a3a6b" stroke-width="3"/>
+                        <rect x="63" y="11" width="16" height="16" fill="#1a3a6b"/>
+                        <rect x="5" y="57" width="28" height="28" rx="3" fill="none" stroke="#1a3a6b" stroke-width="3"/>
+                        <rect x="11" y="63" width="16" height="16" fill="#1a3a6b"/>
+                        <rect x="40" y="5" width="6" height="6" fill="#1a3a6b"/>
+                        <rect x="48" y="5" width="6" height="6" fill="#1a3a6b"/>
+                        <rect x="40" y="13" width="6" height="6" fill="#1a3a6b"/>
+                        <rect x="5" y="40" width="6" height="6" fill="#1a3a6b"/>
+                        <rect x="13" y="40" width="6" height="6" fill="#1a3a6b"/>
+                        <rect x="5" y="48" width="6" height="6" fill="#1a3a6b"/>
+                        <rect x="40" y="40" width="6" height="6" fill="#1a3a6b"/>
+                        <rect x="50" y="40" width="6" height="6" fill="#1a3a6b"/>
+                        <rect x="60" y="40" width="6" height="6" fill="#1a3a6b"/>
+                        <rect x="70" y="40" width="6" height="6" fill="#1a3a6b"/>
+                        <rect x="80" y="40" width="5" height="6" fill="#1a3a6b"/>
+                        <rect x="40" y="50" width="6" height="6" fill="#1a3a6b"/>
+                        <rect x="55" y="50" width="6" height="6" fill="#1a3a6b"/>
+                        <rect x="68" y="50" width="6" height="6" fill="#1a3a6b"/>
+                        <rect x="40" y="60" width="6" height="6" fill="#1a3a6b"/>
+                        <rect x="48" y="60" width="6" height="6" fill="#1a3a6b"/>
+                        <rect x="62" y="60" width="6" height="6" fill="#1a3a6b"/>
+                        <rect x="74" y="60" width="6" height="6" fill="#1a3a6b"/>
+                        <rect x="40" y="70" width="6" height="6" fill="#1a3a6b"/>
+                        <rect x="52" y="70" width="6" height="6" fill="#1a3a6b"/>
+                        <rect x="64" y="70" width="6" height="6" fill="#1a3a6b"/>
+                        <rect x="78" y="70" width="7" height="6" fill="#1a3a6b"/>
+                        <rect x="40" y="80" width="6" height="5" fill="#1a3a6b"/>
+                        <rect x="58" y="80" width="6" height="5" fill="#1a3a6b"/>
+                        <rect x="72" y="80" width="13" height="5" fill="#1a3a6b"/>
+                      </svg>
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="dp-card-code-revealed">{{ section.settings.sample_code }}</div>
+                <div class="dp-card-footer">
+                  <div class="dp-card-url">{{ section.settings.website_url }}</div>
+                  <div class="dp-card-brand">{{ section.settings.brand_name }}</div>
+                  <span class="dp-card-tagline">{{ section.settings.brand_tagline }}</span>
+                </div>
+              </div>
+              <div class="dp-card-label">
+                <div class="dp-info-step">2</div>
+                <div class="dp-info-text"><strong>Scan the QR</strong> to verify instantly, or enter the code on this page.</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  var sid = '{{ section.id }}';
+  var POPUP_DURATION = 2800; // ms
+
+  /* ── Laptop Slider (701px–1200px) ── */
+  function initSlider() {
+    var LAPTOP_MIN = 701, LAPTOP_MAX = 1200;
+    var row        = document.querySelector('#drpen-' + sid + ' .dp-cards-row');
+    if (!row) return;
+
+    var slides     = Array.prototype.slice.call(row.querySelectorAll('.dp-card-col'));
+    if (slides.length < 2) return;
+
+    var current    = 0;
+    var viewport   = null;
+    var track      = null;
+    var dotsEl     = null;
+    var prevBtn    = null;
+    var nextBtn    = null;
+    var navEl      = null;
+    var sliderActive = false;
+
+    function buildSlider() {
+      if (sliderActive) return;
+      sliderActive = true;
+
+      /* Hide the static arrow */
+      var arrow = row.querySelector('.dp-cards-arrow');
+      if (arrow) arrow.style.display = 'none';
+
+      /* Wrap row contents in viewport > track */
+      viewport = document.createElement('div');
+      viewport.className = 'dp-slider-viewport';
+      track = document.createElement('div');
+      track.className = 'dp-slider-track';
+
+      /* Move slides into track */
+      slides.forEach(function(s) { track.appendChild(s); });
+      viewport.appendChild(track);
+      row.insertBefore(viewport, row.firstChild);
+
+      /* Build nav: prev · dots · next */
+      navEl = document.createElement('div');
+      navEl.className = 'dp-slider-nav';
+
+      prevBtn = document.createElement('button');
+      prevBtn.className = 'dp-slider-btn';
+      prevBtn.setAttribute('aria-label', 'Previous card');
+      prevBtn.innerHTML = '<svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>';
+
+      dotsEl = document.createElement('div');
+      dotsEl.className = 'dp-slider-dots';
+      slides.forEach(function(_, i) {
+        var dot = document.createElement('span');
+        dot.className = 'dp-slider-dot' + (i === 0 ? ' dp-dot-active' : '');
+        dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+        dot.addEventListener('click', function() { goTo(i); });
+        dotsEl.appendChild(dot);
+      });
+
+      nextBtn = document.createElement('button');
+      nextBtn.className = 'dp-slider-btn';
+      nextBtn.setAttribute('aria-label', 'Next card');
+      nextBtn.innerHTML = '<svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>';
+
+      navEl.appendChild(prevBtn);
+      navEl.appendChild(dotsEl);
+      navEl.appendChild(nextBtn);
+      row.appendChild(navEl);
+
+      prevBtn.addEventListener('click', function() { goTo(current - 1); });
+      nextBtn.addEventListener('click', function() { goTo(current + 1); });
+
+      goTo(0);
+    }
+
+    function teardownSlider() {
+      if (!sliderActive) return;
+      sliderActive = false;
+
+      /* Move slides back into row directly */
+      var arrow = row.querySelector('.dp-cards-arrow');
+      slides.forEach(function(s) { row.appendChild(s); });
+      if (arrow) { row.appendChild(arrow); arrow.style.display = ''; }
+      if (viewport && viewport.parentNode) viewport.parentNode.removeChild(viewport);
+      if (navEl && navEl.parentNode) navEl.parentNode.removeChild(navEl);
+      viewport = track = dotsEl = prevBtn = nextBtn = navEl = null;
+      current = 0;
+    }
+
+    function goTo(idx) {
+      var total = slides.length;
+      current = (idx + total) % total;
+      track.style.transform = 'translateX(-' + (current * 100) + '%)';
+      var dots = dotsEl.querySelectorAll('.dp-slider-dot');
+      dots.forEach(function(d, i) {
+        d.classList.toggle('dp-dot-active', i === current);
+      });
+    }
+
+    function check() {
+      var w = window.innerWidth;
+      var shouldBeSlider = w >= LAPTOP_MIN && w <= LAPTOP_MAX;
+      if (shouldBeSlider && !sliderActive) buildSlider();
+      else if (!shouldBeSlider && sliderActive) teardownSlider();
+    }
+
+    check();
+    window.addEventListener('resize', check);
+  }
+
+  /* Run slider init after DOM is ready */
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSlider);
+  } else {
+    initSlider();
+  }
+
+  var validCodes = '{{ section.settings.valid_codes }}'
+    .split(',')
+    .map(function(c){ return c.trim().toUpperCase(); })
+    .filter(function(c){ return c.length > 0; });
+
+  var successMsg = {{ section.settings.success_message | json }};
+  var errorMsg   = {{ section.settings.error_message | json }};
+
+  var input    = document.getElementById('dp-input-' + sid);
+  var btn      = document.getElementById('dp-btn-' + sid);
+  var box      = document.getElementById('dp-result-' + sid);
+  var icon     = document.getElementById('dp-ricon-' + sid);
+  var text     = document.getElementById('dp-rtext-' + sid);
+  var popup    = document.getElementById('dp-popup-' + sid);
+  var popupMsg = document.getElementById('dp-popup-msg-' + sid);
+  var popupProg= document.getElementById('dp-popup-prog-' + sid);
+
+  var ICON_OK  = '<circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14.2 15 10"/>';
+  var ICON_ERR = '<circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>';
+
+  var popupTimer = null;
+
+  function showPopup(msg) {
+    popupMsg.textContent = msg;
+    popupProg.style.animation = 'none';
+    popupProg.style.setProperty('--dp-popup-duration', (POPUP_DURATION / 1000) + 's');
+    popup.classList.add('dp-popup-visible');
+    void popupProg.offsetWidth;
+    popupProg.style.animation = 'dp-progress-bar ' + (POPUP_DURATION / 1000) + 's linear forwards';
+
+    if (popupTimer) clearTimeout(popupTimer);
+    popupTimer = setTimeout(function() {
+      popup.classList.remove('dp-popup-visible');
+    }, POPUP_DURATION);
+  }
+
+  popup.addEventListener('click', function(e) {
+    if (e.target === popup) {
+      popup.classList.remove('dp-popup-visible');
+      if (popupTimer) clearTimeout(popupTimer);
+    }
+  });
+
+  function verify() {
+    var val = input.value.trim().toUpperCase();
+    if (!val) { input.focus(); return; }
+
+    box.className = 'dp-result';
+    box.style.display = 'none';
+
+    if (validCodes.indexOf(val) !== -1) {
+      showPopup(successMsg);
+      box.classList.add('dp-success');
+      icon.innerHTML = ICON_OK;
+      text.textContent = successMsg;
+      box.style.display = 'flex';
+    } else {
+      box.classList.add('dp-error');
+      icon.innerHTML = ICON_ERR;
+      text.textContent = errorMsg;
+      box.style.display = 'flex';
+      box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  }
+
+  btn.addEventListener('click', verify);
+  input.addEventListener('keydown', function(e){ if (e.key === 'Enter') verify(); });
+  input.addEventListener('input', function(){
+    if (box.style.display !== 'none') {
+      box.style.display = 'none';
+      box.className = 'dp-result';
+    }
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Anti-Counterfeit Verify",
+  "tag": "section",
+  "class": "drpen-verify-section",
+  "settings": [
+    { "type": "header", "content": "Content" },
+    { "type": "text", "id": "section_title", "label": "Section title", "default": "Anti-Counterfeit Verification" },
+    { "type": "text", "id": "input_placeholder", "label": "Input placeholder text", "default": "Enter authentication number" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "VERIFY" },
+    { "type": "text", "id": "website_url", "label": "Website URL shown on card", "default": "www.drpen.com" },
+    { "type": "text", "id": "brand_name", "label": "Brand name on card", "default": "Dr.pen®" },
+    { "type": "text", "id": "brand_tagline", "label": "Brand tagline on card", "default": "Define Your Skin" },
+    { "type": "text", "id": "sample_code", "label": "Sample code shown on revealed card", "default": "DR8316689440890" },
+    { "type": "header", "content": "QR Code Images" },
+    {
+      "type": "image_picker",
+      "id": "qr_image_card1",
+      "label": "QR Code — Card 1 (Before Scratch)",
+      "info": "Upload QR image for card 1. If blank, a placeholder SVG is shown."
+    },
+    {
+      "type": "image_picker",
+      "id": "qr_image_card2",
+      "label": "QR Code — Card 2 (After Scratch / Revealed)",
+      "info": "Upload QR image for card 2. If blank, Card 1 image is reused."
+    },
+    { "type": "header", "content": "Verification Codes" },
+    {
+      "type": "textarea",
+      "id": "valid_codes",
+      "label": "Valid authentication codes (comma-separated)",
+      "info": "Example: DR8316689440890, AUTH-002, DRPEN2025",
+      "default": "DR8316689440890, DRPEN2024, VERIFY123, AUTH-001"
+    },
+    { "type": "header", "content": "Result Messages" },
+    { "type": "text", "id": "success_message", "label": "Success message", "default": "Verification successful! This is a genuine Dr.pen product." },
+    { "type": "text", "id": "error_message", "label": "Error message", "default": "Verification failed. This code is not recognized. Please check the code and try again, or contact our support team." },
+    { "type": "header", "content": "Layout" },
+    { "type": "range", "id": "max_width", "label": "Section max width (px)", "min": 480, "max": 1400, "step": 10, "default": 1200 },
+    { "type": "range", "id": "min_height", "label": "Section min height (px)", "min": 300, "max": 900, "step": 10, "default": 480 },
+    { "type": "range", "id": "padding_top", "label": "Padding top (px)", "min": 0, "max": 120, "step": 4, "default": 60 },
+    { "type": "range", "id": "padding_bottom", "label": "Padding bottom (px)", "min": 0, "max": 120, "step": 4, "default": 60 },
+    { "type": "header", "content": "Typography" },
+    {
+      "type": "select",
+      "id": "font_family",
+      "label": "Font family",
+      "options": [
+        { "value": "inherit", "label": "Theme default" },
+        { "value": "'Helvetica Neue', Helvetica", "label": "Helvetica Neue" },
+        { "value": "Georgia", "label": "Georgia" },
+        { "value": "'Arial', sans-serif", "label": "Arial" },
+        { "value": "'Trebuchet MS', sans-serif", "label": "Trebuchet MS" }
+      ],
+      "default": "inherit"
+    },
+    { "type": "range", "id": "font_size", "label": "Base font size (px)", "min": 12, "max": 22, "step": 1, "default": 16 },
+    {
+      "type": "select",
+      "id": "font_weight",
+      "label": "Font weight",
+      "options": [
+        { "value": "300", "label": "300 – Light" },
+        { "value": "400", "label": "400 – Regular" },
+        { "value": "500", "label": "500 – Medium" },
+        { "value": "600", "label": "600 – Semibold" }
+      ],
+      "default": "400"
+    },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "bg_color", "label": "Section background color", "default": "#f4f7fb" },
+    { "type": "color", "id": "title_color", "label": "Title color", "default": "#0e2140" },
+    { "type": "color", "id": "button_bg_color", "label": "Button background color", "default": "#1a3a6b" },
+    { "type": "color", "id": "button_text_color", "label": "Button text color", "default": "#ffffff" },
+    { "type": "header", "content": "Background Image (optional)" },
+    { "type": "image_picker", "id": "bg_image", "label": "Background image", "info": "A color overlay is automatically applied for readability." },
+    { "type": "header", "content": "Card Customization" },
+    { "type": "range", "id": "card_width", "label": "Card Width", "min": 160, "max": 400, "step": 10, "default": 300 },
+    { "type": "range", "id": "card_height", "label": "Card Height", "min": 250, "max": 700, "step": 10, "default": 620 },
+    { "type": "range", "id": "card_radius", "label": "Card Radius", "min": 0, "max": 40, "step": 1, "default": 22 },
+    { "type": "range", "id": "card_gap", "label": "Card Gap", "min": 0, "max": 80, "step": 2, "default": 40 },
+    { "type": "color", "id": "card_bg", "label": "Card Background", "default": "#132d55" },
+    { "type": "color", "id": "card_header_bg", "label": "Card Header Background", "default": "#0e2140" },
+    { "type": "color", "id": "qr_bg", "label": "QR Background / Input Background", "default": "#ffffff" },
+    { "type": "color", "id": "card_url_bg", "label": "URL Box Background", "default": "#ffffff" },
+    { "type": "color", "id": "card_url_color", "label": "URL Box Text", "default": "#1a3a6b" },
+    { "type": "color", "id": "step_bg", "label": "Step Circle Background", "default": "#dce8f8" },
+    { "type": "color", "id": "step_color", "label": "Step Circle Text", "default": "#1a3a6b" },
+    { "type": "header", "content": "Mobile Settings (≤700px)" },
+    { "type": "range", "id": "mobile_font_size", "label": "Mobile base font size (px)", "min": 11, "max": 20, "step": 1, "default": 14 },
+    { "type": "range", "id": "mobile_padding", "label": "Mobile side padding (px)", "min": 12, "max": 40, "step": 4, "default": 20 }
+  ],
+  "presets": [
+    { "name": "Anti-Counterfeit Verify" }
+  ]
+}
+{% endschema %}

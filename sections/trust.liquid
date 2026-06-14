@@ -1,0 +1,1035 @@
+{% comment %}
+  Section: Authenticity & Trust
+  Theme: ShinePro (Shopify OS 2.0)
+  Version: 1.0.0
+  Placement: Directly under homepage hero banner
+{% endcomment %}
+
+{%- liquid
+  assign section_id = 'drpen-trust-' | append: section.id
+  assign card_blocks = section.blocks | where: 'type', 'trust_card'
+-%}
+
+<style>
+  /* ============================================================
+     BASE SECTION
+  ============================================================ */
+  #{{ section_id }} {
+    background-color: {{ section.settings.background_color | default: '#FFFFFF' }};
+    padding-top: {{ section.settings.padding_top | default: 88 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | default: 88 }}px;
+    position: relative;
+  }
+
+  #{{ section_id }} .trust__container {
+    max-width: {{ section.settings.container_width | default: 1200 }}px;
+    margin: 0 auto;
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  /* ============================================================
+     SECTION HEADER
+  ============================================================ */
+  #{{ section_id }} .trust__header {
+    text-align: center;
+    margin-bottom: {{ section.settings.header_bottom_spacing | default: 64 }}px;
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #{{ section_id }} .trust__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: {{ section.settings.accent_color | default: '#9A8260' }};
+    margin-bottom: 18px;
+  }
+
+  #{{ section_id }} .trust__eyebrow-line {
+    display: inline-block;
+    width: 20px;
+    height: 1px;
+    background: {{ section.settings.accent_color | default: '#9A8260' }};
+  }
+
+  #{{ section_id }} .trust__heading {
+    font-size: {{ section.settings.heading_size | default: 32 }}px;
+    font-weight: {{ section.settings.heading_weight | default: '500' }};
+    line-height: 1.22;
+    letter-spacing: -0.025em;
+    color: {{ section.settings.heading_color | default: '#0F1923' }};
+    margin: 0 0 16px;
+  }
+
+  #{{ section_id }} .trust__subheading {
+    font-size: {{ section.settings.subheading_size | default: 15 }}px;
+    font-weight: 400;
+    line-height: 1.7;
+    color: {{ section.settings.subheading_color | default: '#6B7280' }};
+    margin: 0;
+  }
+
+  /* ============================================================
+     CARD GRID
+  ============================================================ */
+  #{{ section_id }} .trust__grid {
+    display: grid;
+    grid-template-columns: repeat({{ section.settings.desktop_columns | default: 4 }}, 1fr);
+    gap: {{ section.settings.card_gap | default: 24 }}px;
+    align-items: stretch;
+  }
+
+  /* ============================================================
+     INDIVIDUAL CARD
+  ============================================================ */
+  #{{ section_id }} .trust__card {
+    background: {{ section.settings.card_background | default: '#FAFAFA' }};
+    {% if section.settings.card_border %}
+      border: 1px solid {{ section.settings.border_color | default: '#EBEBEB' }};
+    {% endif %}
+    border-radius: {{ section.settings.card_border_radius | default: 12 }}px;
+    padding: {{ section.settings.card_padding | default: 36 }}px {{ section.settings.card_padding_h | default: 28 }}px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+    transition: transform 0.32s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                box-shadow 0.32s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                border-color 0.32s ease;
+    {% if section.settings.card_shadow %}
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.04);
+    {% endif %}
+    cursor: default;
+  }
+
+  #{{ section_id }} .trust__card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: {{ section.settings.card_border_radius | default: 12 }}px;
+    border: 1px solid transparent;
+    transition: border-color 0.32s ease;
+    pointer-events: none;
+  }
+
+  #{{ section_id }} .trust__card:hover {
+    transform: translateY(-3px);
+    {% if section.settings.card_shadow %}
+      box-shadow: 0 4px 8px rgba(0,0,0,0.04), 0 16px 40px rgba(0,0,0,0.08);
+    {% endif %}
+  }
+
+  #{{ section_id }} .trust__card:hover::before {
+    border-color: {{ section.settings.accent_color | default: '#9A8260' }}30;
+  }
+
+  /* ============================================================
+     CARD ICON
+  ============================================================ */
+  #{{ section_id }} .trust__icon-wrap {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+  }
+
+  #{{ section_id }} .trust__icon-wrap svg {
+    width: 28px;
+    height: 28px;
+    stroke-width: 1.4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+    display: block;
+  }
+
+  #{{ section_id }} .trust__icon-wrap img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    display: block;
+  }
+
+  #{{ section_id }} .trust__icon-bg {
+    position: absolute;
+    inset: 0;
+    border-radius: 10px;
+    background: {{ section.settings.icon_bg | default: '#F4F1EC' }};
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+  }
+
+  #{{ section_id }} .trust__card:hover .trust__icon-bg {
+    opacity: 1;
+  }
+
+  #{{ section_id }} .trust__icon-inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* ============================================================
+     CARD DIVIDER
+  ============================================================ */
+  #{{ section_id }} .trust__card-divider {
+    width: 24px;
+    height: 1px;
+    background: {{ section.settings.accent_color | default: '#9A8260' }};
+    opacity: 0.35;
+    margin-bottom: 18px;
+    transition: width 0.4s ease, opacity 0.4s ease;
+  }
+
+  #{{ section_id }} .trust__card:hover .trust__card-divider {
+    width: 36px;
+    opacity: 0.7;
+  }
+
+  /* ============================================================
+     CARD CONTENT
+  ============================================================ */
+  #{{ section_id }} .trust__card-title {
+    font-size: {{ section.settings.card_title_size | default: 15 }}px;
+    font-weight: {{ section.settings.card_title_weight | default: '600' }};
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    color: {{ section.settings.card_title_color | default: '#0F1923' }};
+    margin: 0 0 10px;
+  }
+
+  #{{ section_id }} .trust__card-desc {
+    font-size: {{ section.settings.card_desc_size | default: 13.5 }}px;
+    font-weight: 400;
+    line-height: 1.72;
+    color: {{ section.settings.card_desc_color | default: '#6B7280' }};
+    margin: 0;
+    flex: 1;
+  }
+
+  /* ============================================================
+     BOTTOM TRUST BAR
+  ============================================================ */
+  #{{ section_id }} .trust__bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: {{ section.settings.bar_top_spacing | default: 56 }}px;
+    padding-top: {{ section.settings.bar_top_spacing | default: 56 }}px;
+    border-top: 1px solid {{ section.settings.border_color | default: '#EBEBEB' }};
+  }
+
+  #{{ section_id }} .trust__bar-text {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: {{ section.settings.subheading_color | default: '#6B7280' }};
+  }
+
+  #{{ section_id }} .trust__bar-dot {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: {{ section.settings.border_color | default: '#EBEBEB' }};
+  }
+
+  /* ============================================================
+     FADE IN ANIMATION
+  ============================================================ */
+  {% if section.settings.enable_animations %}
+    #{{ section_id }} .trust__header-anim {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    #{{ section_id }} .trust__header-anim.trust--in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    #{{ section_id }} .trust__card-anim {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    #{{ section_id }} .trust__card-anim.trust--in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    #{{ section_id }} .trust__bar-anim {
+      opacity: 0;
+      transition: opacity 0.7s ease 0.5s;
+    }
+
+    #{{ section_id }} .trust__bar-anim.trust--in {
+      opacity: 1;
+    }
+  {% endif %}
+
+  /* ============================================================
+     RESPONSIVE — TABLET
+  ============================================================ */
+  @media (max-width: 1024px) {
+    #{{ section_id }} .trust__container {
+      padding-left: 28px;
+      padding-right: 28px;
+    }
+
+    #{{ section_id }} .trust__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: {{ section.settings.card_gap | default: 24 }}px;
+    }
+  }
+
+  /* ============================================================
+     RESPONSIVE — MOBILE
+  ============================================================ */
+  @media (max-width: 640px) {
+    #{{ section_id }} {
+      padding-top: {{ section.settings.mobile_padding_top | default: 52 }}px;
+      padding-bottom: {{ section.settings.mobile_padding_bottom | default: 52 }}px;
+    }
+
+    #{{ section_id }} .trust__container {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    #{{ section_id }} .trust__header {
+      margin-bottom: {{ section.settings.mobile_header_spacing | default: 40 }}px;
+    }
+
+    #{{ section_id }} .trust__heading {
+      font-size: {{ section.settings.mobile_heading_size | default: 24 }}px;
+    }
+
+    #{{ section_id }} .trust__subheading {
+      font-size: {{ section.settings.mobile_subheading_size | default: 14 }}px;
+    }
+
+    #{{ section_id }} .trust__grid {
+      grid-template-columns: repeat({{ section.settings.mobile_columns | default: 1 }}, 1fr);
+      gap: {{ section.settings.mobile_card_gap | default: 16 }}px;
+    }
+
+    #{{ section_id }} .trust__card {
+      padding: {{ section.settings.mobile_card_padding | default: 28 }}px {{ section.settings.mobile_card_padding_h | default: 24 }}px;
+    }
+
+    #{{ section_id }} .trust__bar {
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 40px;
+      padding-top: 40px;
+    }
+
+    #{{ section_id }} .trust__bar-dot {
+      display: none;
+    }
+  }
+
+  {% if section.settings.custom_css != blank %}
+    {{ section.settings.custom_css }}
+  {% endif %}
+</style>
+
+<section
+  id="{{ section_id }}"
+  class="drpen-trust-section{% if section.settings.custom_class != blank %} {{ section.settings.custom_class }}{% endif %}"
+  aria-labelledby="{{ section_id }}-heading"
+>
+  <div class="trust__container">
+
+    {%- comment -%} ─── SECTION HEADER ─── {%- endcomment -%}
+    <header class="trust__header{% if section.settings.enable_animations %} trust__header-anim{% endif %}">
+
+      {%- if section.settings.eyebrow_text != blank -%}
+        <p class="trust__eyebrow" aria-hidden="true">
+          <span class="trust__eyebrow-line"></span>
+          {{- section.settings.eyebrow_text | escape -}}
+          <span class="trust__eyebrow-line"></span>
+        </p>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <h2 class="trust__heading" id="{{ section_id }}-heading">
+          {{- section.settings.heading | escape -}}
+        </h2>
+      {%- endif -%}
+
+      {%- if section.settings.subheading != blank -%}
+        <p class="trust__subheading">
+          {{- section.settings.subheading | escape -}}
+        </p>
+      {%- endif -%}
+
+    </header>
+
+    {%- comment -%} ─── CARD GRID ─── {%- endcomment -%}
+    {%- if card_blocks.size > 0 -%}
+      <div class="trust__grid" role="list">
+        {%- for block in card_blocks -%}
+          {%- assign delay_ms = forloop.index0 | times: 90 -%}
+          <article
+            class="trust__card{% if section.settings.enable_animations %} trust__card-anim{% endif %}"
+            {% if section.settings.enable_animations %}style="transition-delay: {{ delay_ms }}ms;"{% endif %}
+            role="listitem"
+            {{ block.shopify_attributes }}
+          >
+
+            {%- comment -%} Icon {%- endcomment -%}
+            <div class="trust__icon-wrap" aria-hidden="true">
+              <span class="trust__icon-bg"></span>
+              <span class="trust__icon-inner">
+                {%- if block.settings.custom_icon != blank -%}
+                  {{
+                    block.settings.custom_icon
+                    | image_url: width: 56
+                    | image_tag:
+                      loading: 'lazy',
+                      alt: '',
+                      width: 28,
+                      height: 28
+                  }}
+                {%- else -%}
+                  {%- assign icon_color = block.settings.icon_color | default: section.settings.accent_color | default: '#9A8260' -%}
+                  {%- case block.settings.icon -%}
+                    {%- when 'shield' -%}
+                      <svg viewBox="0 0 24 24" stroke="{{ icon_color }}">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        <path d="M9 12l2 2 4-4"/>
+                      </svg>
+                    {%- when 'award' -%}
+                      <svg viewBox="0 0 24 24" stroke="{{ icon_color }}">
+                        <circle cx="12" cy="8" r="6"/>
+                        <path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/>
+                      </svg>
+                    {%- when 'lock' -%}
+                      <svg viewBox="0 0 24 24" stroke="{{ icon_color }}">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                      </svg>
+                    {%- when 'truck' -%}
+                      <svg viewBox="0 0 24 24" stroke="{{ icon_color }}">
+                        <rect x="1" y="3" width="15" height="13" rx="1"/>
+                        <path d="M16 8h4l3 5v3h-7V8z"/>
+                        <circle cx="5.5" cy="18.5" r="2.5"/>
+                        <circle cx="18.5" cy="18.5" r="2.5"/>
+                      </svg>
+                    {%- when 'check-circle' -%}
+                      <svg viewBox="0 0 24 24" stroke="{{ icon_color }}">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                        <polyline points="22 4 12 14.01 9 11.01"/>
+                      </svg>
+                    {%- when 'star' -%}
+                      <svg viewBox="0 0 24 24" stroke="{{ icon_color }}">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                      </svg>
+                    {%- when 'package' -%}
+                      <svg viewBox="0 0 24 24" stroke="{{ icon_color }}">
+                        <line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/>
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                        <line x1="12" y1="22.08" x2="12" y2="12"/>
+                      </svg>
+                    {%- when 'heart' -%}
+                      <svg viewBox="0 0 24 24" stroke="{{ icon_color }}">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                      </svg>
+                    {%- when 'zap' -%}
+                      <svg viewBox="0 0 24 24" stroke="{{ icon_color }}">
+                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                      </svg>
+                    {%- else -%}
+                      <svg viewBox="0 0 24 24" stroke="{{ icon_color }}">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        <path d="M9 12l2 2 4-4"/>
+                      </svg>
+                  {%- endcase -%}
+                {%- endif -%}
+              </span>
+            </div>
+
+            {%- comment -%} Thin divider accent {%- endcomment -%}
+            <div class="trust__card-divider" aria-hidden="true"></div>
+
+            {%- comment -%} Title {%- endcomment -%}
+            {%- if block.settings.title != blank -%}
+              <h3 class="trust__card-title">
+                {{- block.settings.title | escape -}}
+              </h3>
+            {%- endif -%}
+
+            {%- comment -%} Description {%- endcomment -%}
+            {%- if block.settings.description != blank -%}
+              <p class="trust__card-desc">
+                {{- block.settings.description | escape -}}
+              </p>
+            {%- endif -%}
+
+          </article>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- comment -%} ─── TRUST BAR ─── {%- endcomment -%}
+    {%- if section.settings.show_trust_bar and section.settings.trust_bar_items != blank -%}
+      <div class="trust__bar{% if section.settings.enable_animations %} trust__bar-anim{% endif %}" aria-label="Trust indicators">
+        {%- assign bar_items = section.settings.trust_bar_items | split: '|' -%}
+        {%- for item in bar_items -%}
+          {%- unless forloop.first -%}
+            <span class="trust__bar-dot" aria-hidden="true"></span>
+          {%- endunless -%}
+          <span class="trust__bar-text">{{- item | strip | escape -}}</span>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+  </div>
+</section>
+
+{%- if section.settings.enable_animations -%}
+<script>
+  (function() {
+    var sec = document.getElementById('{{ section_id }}');
+    if (!sec) return;
+    var els = sec.querySelectorAll('.trust__header-anim, .trust__card-anim, .trust__bar-anim');
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(function(e) { e.classList.add('trust--in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('trust--in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    els.forEach(function(e) { io.observe(e); });
+  })();
+</script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Authenticity & Trust",
+  "tag": "section",
+  "class": "drpen-trust-section-wrapper",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Header"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow_text",
+      "label": "Eyebrow label",
+      "default": "Official Source"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Why Professionals Trust Official Dr. Pen"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Premium microneedling devices backed by authenticity, support, and reliable fulfillment."
+    },
+    {
+      "type": "header",
+      "content": "Layout & Spacing"
+    },
+    {
+      "type": "select",
+      "id": "container_width",
+      "label": "Container width",
+      "options": [
+        { "value": "1040", "label": "Narrow (1040px)" },
+        { "value": "1200", "label": "Standard (1200px)" },
+        { "value": "1360", "label": "Wide (1360px)" },
+        { "value": "1520", "label": "Full wide (1520px)" }
+      ],
+      "default": "1200"
+    },
+    {
+      "type": "select",
+      "id": "desktop_columns",
+      "label": "Desktop columns",
+      "options": [
+        { "value": "2", "label": "2 columns" },
+        { "value": "3", "label": "3 columns" },
+        { "value": "4", "label": "4 columns" }
+      ],
+      "default": "4"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 88
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 88
+    },
+    {
+      "type": "range",
+      "id": "header_bottom_spacing",
+      "label": "Header to cards spacing",
+      "min": 24,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "card_gap",
+      "label": "Card gap",
+      "min": 8,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "label": "Card vertical padding",
+      "min": 16,
+      "max": 64,
+      "step": 4,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "card_padding_h",
+      "label": "Card horizontal padding",
+      "min": 12,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "label": "Card border radius",
+      "min": 0,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#FAFAFA"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#0F1923"
+    },
+    {
+      "type": "color",
+      "id": "subheading_color",
+      "label": "Subheading & description color",
+      "default": "#6B7280"
+    },
+    {
+      "type": "color",
+      "id": "card_title_color",
+      "label": "Card title color",
+      "default": "#0F1923"
+    },
+    {
+      "type": "color",
+      "id": "card_desc_color",
+      "label": "Card description color",
+      "default": "#6B7280"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color (eyebrow, divider, hover)",
+      "default": "#9A8260"
+    },
+    {
+      "type": "color",
+      "id": "icon_bg",
+      "label": "Icon background",
+      "default": "#F4F1EC"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "default": "#EBEBEB"
+    },
+    {
+      "type": "header",
+      "content": "Card Style"
+    },
+    {
+      "type": "checkbox",
+      "id": "card_border",
+      "label": "Show card border",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "card_shadow",
+      "label": "Show card shadow",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading font size",
+      "min": 20,
+      "max": 56,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "select",
+      "id": "heading_weight",
+      "label": "Heading font weight",
+      "options": [
+        { "value": "300", "label": "Light" },
+        { "value": "400", "label": "Regular" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi Bold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "500"
+    },
+    {
+      "type": "range",
+      "id": "subheading_size",
+      "label": "Subheading font size",
+      "min": 12,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "card_title_size",
+      "label": "Card title font size",
+      "min": 12,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "select",
+      "id": "card_title_weight",
+      "label": "Card title font weight",
+      "options": [
+        { "value": "400", "label": "Regular" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi Bold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "600"
+    },
+    {
+      "type": "range",
+      "id": "card_desc_size",
+      "label": "Card description font size",
+      "min": 11,
+      "max": 18,
+      "step": 0.5,
+      "unit": "px",
+      "default": 13.5
+    },
+    {
+      "type": "header",
+      "content": "Trust Bar"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_trust_bar",
+      "label": "Show trust bar",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "trust_bar_items",
+      "label": "Trust bar items (separate with |)",
+      "default": "Official Dr. Pen Retailer | 30-Day Returns | Secure Checkout | US-Based Fulfillment",
+      "info": "Separate each item with a pipe character: |"
+    },
+    {
+      "type": "range",
+      "id": "bar_top_spacing",
+      "label": "Trust bar spacing",
+      "min": 24,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 56
+    },
+    {
+      "type": "header",
+      "content": "Animations"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_animations",
+      "label": "Enable fade-in animations",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Mobile"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile padding top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 52
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile padding bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 52
+    },
+    {
+      "type": "select",
+      "id": "mobile_columns",
+      "label": "Mobile columns",
+      "options": [
+        { "value": "1", "label": "1 column" },
+        { "value": "2", "label": "2 columns" }
+      ],
+      "default": "1"
+    },
+    {
+      "type": "range",
+      "id": "mobile_card_gap",
+      "label": "Mobile card gap",
+      "min": 8,
+      "max": 32,
+      "step": 4,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "mobile_card_padding",
+      "label": "Mobile card vertical padding",
+      "min": 16,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "mobile_card_padding_h",
+      "label": "Mobile card horizontal padding",
+      "min": 12,
+      "max": 36,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "label": "Mobile heading size",
+      "min": 18,
+      "max": 36,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "mobile_subheading_size",
+      "label": "Mobile subheading size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "mobile_header_spacing",
+      "label": "Mobile header bottom spacing",
+      "min": 16,
+      "max": 64,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Advanced"
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom CSS class"
+    },
+    {
+      "type": "textarea",
+      "id": "custom_css",
+      "label": "Custom CSS"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "trust_card",
+      "name": "Trust Card",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "shield", "label": "Shield (Authentic)" },
+            { "value": "award", "label": "Award (Warranty)" },
+            { "value": "lock", "label": "Lock (Secure)" },
+            { "value": "truck", "label": "Truck (Shipping)" },
+            { "value": "check-circle", "label": "Check Circle (Verified)" },
+            { "value": "star", "label": "Star (Quality)" },
+            { "value": "package", "label": "Package (Fulfillment)" },
+            { "value": "heart", "label": "Heart (Care)" },
+            { "value": "zap", "label": "Zap (Performance)" }
+          ],
+          "default": "shield"
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_icon",
+          "label": "Custom icon image (overrides icon picker)"
+        },
+        {
+          "type": "color",
+          "id": "icon_color",
+          "label": "Icon stroke color",
+          "default": "#9A8260"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Card title",
+          "default": "Authentic Dr. Pen Devices"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Card description",
+          "default": "Every device and cartridge is carefully sourced and quality checked for authenticity."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Authenticity & Trust",
+      "blocks": [
+        {
+          "type": "trust_card",
+          "settings": {
+            "icon": "shield",
+            "title": "Authentic Dr. Pen Devices",
+            "description": "Every device and cartridge is carefully sourced and quality checked for authenticity."
+          }
+        },
+        {
+          "type": "trust_card",
+          "settings": {
+            "icon": "award",
+            "title": "Manufacturer Warranty",
+            "description": "All eligible devices include warranty support and after-purchase assistance."
+          }
+        },
+        {
+          "type": "trust_card",
+          "settings": {
+            "icon": "lock",
+            "title": "Secure & Protected Checkout",
+            "description": "Encrypted payments and trusted checkout experience for safe ordering."
+          }
+        },
+        {
+          "type": "trust_card",
+          "settings": {
+            "icon": "truck",
+            "title": "Fast US Fulfillment",
+            "description": "Quick processing and reliable shipping from our fulfillment network."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

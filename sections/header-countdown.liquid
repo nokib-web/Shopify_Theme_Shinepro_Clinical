@@ -1,0 +1,338 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .countdown-banner-{{ section.id }} {
+    background-color: {{ section.settings.bg_color }};
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+    min-height: 60px;
+    width: 100%;
+  }
+
+  .banner-side-img {
+    height: 100%;
+    max-height: 100px;
+    width: auto;
+    max-width: 200px;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+
+  .countdown-content-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    flex-grow: 1;
+    z-index: 2;
+    padding: 0 10px;
+  }
+
+  .countdown-icon img {
+    width: {{ section.settings.icon_width }}px;
+    height: {{ section.settings.icon_height }}px;
+    object-fit: contain;
+  }
+
+  .countdown-text {
+    color: {{ section.settings.text_color }};
+    font-size: {{ section.settings.font_size }}px;
+    font-weight: {{ section.settings.font_weight }};
+    white-space: nowrap;
+  }
+
+  .countdown-timer-display {
+    display: flex;
+    gap: 8px;
+  }
+
+  .timer-block {
+    background: {{ section.settings.timer_bg_color }};
+    color: {{ section.settings.timer_text_color }};
+    padding: 10px 16px;
+    border-radius: 6px;
+    text-align: center;
+    min-width: 65px;
+  }
+
+  .timer-num {
+    display: block;
+    font-size: 1.8rem;
+    font-weight: bold;
+    line-height: 1;
+  }
+
+  .timer-label {
+    display: block;
+    font-size: 1rem;
+    text-transform: uppercase;
+    margin-top: 6px;
+  }
+
+  /* Mobile Fixes */
+  @media screen and (max-width: 749px) {
+    .bg-img-left, .bg-img-right {
+      display: none;
+    }
+
+    .countdown-content-wrapper {
+      flex-direction: row;
+      gap: 8px;
+      padding: 0 5px;
+      justify-content: space-evenly;
+    }
+
+    .countdown-text {
+      font-size: clamp(12px, 3.5vw, 16px);
+    }
+
+    .countdown-icon img {
+      width: calc({{ section.settings.icon_width }}px * 0.7);
+      height: auto;
+    }
+
+    .timer-block {
+      min-width: 50px;
+      padding: 6px 10px;
+    }
+
+    .timer-num {
+      font-size: 1.4rem;
+    }
+
+    .timer-label {
+      font-size: 0.85rem;
+    }
+  }
+{%- endstyle -%}
+
+<div class="countdown-banner-{{ section.id }} section-{{ section.id }}-padding">
+  <div class="bg-img-left">
+    {%- if section.settings.bg_image_1 != blank -%}
+      <img src="{{ section.settings.bg_image_1 | image_url: width: 400 }}" class="banner-side-img" alt="Decor left" loading="lazy">
+    {%- endif -%}
+  </div>
+
+  <div class="countdown-content-wrapper">
+    {%- if section.settings.icon != blank -%}
+      <div class="countdown-icon">
+        <img src="{{ section.settings.icon | image_url: width: 200 }}" alt="Icon" loading="lazy">
+      </div>
+    {%- endif -%}
+
+    <div class="countdown-text">
+      {{ section.settings.text }}
+    </div>
+
+    <div class="countdown-timer-display" id="timer-{{ section.id }}" data-date="{{ section.settings.end_date }}">
+      <div class="timer-block"><span class="timer-num" id="days-{{ section.id }}">00</span><span class="timer-label">Days</span></div>
+      <div class="timer-block"><span class="timer-num" id="hours-{{ section.id }}">00</span><span class="timer-label">Hrs</span></div>
+      <div class="timer-block"><span class="timer-num" id="mins-{{ section.id }}">00</span><span class="timer-label">Min</span></div>
+      <div class="timer-block"><span class="timer-num" id="secs-{{ section.id }}">00</span><span class="timer-label">Sec</span></div>
+    </div>
+  </div>
+
+  <div class="bg-img-right">
+    {%- if section.settings.bg_image_2 != blank -%}
+      <img src="{{ section.settings.bg_image_2 | image_url: width: 400 }}" class="banner-side-img" alt="Decor right" loading="lazy">
+    {%- endif -%}
+  </div>
+</div>
+
+<script>
+  (function() {
+    const timerEl = document.getElementById('timer-{{ section.id }}');
+    if (!timerEl) return;
+
+    const storageKey = 'countdown_end_{{ section.id }}';
+    const settingsDate = timerEl.dataset.date;
+
+    let savedDate = localStorage.getItem(storageKey);
+    if (!savedDate || savedDate !== settingsDate) {
+      localStorage.setItem(storageKey, settingsDate);
+      savedDate = settingsDate;
+    }
+
+    function updateTimer() {
+      const endDate = new Date(savedDate).getTime();
+      const now = new Date().getTime();
+      const distance = endDate - now;
+
+      if (distance < 0) {
+        timerEl.innerHTML = "<span style='color:inherit;'>EXPIRED</span>";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      const d = document.getElementById('days-{{ section.id }}');
+      const h = document.getElementById('hours-{{ section.id }}');
+      const m = document.getElementById('mins-{{ section.id }}');
+      const s = document.getElementById('secs-{{ section.id }}');
+
+      if(d) d.innerText = days.toString().padStart(2, '0');
+      if(h) h.innerText = hours.toString().padStart(2, '0');
+      if(m) m.innerText = minutes.toString().padStart(2, '0');
+      if(s) s.innerText = seconds.toString().padStart(2, '0');
+    }
+
+    updateTimer();
+    setInterval(updateTimer, 1000);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Countdown Banner",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Background Settings"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section Background Color",
+      "default": "#1a0033"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image_1",
+      "label": "Left Decoration (BG1)"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image_2",
+      "label": "Right Decoration (BG2)"
+    },
+    {
+      "type": "header",
+      "content": "Content Settings"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon",
+      "label": "Icon"
+    },
+    {
+      "type": "range",
+      "id": "icon_width",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Icon Width",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "icon_height",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Icon Height",
+      "default": 40
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Text Content",
+      "default": "Sale Ends In:"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "min": 12,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Font Size",
+      "default": 18
+    },
+    {
+      "type": "select",
+      "id": "font_weight",
+      "label": "Font Weight",
+      "options": [
+        { "value": "400", "label": "Regular" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "700"
+    },
+    {
+      "type": "header",
+      "content": "Countdown Timer"
+    },
+    {
+      "type": "text",
+      "id": "end_date",
+      "label": "End Date (Format: YYYY-MM-DD HH:MM:SS)",
+      "default": "2026-12-31 23:59:59"
+    },
+    {
+      "type": "color",
+      "id": "timer_bg_color",
+      "label": "Timer Block Color",
+      "default": "#eef442"
+    },
+    {
+      "type": "color",
+      "id": "timer_text_color",
+      "label": "Timer Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 20
+    }
+  ],
+  "presets": [
+    {
+      "name": "Countdown Banner"
+    }
+  ]
+}
+{% endschema %}

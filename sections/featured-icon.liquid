@@ -1,0 +1,1093 @@
+{%- comment -%}
+  Feature Icons Bar Section
+  Compatible with: Shrine Pro & all modern Shopify themes
+  Features: Full customization, responsive, dynamic font, multi-device padding/margin
+{%- endcomment -%}
+
+{%- liquid
+  assign section_id = 'fib-' | append: section.id
+  assign columns = section.settings.columns_desktop | default: 3
+  assign columns_tablet = section.settings.columns_tablet | default: 2
+  assign columns_mobile = section.settings.columns_mobile | default: 1
+-%}
+
+<style>
+  #{{ section_id }} {
+    --fib-bg: {{ section.settings.background_color }};
+    --fib-border-color: {{ section.settings.border_color }};
+    --fib-icon-color: {{ section.settings.icon_color }};
+    --fib-icon-size: {{ section.settings.icon_size }}px;
+    --fib-heading-color: {{ section.settings.heading_color }};
+    --fib-heading-size: {{ section.settings.heading_font_size }}px;
+    --fib-text-color: {{ section.settings.text_color }};
+    --fib-text-size: {{ section.settings.text_font_size }}px;
+    --fib-divider-color: {{ section.settings.divider_color }};
+    --fib-columns: {{ columns }};
+    --fib-gap: {{ section.settings.item_gap }}px;
+    --fib-item-padding-v: {{ section.settings.item_padding_vertical }}px;
+    --fib-item-padding-h: {{ section.settings.item_padding_horizontal }}px;
+    --fib-section-pt: {{ section.settings.padding_top }}px;
+    --fib-section-pb: {{ section.settings.padding_bottom }}px;
+    --fib-section-pl: {{ section.settings.padding_left }}px;
+    --fib-section-pr: {{ section.settings.padding_right }}px;
+    --fib-section-mt: {{ section.settings.margin_top }}px;
+    --fib-section-mb: {{ section.settings.margin_bottom }}px;
+    --fib-border-radius: {{ section.settings.border_radius }}px;
+    --fib-icon-bg: {{ section.settings.icon_background_color }};
+    --fib-icon-bg-size: {{ section.settings.icon_bg_size }}px;
+    --fib-icon-bg-radius: {{ section.settings.icon_bg_radius }}px;
+    --fib-align: {{ section.settings.content_alignment }};
+    --fib-heading-weight: {{ section.settings.heading_weight }};
+    --fib-section-border-top: {{ section.settings.section_border_top_width }}px solid {{ section.settings.section_border_color }};
+    --fib-section-border-bottom: {{ section.settings.section_border_bottom_width }}px solid {{ section.settings.section_border_color }};
+    --fib-max-width: {{ section.settings.max_width }}px;
+    --fib-divider-width: {{ section.settings.divider_width }}px;
+    --fib-divider-style: {{ section.settings.divider_style }};
+    --fib-icon-gap: {{ section.settings.icon_text_gap }}px;
+    --fib-heading-lh: {{ section.settings.heading_line_height | times: 0.1 }};
+    --fib-text-lh: {{ section.settings.text_line_height | times: 0.1 }};
+  }
+
+  #{{ section_id }} .fib-section-wrap {
+    background-color: var(--fib-bg);
+    padding-top: var(--fib-section-pt);
+    padding-bottom: var(--fib-section-pb);
+    padding-left: var(--fib-section-pl);
+    padding-right: var(--fib-section-pr);
+    margin-top: var(--fib-section-mt);
+    margin-bottom: var(--fib-section-mb);
+    border-top: var(--fib-section-border-top);
+    border-bottom: var(--fib-section-border-bottom);
+  }
+
+  #{{ section_id }} .fib-container {
+    max-width: var(--fib-max-width);
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+  }
+
+  #{{ section_id }} .fib-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--fib-columns), 1fr);
+    gap: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border: {% if section.settings.show_outer_border %}1px solid var(--fib-border-color){% else %}none{% endif %};
+    border-radius: var(--fib-border-radius);
+    overflow: hidden;
+  }
+
+  #{{ section_id }} .fib-item {
+    display: flex;
+    flex-direction: {% if section.settings.layout_direction == 'horizontal' %}row{% else %}column{% endif %};
+    align-items: {% if section.settings.layout_direction == 'horizontal' %}center{% else %}var(--fib-align){% endif %};
+    justify-content: {% if section.settings.layout_direction == 'horizontal' %}flex-start{% else %}var(--fib-align){% endif %};
+    gap: var(--fib-icon-gap);
+    padding: var(--fib-item-padding-v) var(--fib-item-padding-h);
+    text-align: {% if section.settings.layout_direction == 'horizontal' %}left{% elsif section.settings.content_alignment == 'center' %}center{% elsif section.settings.content_alignment == 'flex-end' %}right{% else %}left{% endif %};
+    position: relative;
+    background-color: var(--fib-bg);
+    transition: background-color 0.2s ease;
+  }
+
+  {% if section.settings.show_item_hover %}
+  #{{ section_id }} .fib-item:hover {
+    background-color: {{ section.settings.hover_bg_color }};
+  }
+  {% endif %}
+
+  /* Dividers between items */
+  {% if section.settings.show_dividers %}
+  #{{ section_id }} .fib-item::after {
+    content: '';
+    position: absolute;
+    background-color: var(--fib-divider-color);
+  }
+
+  /* Vertical dividers (right side of each item except last in row) */
+  #{{ section_id }} .fib-item:not(:nth-child({{ columns }}n))::after {
+    right: 0;
+    top: var(--fib-item-padding-v);
+    bottom: var(--fib-item-padding-v);
+    width: var(--fib-divider-width);
+  }
+
+  /* Horizontal dividers (bottom of rows except last) */
+  #{{ section_id }} .fib-item::before {
+    content: '';
+    position: absolute;
+    background-color: var(--fib-divider-color);
+    bottom: 0;
+    left: var(--fib-item-padding-h);
+    right: var(--fib-item-padding-h);
+    height: var(--fib-divider-width);
+  }
+
+  #{{ section_id }} .fib-item:nth-last-child(-n+{{ columns }})::before {
+    display: none;
+  }
+  {% endif %}
+
+  #{{ section_id }} .fib-icon-wrap {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    {% if section.settings.show_icon_bg %}
+    width: var(--fib-icon-bg-size);
+    height: var(--fib-icon-bg-size);
+    background-color: var(--fib-icon-bg);
+    border-radius: var(--fib-icon-bg-radius);
+    {% endif %}
+  }
+
+  #{{ section_id }} .fib-icon-wrap svg,
+  #{{ section_id }} .fib-icon-wrap img {
+    width: var(--fib-icon-size);
+    height: var(--fib-icon-size);
+    color: var(--fib-icon-color);
+    fill: {% if section.settings.icon_fill %}var(--fib-icon-color){% else %}none{% endif %};
+    stroke: var(--fib-icon-color);
+    display: block;
+    object-fit: contain;
+  }
+
+  #{{ section_id }} .fib-icon-wrap img {
+    stroke: unset;
+  }
+
+  #{{ section_id }} .fib-text-wrap {
+    flex: 1;
+  }
+
+  #{{ section_id }} .fib-heading {
+    font-size: var(--fib-heading-size);
+    font-weight: var(--fib-heading-weight);
+    color: var(--fib-heading-color);
+    margin: 0 0 4px 0;
+    line-height: var(--fib-heading-lh);
+    letter-spacing: {{ section.settings.heading_letter_spacing | times: 0.01 }}em;
+    {% unless section.settings.use_theme_font %}
+    font-family: '{{ section.settings.custom_font_family }}', sans-serif;
+    {% endunless %}
+  }
+
+  #{{ section_id }} .fib-text {
+    font-size: var(--fib-text-size);
+    color: var(--fib-text-color);
+    margin: 0;
+    line-height: var(--fib-text-lh);
+    {% unless section.settings.use_theme_font %}
+    font-family: '{{ section.settings.custom_font_family }}', sans-serif;
+    {% endunless %}
+  }
+
+  #{{ section_id }} .fib-text strong {
+    color: {{ section.settings.bold_text_color }};
+    font-weight: {{ section.settings.heading_weight }};
+  }
+
+  /* ===== TABLET ===== */
+  @media screen and (max-width: 1023px) {
+    #{{ section_id }} {
+      --fib-columns: {{ columns_tablet }};
+      --fib-section-pt: {{ section.settings.tablet_padding_top }}px;
+      --fib-section-pb: {{ section.settings.tablet_padding_bottom }}px;
+      --fib-section-pl: {{ section.settings.tablet_padding_left }}px;
+      --fib-section-pr: {{ section.settings.tablet_padding_right }}px;
+      --fib-section-mt: {{ section.settings.tablet_margin_top }}px;
+      --fib-section-mb: {{ section.settings.tablet_margin_bottom }}px;
+      --fib-heading-size: {{ section.settings.tablet_heading_font_size }}px;
+      --fib-text-size: {{ section.settings.tablet_text_font_size }}px;
+      --fib-icon-size: {{ section.settings.tablet_icon_size }}px;
+      --fib-item-padding-v: {{ section.settings.tablet_item_padding_vertical }}px;
+      --fib-item-padding-h: {{ section.settings.tablet_item_padding_horizontal }}px;
+    }
+
+    {% if section.settings.show_dividers %}
+    #{{ section_id }} .fib-item:not(:nth-child({{ columns_tablet }}n))::after {
+      display: block;
+    }
+    #{{ section_id }} .fib-item:nth-child({{ columns }}n)::after {
+      display: block;
+    }
+    #{{ section_id }} .fib-item:nth-child({{ columns_tablet }}n)::after {
+      display: none;
+    }
+    #{{ section_id }} .fib-item:nth-last-child(-n+{{ columns_tablet }})::before {
+      display: none;
+    }
+    #{{ section_id }} .fib-item:nth-last-child(-n+{{ columns }})::before {
+      display: block;
+    }
+    {% endif %}
+  }
+
+  /* ===== MOBILE ===== */
+  @media screen and (max-width: 749px) {
+    #{{ section_id }} {
+      --fib-columns: {{ columns_mobile }};
+      --fib-section-pt: {{ section.settings.mobile_padding_top }}px;
+      --fib-section-pb: {{ section.settings.mobile_padding_bottom }}px;
+      --fib-section-pl: {{ section.settings.mobile_padding_left }}px;
+      --fib-section-pr: {{ section.settings.mobile_padding_right }}px;
+      --fib-section-mt: {{ section.settings.mobile_margin_top }}px;
+      --fib-section-mb: {{ section.settings.mobile_margin_bottom }}px;
+      --fib-heading-size: {{ section.settings.mobile_heading_font_size }}px;
+      --fib-text-size: {{ section.settings.mobile_text_font_size }}px;
+      --fib-icon-size: {{ section.settings.mobile_icon_size }}px;
+      --fib-item-padding-v: {{ section.settings.mobile_item_padding_vertical }}px;
+      --fib-item-padding-h: {{ section.settings.mobile_item_padding_horizontal }}px;
+    }
+
+    {% if section.settings.show_dividers %}
+    #{{ section_id }} .fib-item::after {
+      display: {% if columns_mobile == 1 %}none{% else %}block{% endif %};
+    }
+    #{{ section_id }} .fib-item:nth-child({{ columns_tablet }}n)::after {
+      display: block;
+    }
+    #{{ section_id }} .fib-item:nth-child({{ columns_mobile }}n)::after {
+      display: none;
+    }
+    #{{ section_id }} .fib-item:nth-last-child(-n+{{ columns_mobile }})::before {
+      display: none;
+    }
+    #{{ section_id }} .fib-item:nth-last-child(-n+{{ columns_tablet }})::before {
+      display: block;
+    }
+    {% endif %}
+
+    #{{ section_id }} .fib-item {
+      flex-direction: {% if section.settings.mobile_stack_layout %}column{% elsif section.settings.layout_direction == 'horizontal' %}row{% else %}column{% endif %};
+      {% if section.settings.mobile_stack_layout %}
+      align-items: var(--fib-align);
+      text-align: {% if section.settings.content_alignment == 'center' %}center{% elsif section.settings.content_alignment == 'flex-end' %}right{% else %}left{% endif %};
+      {% endif %}
+    }
+  }
+</style>
+
+<div id="{{ section_id }}">
+  <div class="fib-section-wrap">
+    <div class="fib-container">
+      <ul class="fib-grid" role="list">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'feature_item' -%}
+            <li class="fib-item" {{ block.shopify_attributes }}>
+
+              {%- comment -%} Icon Area {%- endcomment -%}
+              {%- if block.settings.icon_image != blank or block.settings.icon_svg != blank -%}
+                <div class="fib-icon-wrap">
+                  {%- if block.settings.icon_image != blank -%}
+                    <img
+                      src="{{ block.settings.icon_image | image_url: width: 80 }}"
+                      alt="{{ block.settings.heading | escape }}"
+                      width="{{ section.settings.icon_size }}"
+                      height="{{ section.settings.icon_size }}"
+                      loading="lazy"
+                    >
+                  {%- elsif block.settings.icon_svg != blank -%}
+                    {{ block.settings.icon_svg }}
+                  {%- endif -%}
+                </div>
+              {%- elsif block.settings.icon_preset != 'none' -%}
+                <div class="fib-icon-wrap">
+                  {%- case block.settings.icon_preset -%}
+                    {%- when 'store' -%}
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 21v-7.5a.75.75 0 01.75-.75h3a.75.75 0 01.75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349m-16.5 11.65V9.35m0 0a3.001 3.001 0 003.75-.615A2.993 2.993 0 009.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 002.25 1.016c.896 0 1.7-.393 2.25-1.016a3.001 3.001 0 003.75.614m-16.5 0a3.004 3.004 0 01-.621-4.72L4.318 3.44A1.5 1.5 0 015.378 3h13.243a1.5 1.5 0 011.06.44l1.19 1.189a3 3 0 01-.621 4.72m-13.5 8.65h3.75a.375.375 0 00.375-.375v-1.5a.375.375 0 00-.375-.375h-3.75a.375.375 0 00-.375.375v1.5c0 .207.168.375.375.375z" /></svg>
+                    {%- when 'shield' -%}
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" /></svg>
+                    {%- when 'truck' -%}
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" /></svg>
+                    {%- when 'star' -%}
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" /></svg>
+                    {%- when 'heart' -%}
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" /></svg>
+                    {%- when 'leaf' -%}
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" /></svg>
+                    {%- when 'tag' -%}
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z" /><path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6z" /></svg>
+                    {%- when 'check' -%}
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    {%- when 'globe' -%}
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" /></svg>
+                    {%- when 'sparkle' -%}
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" /></svg>
+                    {%- when 'clock' -%}
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    {%- when 'phone' -%}
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 6.75z" /></svg>
+                    {%- when 'lock' -%}
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" /></svg>
+                    {%- when 'gift' -%}
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21 11.25v8.25a1.5 1.5 0 01-1.5 1.5H5.25a1.5 1.5 0 01-1.5-1.5v-8.25M12 4.875A2.625 2.625 0 109.375 7.5H12m0-2.625V7.5m0-2.625A2.625 2.625 0 1114.625 7.5H12m0 0V21m-8.625-9.75h18c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125h-18c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" /></svg>
+                    {%- when 'users' -%}
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" /></svg>
+                    {%- when 'award' -%}
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.503-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.007 0H9.497m5.007 0a7.454 7.454 0 01-.982-3.172M9.497 14.25a7.454 7.454 0 00.981-3.172M5.25 4.236c-.982.143-1.954.317-2.916.52A6.003 6.003 0 007.73 9.728M5.25 4.236V4.5c0 2.108.966 3.99 2.48 5.228M5.25 4.236V2.721C7.456 2.41 9.71 2.25 12 2.25c2.291 0 4.545.16 6.75.47v1.516M7.73 9.728a6.726 6.726 0 002.748 1.35m8.272-6.842V4.5c0 2.108-.966 3.99-2.48 5.228m2.48-5.492a46.32 46.32 0 012.916.52 6.003 6.003 0 01-5.395 4.972m0 0a6.726 6.726 0 01-2.749 1.35m0 0a6.772 6.772 0 01-3.044 0" /></svg>
+                  {%- endcase -%}
+                </div>
+              {%- endif -%}
+
+              {%- comment -%} Text Area {%- endcomment -%}
+              <div class="fib-text-wrap">
+                {%- if block.settings.heading != blank -%}
+                  <p class="fib-heading">{{ block.settings.heading }}</p>
+                {%- endif -%}
+                {%- if block.settings.text != blank -%}
+                  <p class="fib-text">{{ block.settings.text }}</p>
+                {%- endif -%}
+              </div>
+
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Feature Icons Bar",
+  "tag": "section",
+  "class": "feature-icons-bar-section",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "header",
+      "content": "🖥️ Desktop Layout"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "Columns (Desktop)",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "select",
+      "id": "layout_direction",
+      "label": "Item Layout",
+      "options": [
+        { "value": "horizontal", "label": "Icon Left, Text Right" },
+        { "value": "vertical", "label": "Icon Top, Text Below" }
+      ],
+      "default": "vertical"
+    },
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "label": "Content Alignment",
+      "options": [
+        { "value": "flex-start", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "flex-end", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Max Container Width (px)",
+      "min": 800,
+      "max": 1920,
+      "step": 20,
+      "default": 1400
+    },
+    {
+      "type": "header",
+      "content": "📱 Tablet Layout"
+    },
+    {
+      "type": "range",
+      "id": "columns_tablet",
+      "label": "Columns (Tablet)",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "header",
+      "content": "📲 Mobile Layout"
+    },
+    {
+      "type": "range",
+      "id": "columns_mobile",
+      "label": "Columns (Mobile)",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 1
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_stack_layout",
+      "label": "Stack icon on top (Mobile)",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "🎨 Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Body Text Color",
+      "default": "#555555"
+    },
+    {
+      "type": "color",
+      "id": "bold_text_color",
+      "label": "Bold Text Color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon Color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_icon_bg",
+      "label": "Show Icon Background",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "icon_background_color",
+      "label": "Icon Background Color",
+      "default": "#f4f4f4"
+    },
+    {
+      "type": "range",
+      "id": "icon_bg_size",
+      "label": "Icon Background Size (px)",
+      "min": 30,
+      "max": 100,
+      "step": 2,
+      "default": 52
+    },
+    {
+      "type": "range",
+      "id": "icon_bg_radius",
+      "label": "Icon Background Border Radius (px)",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "default": 8
+    },
+    {
+      "type": "checkbox",
+      "id": "icon_fill",
+      "label": "Fill Icon (solid icons)",
+      "default": false,
+      "info": "Enable for solid/filled icons. Disable for outline icons."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_item_hover",
+      "label": "Show Item Hover Effect",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "hover_bg_color",
+      "label": "Item Hover Background",
+      "default": "#f8f8f8"
+    },
+    {
+      "type": "header",
+      "content": "✏️ Typography"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_theme_font",
+      "label": "Use Theme Font",
+      "default": true,
+      "info": "When enabled, inherits font from your theme. Disable to enter a custom font."
+    },
+    {
+      "type": "text",
+      "id": "custom_font_family",
+      "label": "Custom Font Family",
+      "default": "inherit",
+      "info": "Only used if 'Use Theme Font' is disabled. E.g. 'Playfair Display'"
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size",
+      "label": "Heading Font Size — Desktop (px)",
+      "min": 10,
+      "max": 36,
+      "step": 1,
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "tablet_heading_font_size",
+      "label": "Heading Font Size — Tablet (px)",
+      "min": 10,
+      "max": 36,
+      "step": 1,
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_font_size",
+      "label": "Heading Font Size — Mobile (px)",
+      "min": 10,
+      "max": 36,
+      "step": 1,
+      "default": 15
+    },
+    {
+      "type": "select",
+      "id": "heading_weight",
+      "label": "Heading Font Weight",
+      "options": [
+        { "value": "400", "label": "Regular (400)" },
+        { "value": "500", "label": "Medium (500)" },
+        { "value": "600", "label": "Semi Bold (600)" },
+        { "value": "700", "label": "Bold (700)" },
+        { "value": "800", "label": "Extra Bold (800)" }
+      ],
+      "default": "700"
+    },
+    {
+      "type": "range",
+      "id": "heading_line_height",
+      "label": "Heading Line Height",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "default": 14,
+      "info": "Value is divided by 10 (e.g. 13 = 1.3)"
+    },
+    {
+      "type": "range",
+      "id": "heading_letter_spacing",
+      "label": "Heading Letter Spacing",
+      "min": -5,
+      "max": 10,
+      "step": 1,
+      "default": 0,
+      "info": "Value in hundredths of em (e.g. 2 = 0.02em)"
+    },
+    {
+      "type": "range",
+      "id": "text_font_size",
+      "label": "Body Font Size — Desktop (px)",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "tablet_text_font_size",
+      "label": "Body Font Size — Tablet (px)",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "default": 13
+    },
+    {
+      "type": "range",
+      "id": "mobile_text_font_size",
+      "label": "Body Font Size — Mobile (px)",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "default": 13
+    },
+    {
+      "type": "range",
+      "id": "text_line_height",
+      "label": "Body Line Height",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "default": 15,
+      "info": "Value is divided by 10 (e.g. 15 = 1.5)"
+    },
+    {
+      "type": "header",
+      "content": "🔲 Icons"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Icon Size — Desktop (px)",
+      "min": 16,
+      "max": 80,
+      "step": 2,
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "tablet_icon_size",
+      "label": "Icon Size — Tablet (px)",
+      "min": 16,
+      "max": 80,
+      "step": 2,
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "mobile_icon_size",
+      "label": "Icon Size — Mobile (px)",
+      "min": 16,
+      "max": 80,
+      "step": 2,
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "icon_text_gap",
+      "label": "Gap: Icon to Text (px)",
+      "min": 4,
+      "max": 40,
+      "step": 2,
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "📐 Dividers & Borders"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dividers",
+      "label": "Show Dividers Between Items",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Divider Color",
+      "default": "#e5e5e5"
+    },
+    {
+      "type": "range",
+      "id": "divider_width",
+      "label": "Divider Thickness (px)",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 1
+    },
+    {
+      "type": "checkbox",
+      "id": "show_outer_border",
+      "label": "Show Outer Grid Border",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Outer Border Color",
+      "default": "#e5e5e5"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Outer Border Radius (px)",
+      "min": 0,
+      "max": 24,
+      "step": 1,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "section_border_top_width",
+      "label": "Section Border Top (px)",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "section_border_bottom_width",
+      "label": "Section Border Bottom (px)",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "default": 0
+    },
+    {
+      "type": "color",
+      "id": "section_border_color",
+      "label": "Section Border Color",
+      "default": "#e8e8e8"
+    },
+    {
+      "type": "header",
+      "content": "📏 Desktop Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top (px)",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom (px)",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_left",
+      "label": "Padding Left (px)",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_right",
+      "label": "Padding Right (px)",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin Top (px)",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin Bottom (px)",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "item_padding_vertical",
+      "label": "Item Padding Vertical (px)",
+      "min": 8,
+      "max": 80,
+      "step": 4,
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "item_padding_horizontal",
+      "label": "Item Padding Horizontal (px)",
+      "min": 8,
+      "max": 80,
+      "step": 4,
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "📏 Tablet Spacing"
+    },
+    {
+      "type": "range",
+      "id": "tablet_padding_top",
+      "label": "Padding Top — Tablet (px)",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "tablet_padding_bottom",
+      "label": "Padding Bottom — Tablet (px)",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "tablet_padding_left",
+      "label": "Padding Left — Tablet (px)",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "tablet_padding_right",
+      "label": "Padding Right — Tablet (px)",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "tablet_margin_top",
+      "label": "Margin Top — Tablet (px)",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "tablet_margin_bottom",
+      "label": "Margin Bottom — Tablet (px)",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "tablet_item_padding_vertical",
+      "label": "Item Padding Vertical — Tablet (px)",
+      "min": 8,
+      "max": 80,
+      "step": 4,
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "tablet_item_padding_horizontal",
+      "label": "Item Padding Horizontal — Tablet (px)",
+      "min": 8,
+      "max": 80,
+      "step": 4,
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "📏 Mobile Spacing"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Padding Top — Mobile (px)",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Padding Bottom — Mobile (px)",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_left",
+      "label": "Padding Left — Mobile (px)",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_right",
+      "label": "Padding Right — Mobile (px)",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "mobile_margin_top",
+      "label": "Margin Top — Mobile (px)",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "mobile_margin_bottom",
+      "label": "Margin Bottom — Mobile (px)",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "mobile_item_padding_vertical",
+      "label": "Item Padding Vertical — Mobile (px)",
+      "min": 8,
+      "max": 60,
+      "step": 4,
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "mobile_item_padding_horizontal",
+      "label": "Item Padding Horizontal — Mobile (px)",
+      "min": 8,
+      "max": 60,
+      "step": 4,
+      "default": 16
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature_item",
+      "name": "Feature Item",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Icon"
+        },
+        {
+          "type": "select",
+          "id": "icon_preset",
+          "label": "Preset Icon",
+          "options": [
+            { "value": "none", "label": "None (use image or SVG)" },
+            { "value": "store", "label": "Store / Shop" },
+            { "value": "truck", "label": "Delivery / Truck" },
+            { "value": "shield", "label": "Shield / Security" },
+            { "value": "check", "label": "Checkmark / Verified" },
+            { "value": "star", "label": "Star / Quality" },
+            { "value": "heart", "label": "Heart / Love" },
+            { "value": "leaf", "label": "Leaf / Eco" },
+            { "value": "tag", "label": "Tag / Discount" },
+            { "value": "globe", "label": "Globe / Worldwide" },
+            { "value": "sparkle", "label": "Sparkle / Premium" },
+            { "value": "clock", "label": "Clock / Fast" },
+            { "value": "phone", "label": "Phone / Support" },
+            { "value": "lock", "label": "Lock / Safe" },
+            { "value": "gift", "label": "Gift" },
+            { "value": "users", "label": "Users / Community" },
+            { "value": "award", "label": "Award / Trophy" }
+          ],
+          "default": "store"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_image",
+          "label": "Custom Icon Image",
+          "info": "Upload a PNG/SVG icon. Overrides preset icon."
+        },
+        {
+          "type": "html",
+          "id": "icon_svg",
+          "label": "Custom SVG Code",
+          "info": "Paste raw <svg>...</svg> code. Overrides preset & image."
+        },
+        {
+          "type": "header",
+          "content": "Content"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Feature Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Description",
+          "default": "<p>Add a short description of this feature or benefit here.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Feature Icons Bar",
+      "blocks": [
+        {
+          "type": "feature_item",
+          "settings": {
+            "icon_preset": "store",
+            "heading": "Official USA Store",
+            "text": "<p>Guaranteed 2-day delivery from US warehouse. 100% risk-free buyer protection and top customer service.</p>"
+          }
+        },
+        {
+          "type": "feature_item",
+          "settings": {
+            "icon_preset": "users",
+            "heading": "Trusted by Skin Care Experts",
+            "text": "<p>Dermatologists worldwide stand by <strong>Dr. Pen™ benefits</strong> and results.</p>"
+          }
+        },
+        {
+          "type": "feature_item",
+          "settings": {
+            "icon_preset": "sparkle",
+            "heading": "Skin Transformation",
+            "text": "<p>Get radiant, plump, and smooth skin from the comfort of your home.</p>"
+          }
+        },
+        {
+          "type": "feature_item",
+          "settings": {
+            "icon_preset": "award",
+            "heading": "Next-Generation Technology",
+            "text": "<p><strong>Dr. Pen™ Company</strong> uses patented micro-needling solutions, meeting all RoHS and CE standards.</p>"
+          }
+        },
+        {
+          "type": "feature_item",
+          "settings": {
+            "icon_preset": "shield",
+            "heading": "12-Month Warranty",
+            "text": "<p>Enjoy a one-year protection plan on all <strong>Dr. Pen™ professional</strong> devices. Money-back guarantee included.</p>"
+          }
+        },
+        {
+          "type": "feature_item",
+          "settings": {
+            "icon_preset": "heart",
+            "heading": "Safe and Gentle",
+            "text": "<p><strong>Dr. Pen™</strong> microneedling is safe and causes no pain. Join 250,000+ happy customers today!</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

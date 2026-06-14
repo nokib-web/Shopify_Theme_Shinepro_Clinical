@@ -1,0 +1,1714 @@
+{% comment %}
+  ============================================================
+  Section: Dr. Pen — "Who is Dr. Pen" + Timeline Section
+  Layout:
+    - Left:  Badge, Heading (italic brand), Tagline, Bullets, Stats Grid
+    - Right: Animated vertical timeline with card items + tags
+  Features:
+    - Scroll-triggered fade+slide animation on timeline items
+    - Hover effects on bullets and timeline cards
+    - Gradient brand name in heading
+    - Color-coded timeline tags (milestone / certification / future)
+    - Stats grid (2×2)
+    - Fully responsive (Desktop / Tablet / Mobile)
+    - All values controlled via Shopify section settings
+    - Font family inherited from global theme
+  ============================================================
+{% endcomment %}
+
+{%- liquid
+  assign sid = 'drpen-who-' | append: section.id
+-%}
+
+<style>
+  /* ===================== RESET ===================== */
+  #{{ sid }} *,
+  #{{ sid }} *::before,
+  #{{ sid }} *::after {
+    box-sizing: border-box;
+  }
+
+  /* ===================== SECTION WRAPPER ===================== */
+  #{{ sid }} {
+    background-color: {{ section.settings.bg_color }};
+    padding-top:    {{ section.settings.desktop_pt }}px;
+    padding-bottom: {{ section.settings.desktop_pb }}px;
+    padding-left:   {{ section.settings.desktop_plr }}px;
+    padding-right:  {{ section.settings.desktop_plr }}px;
+    margin-top:    {{ section.settings.margin_top }}px;
+    margin-bottom: {{ section.settings.margin_bottom }}px;
+    font-family: inherit;
+  }
+
+  #{{ sid }} .who-inner {
+    max-width: {{ section.settings.max_width }}px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: {{ section.settings.desktop_left_width }}fr {{ section.settings.desktop_right_width }}fr;
+    gap: {{ section.settings.desktop_col_gap }}px;
+    align-items: start;
+  }
+
+  /* ===================== ENTRY ANIMATIONS ===================== */
+  @keyframes {{ sid }}-fadeDown {
+    from { opacity: 0; transform: translateY(-14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes {{ sid }}-slideIn {
+    from { opacity: 0; transform: translateX(20px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+
+  /* ===================== BADGE ===================== */
+  #{{ sid }} .who-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: {{ section.settings.badge_bg }};
+    color: {{ section.settings.badge_color }};
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 14px;
+    border-radius: 20px;
+    border: 0.5px solid {{ section.settings.badge_border }};
+    margin-bottom: {{ section.settings.badge_mb }}px;
+    animation: {{ sid }}-fadeDown 0.5s ease both;
+  }
+
+  #{{ sid }} .who-badge svg {
+    width: 13px;
+    height: 13px;
+    fill: none;
+    stroke: {{ section.settings.badge_icon_color }};
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    flex-shrink: 0;
+  }
+
+  /* ===================== LEFT PANEL ===================== */
+  #{{ sid }} .who-left {
+    padding-right: {{ section.settings.left_padding_right }}px;
+  }
+
+  /* Main heading */
+  #{{ sid }} .who-heading {
+    color: {{ section.settings.heading_color }};
+    font-size: {{ section.settings.desktop_heading_size }}px;
+    font-weight: {{ section.settings.heading_weight }};
+    line-height: 1.15;
+    margin: 0 0 {{ section.settings.heading_mb }}px 0;
+    font-family: inherit;
+    animation: {{ sid }}-fadeDown 0.6s 0.1s ease both;
+  }
+
+  /* Italic brand — gradient */
+  #{{ sid }} .who-heading em {
+    font-style: italic;
+    font-weight: {{ section.settings.heading_italic_weight }};
+    background: linear-gradient(135deg, {{ section.settings.heading_italic_color }}, {{ section.settings.heading_italic_color2 }});
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Superscript ® */
+  #{{ sid }} .who-heading sup {
+    font-size: 0.42em;
+    vertical-align: super;
+    font-style: normal;
+    font-weight: {{ section.settings.heading_weight }};
+    -webkit-text-fill-color: {{ section.settings.heading_italic_color }};
+    color: {{ section.settings.heading_italic_color }};
+  }
+
+  /* Tagline */
+  #{{ sid }} .who-tagline {
+    color: {{ section.settings.tagline_color }};
+    font-size: {{ section.settings.desktop_tagline_size }}px;
+    font-weight: {{ section.settings.tagline_weight }};
+    line-height: {{ section.settings.tagline_line_height }};
+    margin: 0 0 {{ section.settings.tagline_mb }}px 0;
+    font-family: inherit;
+    animation: {{ sid }}-fadeDown 0.6s 0.2s ease both;
+  }
+
+  /* ===================== BULLET LIST ===================== */
+  #{{ sid }} .who-bullets {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: {{ section.settings.bullet_gap }}px;
+    animation: {{ sid }}-fadeDown 0.6s 0.3s ease both;
+  }
+
+  #{{ sid }} .who-bullet {
+    display: flex;
+    align-items: flex-start;
+    gap: {{ section.settings.bullet_icon_gap }}px;
+    background: {{ section.settings.bullet_card_bg }};
+    border: 0.5px solid {{ section.settings.bullet_card_border }};
+    border-radius: {{ section.settings.bullet_card_radius }}px;
+    padding: {{ section.settings.bullet_card_py }}px {{ section.settings.bullet_card_px }}px;
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
+  }
+
+  #{{ sid }} .who-bullet:hover {
+    transform: translateX(5px);
+    box-shadow: 0 4px 18px rgba(20, 70, 160, 0.09);
+  }
+
+  #{{ sid }} .who-bullet-icon-wrap {
+    flex-shrink: 0;
+    width: {{ section.settings.bullet_icon_wrap_size }}px;
+    height: {{ section.settings.bullet_icon_wrap_size }}px;
+    border-radius: {{ section.settings.bullet_icon_wrap_radius }}px;
+    background: linear-gradient(135deg, {{ section.settings.bullet_icon_bg1 }}, {{ section.settings.bullet_icon_bg2 }});
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #{{ sid }} .who-bullet-icon-wrap svg {
+    width: {{ section.settings.bullet_icon_size }}px;
+    height: {{ section.settings.bullet_icon_size }}px;
+    fill: none;
+    stroke: {{ section.settings.bullet_icon_color }};
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  #{{ sid }} .who-bullet-icon-emoji {
+    flex-shrink: 0;
+    font-size: {{ section.settings.bullet_icon_size }}px;
+    line-height: 1.4;
+    display: flex;
+    align-items: center;
+  }
+
+  #{{ sid }} .who-bullet-text {
+    color: {{ section.settings.bullet_text_color }};
+    font-size: {{ section.settings.desktop_bullet_size }}px;
+    font-weight: {{ section.settings.bullet_text_weight }};
+    line-height: 1.55;
+    font-family: inherit;
+    padding-top: 4px;
+  }
+
+  /* ===================== DIVIDER + STATS ===================== */
+  #{{ sid }} .who-divider {
+    width: {{ section.settings.divider_width }}px;
+    height: {{ section.settings.divider_height }}px;
+    background: linear-gradient(90deg, {{ section.settings.heading_italic_color }}, {{ section.settings.heading_italic_color2 }});
+    border-radius: 2px;
+    margin: {{ section.settings.divider_my }}px 0;
+    animation: {{ sid }}-fadeDown 0.5s 0.4s ease both;
+  }
+
+  #{{ sid }} .who-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: {{ section.settings.stats_gap }}px;
+    animation: {{ sid }}-fadeDown 0.6s 0.5s ease both;
+  }
+
+  #{{ sid }} .who-stat {
+    background: {{ section.settings.stat_bg }};
+    border: 0.5px solid {{ section.settings.stat_border }};
+    border-radius: {{ section.settings.stat_radius }}px;
+    padding: {{ section.settings.stat_py }}px {{ section.settings.stat_px }}px;
+    text-align: center;
+  }
+
+  #{{ sid }} .who-stat-num {
+    font-size: {{ section.settings.stat_num_size }}px;
+    font-weight: 700;
+    color: {{ section.settings.stat_num_color }};
+    line-height: 1;
+  }
+
+  #{{ sid }} .who-stat-label {
+    font-size: {{ section.settings.stat_label_size }}px;
+    color: {{ section.settings.stat_label_color }};
+    margin-top: 4px;
+    font-weight: 400;
+  }
+
+  /* ===================== RIGHT PANEL — TIMELINE ===================== */
+  #{{ sid }} .who-right {
+    position: relative;
+  }
+
+  #{{ sid }} .who-tl-title {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    color: {{ section.settings.tl_title_color }};
+    text-transform: uppercase;
+    margin-bottom: {{ section.settings.tl_title_mb }}px;
+    animation: {{ sid }}-fadeDown 0.5s 0.1s ease both;
+  }
+
+  #{{ sid }} .who-timeline {
+    position: relative;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Vertical dashed line */
+  #{{ sid }} .who-timeline::before {
+    content: '';
+    position: absolute;
+    left: {{ section.settings.timeline_line_left }}px;
+    top: {{ section.settings.timeline_dot_size | divided_by: 2 | plus: 2 }}px;
+    bottom: 10px;
+    width: 0;
+    border-left: {{ section.settings.timeline_line_width }}px dashed {{ section.settings.timeline_line_color }};
+    transform: translateX(-50%);
+    opacity: 0.85;
+  }
+
+  #{{ sid }} .who-tl-item {
+    display: grid;
+    grid-template-columns: {{ section.settings.timeline_year_width }}px {{ section.settings.timeline_dot_col_width }}px 1fr;
+    gap: 0 {{ section.settings.timeline_col_gap }}px;
+    align-items: start;
+    margin-bottom: {{ section.settings.timeline_item_gap }}px;
+    position: relative;
+    /* JS animates these */
+    opacity: 0;
+    transform: translateX(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  #{{ sid }} .who-tl-item:last-child {
+    margin-bottom: 0;
+  }
+
+  #{{ sid }} .who-tl-item.drpen-visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* Year label */
+  #{{ sid }} .who-tl-year {
+    text-align: right;
+    color: {{ section.settings.year_color }};
+    font-size: {{ section.settings.desktop_year_size }}px;
+    font-weight: {{ section.settings.year_weight }};
+    line-height: 1.3;
+    padding-top: 6px;
+    font-family: inherit;
+    white-space: pre-line;
+  }
+
+  #{{ sid }} .who-tl-year--future {
+    color: {{ section.settings.year_future_color }};
+  }
+
+  /* Dot column */
+  #{{ sid }} .who-tl-dot-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  #{{ sid }} .who-tl-dot {
+    width:  {{ section.settings.timeline_dot_size }}px;
+    height: {{ section.settings.timeline_dot_size }}px;
+    border-radius: 50%;
+    border: {{ section.settings.timeline_dot_border }}px solid {{ section.settings.timeline_dot_color }};
+    background: {{ section.settings.bg_color }};
+    flex-shrink: 0;
+    position: relative;
+    z-index: 2;
+    margin-top: 4px;
+    transition: transform 0.28s ease, background 0.28s ease, box-shadow 0.28s ease;
+  }
+
+  #{{ sid }} .who-tl-item:hover .who-tl-dot {
+    background: {{ section.settings.timeline_dot_color }};
+    transform: scale(1.4);
+    box-shadow: 0 0 0 5px {{ section.settings.timeline_dot_glow }};
+  }
+
+  #{{ sid }} .who-tl-dot--future {
+    border-color: {{ section.settings.dot_future_color }};
+    background: {{ section.settings.bg_color }};
+  }
+
+  #{{ sid }} .who-tl-item:hover .who-tl-dot--future {
+    background: {{ section.settings.dot_future_color }};
+    box-shadow: 0 0 0 5px {{ section.settings.dot_future_glow }};
+  }
+
+  /* Timeline card */
+  #{{ sid }} .who-tl-card {
+    background: {{ section.settings.tl_card_bg }};
+    border: 0.5px solid {{ section.settings.tl_card_border }};
+    border-radius: {{ section.settings.tl_card_radius }}px;
+    padding: {{ section.settings.tl_card_py }}px {{ section.settings.tl_card_px }}px;
+    transition: box-shadow 0.25s ease, border-color 0.25s ease;
+    padding-bottom: {{ section.settings.timeline_item_gap | divided_by: 2 }}px;
+  }
+
+  #{{ sid }} .who-tl-item:hover .who-tl-card {
+    box-shadow: 0 4px 18px rgba(20, 70, 160, 0.09);
+    border-color: {{ section.settings.tl_card_border_hover }};
+  }
+
+  /* Description */
+  #{{ sid }} .who-tl-desc {
+    color: {{ section.settings.desc_color }};
+    font-size: {{ section.settings.desktop_desc_size }}px;
+    font-weight: {{ section.settings.desc_weight }};
+    line-height: 1.65;
+    font-family: inherit;
+  }
+
+  /* Timeline tags */
+  #{{ sid }} .who-tl-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 9px;
+    border-radius: 20px;
+    margin-top: 7px;
+  }
+
+  #{{ sid }} .who-tl-tag--milestone {
+    background: {{ section.settings.tag_milestone_bg }};
+    color: {{ section.settings.tag_milestone_color }};
+  }
+
+  #{{ sid }} .who-tl-tag--cert {
+    background: {{ section.settings.tag_cert_bg }};
+    color: {{ section.settings.tag_cert_color }};
+  }
+
+  #{{ sid }} .who-tl-tag--future {
+    background: {{ section.settings.tag_future_bg }};
+    color: {{ section.settings.tag_future_color }};
+  }
+
+  /* ===================== TABLET (≤1024px) ===================== */
+  @media screen and (max-width: 1024px) {
+    #{{ sid }} .who-inner {
+      grid-template-columns: 1fr 1fr;
+      gap: {{ section.settings.tablet_col_gap }}px;
+    }
+    #{{ sid }} .who-heading     { font-size: {{ section.settings.tablet_heading_size }}px; }
+    #{{ sid }} .who-tagline     { font-size: {{ section.settings.tablet_tagline_size }}px; }
+    #{{ sid }} .who-bullet-text { font-size: {{ section.settings.tablet_bullet_size }}px; }
+    #{{ sid }} .who-tl-year     { font-size: {{ section.settings.tablet_year_size }}px; }
+    #{{ sid }} .who-tl-desc     { font-size: {{ section.settings.tablet_desc_size }}px; }
+  }
+
+  /* ===================== MOBILE (≤749px) ===================== */
+  @media screen and (max-width: 749px) {
+    #{{ sid }} {
+      padding-top:    {{ section.settings.mobile_pt }}px;
+      padding-bottom: {{ section.settings.mobile_pb }}px;
+      padding-left:   {{ section.settings.mobile_plr }}px;
+      padding-right:  {{ section.settings.mobile_plr }}px;
+    }
+    #{{ sid }} .who-inner {
+      grid-template-columns: 1fr;
+      gap: {{ section.settings.mobile_col_gap }}px;
+    }
+    #{{ sid }} .who-left         { padding-right: 0; }
+    #{{ sid }} .who-heading      { font-size: {{ section.settings.mobile_heading_size }}px; }
+    #{{ sid }} .who-tagline      { font-size: {{ section.settings.mobile_tagline_size }}px; }
+    #{{ sid }} .who-bullet-text  { font-size: {{ section.settings.mobile_bullet_size }}px; }
+    #{{ sid }} .who-tl-year      { font-size: {{ section.settings.mobile_year_size }}px; }
+    #{{ sid }} .who-tl-desc      { font-size: {{ section.settings.mobile_desc_size }}px; }
+    #{{ sid }} .who-tl-item      { margin-bottom: {{ section.settings.mobile_tl_item_gap }}px; }
+    #{{ sid }} .who-timeline::before {
+      left: {{ section.settings.mobile_timeline_line_left }}px;
+    }
+    #{{ sid }} .who-tl-item {
+      grid-template-columns: {{ section.settings.mobile_year_width }}px {{ section.settings.timeline_dot_col_width }}px 1fr;
+    }
+  }
+</style>
+
+<section id="{{ sid }}" class="drpen-who-wrapper">
+  <div class="who-inner">
+
+    <!-- ===== LEFT PANEL ===== -->
+    <div class="who-left">
+
+      {%- if section.settings.badge_text != blank -%}
+        <div class="who-badge">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/>
+          </svg>
+          {{ section.settings.badge_text }}
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.heading_prefix != blank or section.settings.heading_brand != blank -%}
+        <h2 class="who-heading">
+          {{- section.settings.heading_prefix -}}
+          {%- if section.settings.heading_brand != blank -%}
+            &nbsp;<em>{{ section.settings.heading_brand }}</em>
+            {%- if section.settings.show_registered -%}<sup>®</sup>{%- endif -%}
+          {%- endif -%}
+        </h2>
+      {%- endif -%}
+
+      {%- if section.settings.tagline != blank -%}
+        <p class="who-tagline">{{ section.settings.tagline | newline_to_br }}</p>
+      {%- endif -%}
+
+      {%- assign bullet_blocks = section.blocks | where: 'type', 'bullet' -%}
+      {%- if bullet_blocks.size > 0 -%}
+        <ul class="who-bullets">
+          {%- for block in bullet_blocks -%}
+            <li class="who-bullet" {{ block.shopify_attributes }}>
+              {%- if block.settings.show_icon -%}
+                {%- if block.settings.icon_type == 'svg' and block.settings.icon_svg != blank -%}
+                  <span class="who-bullet-icon-wrap">
+                    {{ block.settings.icon_svg }}
+                  </span>
+                {%- elsif block.settings.icon_type == 'emoji' and block.settings.icon_text != blank -%}
+                  <span class="who-bullet-icon-emoji" aria-hidden="true">{{ block.settings.icon_text }}</span>
+                {%- else -%}
+                  <span class="who-bullet-icon-wrap" aria-hidden="true">
+                    <svg viewBox="0 0 24 24">
+                      <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/>
+                    </svg>
+                  </span>
+                {%- endif -%}
+              {%- endif -%}
+              {%- if block.settings.text != blank -%}
+                <span class="who-bullet-text">{{ block.settings.text }}</span>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+
+      {%- if section.settings.show_divider -%}
+        <div class="who-divider" aria-hidden="true"></div>
+      {%- endif -%}
+
+      {%- assign stat_blocks = section.blocks | where: 'type', 'stat' -%}
+      {%- if stat_blocks.size > 0 -%}
+        <div class="who-stats">
+          {%- for block in stat_blocks -%}
+            <div class="who-stat" {{ block.shopify_attributes }}>
+              <div class="who-stat-num">{{ block.settings.number }}</div>
+              <div class="who-stat-label">{{ block.settings.label }}</div>
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+    </div>
+
+    <!-- ===== RIGHT PANEL — TIMELINE ===== -->
+    <div class="who-right">
+      {%- if section.settings.timeline_section_title != blank -%}
+        <div class="who-tl-title">{{ section.settings.timeline_section_title }}</div>
+      {%- endif -%}
+
+      {%- assign tl_blocks = section.blocks | where: 'type', 'timeline_item' -%}
+      {%- if tl_blocks.size > 0 -%}
+        <ul class="who-timeline" id="who-tl-{{ section.id }}">
+          {%- for block in tl_blocks -%}
+            <li class="who-tl-item" {{ block.shopify_attributes }}>
+              <div class="who-tl-year{% if block.settings.year_style == 'future' %} who-tl-year--future{% endif %}">
+                {{- block.settings.year -}}
+              </div>
+              <div class="who-tl-dot-col">
+                <div class="who-tl-dot{% if block.settings.year_style == 'future' %} who-tl-dot--future{% endif %}"></div>
+              </div>
+              <div class="who-tl-card">
+                <div class="who-tl-desc">{{ block.settings.description }}</div>
+                {%- if block.settings.tag != blank -%}
+                  <span class="who-tl-tag who-tl-tag--{{ block.settings.tag_style }}">{{ block.settings.tag }}</span>
+                {%- endif -%}
+              </div>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+
+  </div>
+</section>
+
+<script>
+(function() {
+  var tlId = 'who-tl-{{ section.id }}';
+  var items = document.querySelectorAll('#' + tlId + ' .who-tl-item');
+  if (!items.length) return;
+
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry, idx) {
+        if (entry.isIntersecting) {
+          var el = entry.target;
+          var delay = Array.prototype.indexOf.call(items, el) * 80;
+          setTimeout(function() { el.classList.add('drpen-visible'); }, delay);
+          io.unobserve(el);
+        }
+      });
+    }, { threshold: 0.15 });
+    items.forEach(function(el) { io.observe(el); });
+  } else {
+    items.forEach(function(el) { el.classList.add('drpen-visible'); });
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "DrPen Who Is Section",
+  "tag": "section",
+  "class": "drpen-who-section",
+  "settings": [
+
+    {
+      "type": "header",
+      "content": "🏷️ Badge"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge Text",
+      "default": "Est. 2008 · 17 Years of Innovation",
+      "info": "Leave blank to hide the badge"
+    },
+    {
+      "type": "color",
+      "id": "badge_bg",
+      "label": "Badge Background",
+      "default": "#e8ecf5"
+    },
+    {
+      "type": "color",
+      "id": "badge_color",
+      "label": "Badge Text Color",
+      "default": "#1a3a6b"
+    },
+    {
+      "type": "color",
+      "id": "badge_border",
+      "label": "Badge Border Color",
+      "default": "#c5cee8"
+    },
+    {
+      "type": "color",
+      "id": "badge_icon_color",
+      "label": "Badge Icon Stroke Color",
+      "default": "#4a6fa5"
+    },
+    {
+      "type": "range",
+      "id": "badge_mb",
+      "label": "Badge Margin Bottom (px)",
+      "min": 4,
+      "max": 40,
+      "step": 2,
+      "default": 20
+    },
+
+    {
+      "type": "header",
+      "content": "📝 Left Panel — Heading"
+    },
+    {
+      "type": "text",
+      "id": "heading_prefix",
+      "label": "Heading Prefix Text",
+      "default": "Who is",
+      "info": "Normal-weight part of the heading"
+    },
+    {
+      "type": "text",
+      "id": "heading_brand",
+      "label": "Brand Name (italic + gradient)",
+      "default": "Dr. Pen",
+      "info": "Rendered as italic gradient text"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_registered",
+      "label": "Show ® after brand name",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "tagline",
+      "label": "Tagline (line breaks supported)",
+      "default": "Built in China\nBacked Globally.\nGrowing Fast in the U.S. and Europe."
+    },
+
+    {
+      "type": "header",
+      "content": "🎨 Section Background & Spacing"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#f0f3f7"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Section Max Width (px)",
+      "min": 600,
+      "max": 1800,
+      "step": 50,
+      "default": 1100
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin Top (px)",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin Bottom (px)",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 0
+    },
+
+    {
+      "type": "header",
+      "content": "🖥️ Desktop Settings"
+    },
+    {
+      "type": "range",
+      "id": "desktop_pt",
+      "label": "Padding Top (px)",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "desktop_pb",
+      "label": "Padding Bottom (px)",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "desktop_plr",
+      "label": "Padding Left/Right (px)",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "desktop_left_width",
+      "label": "Left Column Width (fr units)",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "desktop_right_width",
+      "label": "Right Column Width (fr units)",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "desktop_col_gap",
+      "label": "Column Gap (px)",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "left_padding_right",
+      "label": "Left Panel Inner Right Padding (px)",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "desktop_heading_size",
+      "label": "Heading Font Size (px)",
+      "min": 20,
+      "max": 80,
+      "step": 1,
+      "default": 42
+    },
+    {
+      "type": "range",
+      "id": "desktop_tagline_size",
+      "label": "Tagline Font Size (px)",
+      "min": 14,
+      "max": 48,
+      "step": 1,
+      "default": 22
+    },
+    {
+      "type": "range",
+      "id": "desktop_bullet_size",
+      "label": "Bullet Text Font Size (px)",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "desktop_year_size",
+      "label": "Timeline Year Font Size (px)",
+      "min": 12,
+      "max": 28,
+      "step": 1,
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "desktop_desc_size",
+      "label": "Timeline Description Font Size (px)",
+      "min": 12,
+      "max": 22,
+      "step": 1,
+      "default": 14
+    },
+
+    {
+      "type": "header",
+      "content": "📱 Tablet Settings (≤1024px)"
+    },
+    {
+      "type": "range",
+      "id": "tablet_col_gap",
+      "label": "Column Gap (px)",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "tablet_heading_size",
+      "label": "Heading Font Size (px)",
+      "min": 18,
+      "max": 60,
+      "step": 1,
+      "default": 34
+    },
+    {
+      "type": "range",
+      "id": "tablet_tagline_size",
+      "label": "Tagline Font Size (px)",
+      "min": 14,
+      "max": 36,
+      "step": 1,
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "tablet_bullet_size",
+      "label": "Bullet Text Font Size (px)",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "default": 13
+    },
+    {
+      "type": "range",
+      "id": "tablet_year_size",
+      "label": "Timeline Year Font Size (px)",
+      "min": 12,
+      "max": 22,
+      "step": 1,
+      "default": 13
+    },
+    {
+      "type": "range",
+      "id": "tablet_desc_size",
+      "label": "Timeline Description Font Size (px)",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "default": 13
+    },
+
+    {
+      "type": "header",
+      "content": "📲 Mobile Settings (≤749px)"
+    },
+    {
+      "type": "range",
+      "id": "mobile_pt",
+      "label": "Padding Top (px)",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "mobile_pb",
+      "label": "Padding Bottom (px)",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "mobile_plr",
+      "label": "Padding Left/Right (px)",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "mobile_col_gap",
+      "label": "Between Panels Gap (px)",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "label": "Heading Font Size (px)",
+      "min": 20,
+      "max": 48,
+      "step": 1,
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "mobile_tagline_size",
+      "label": "Tagline Font Size (px)",
+      "min": 14,
+      "max": 30,
+      "step": 1,
+      "default": 17
+    },
+    {
+      "type": "range",
+      "id": "mobile_bullet_size",
+      "label": "Bullet Text Font Size (px)",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "mobile_year_size",
+      "label": "Timeline Year Font Size (px)",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "mobile_desc_size",
+      "label": "Timeline Description Font Size (px)",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "default": 13
+    },
+    {
+      "type": "range",
+      "id": "mobile_tl_item_gap",
+      "label": "Timeline Item Gap (px) — Mobile",
+      "min": 8,
+      "max": 48,
+      "step": 2,
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "mobile_year_width",
+      "label": "Year Column Width (px) — Mobile",
+      "min": 30,
+      "max": 80,
+      "step": 2,
+      "default": 44
+    },
+    {
+      "type": "range",
+      "id": "mobile_timeline_line_left",
+      "label": "Timeline Line Left Offset (px) — Mobile",
+      "min": 30,
+      "max": 100,
+      "step": 2,
+      "default": 56
+    },
+
+    {
+      "type": "header",
+      "content": "🎨 Heading Typography"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Base Color",
+      "default": "#0d2b4e"
+    },
+    {
+      "type": "select",
+      "id": "heading_weight",
+      "label": "Heading Font Weight",
+      "options": [
+        { "value": "400", "label": "Regular" },
+        { "value": "600", "label": "Semi Bold" },
+        { "value": "700", "label": "Bold" },
+        { "value": "800", "label": "Extra Bold" }
+      ],
+      "default": "700"
+    },
+    {
+      "type": "color",
+      "id": "heading_italic_color",
+      "label": "Brand Gradient — Start Color",
+      "default": "#1a5caa"
+    },
+    {
+      "type": "color",
+      "id": "heading_italic_color2",
+      "label": "Brand Gradient — End Color",
+      "default": "#2e88e0"
+    },
+    {
+      "type": "select",
+      "id": "heading_italic_weight",
+      "label": "Brand Name Font Weight",
+      "options": [
+        { "value": "600", "label": "Semi Bold" },
+        { "value": "700", "label": "Bold" },
+        { "value": "800", "label": "Extra Bold" },
+        { "value": "900", "label": "Black" }
+      ],
+      "default": "800"
+    },
+    {
+      "type": "range",
+      "id": "heading_mb",
+      "label": "Heading Margin Bottom (px)",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "default": 16
+    },
+
+    {
+      "type": "header",
+      "content": "🎨 Tagline Typography"
+    },
+    {
+      "type": "color",
+      "id": "tagline_color",
+      "label": "Tagline Color",
+      "default": "#1e3a5f"
+    },
+    {
+      "type": "select",
+      "id": "tagline_weight",
+      "label": "Tagline Font Weight",
+      "options": [
+        { "value": "400", "label": "Regular" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi Bold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "600"
+    },
+    {
+      "type": "text",
+      "id": "tagline_line_height",
+      "label": "Tagline Line Height",
+      "default": "1.45"
+    },
+    {
+      "type": "range",
+      "id": "tagline_mb",
+      "label": "Tagline Margin Bottom (px)",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "default": 36
+    },
+
+    {
+      "type": "header",
+      "content": "🎨 Bullet List Settings"
+    },
+    {
+      "type": "color",
+      "id": "bullet_card_bg",
+      "label": "Bullet Card Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "bullet_card_border",
+      "label": "Bullet Card Border Color",
+      "default": "#dde3f0"
+    },
+    {
+      "type": "range",
+      "id": "bullet_card_radius",
+      "label": "Bullet Card Border Radius (px)",
+      "min": 0,
+      "max": 24,
+      "step": 2,
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "bullet_card_py",
+      "label": "Bullet Card Padding Y (px)",
+      "min": 6,
+      "max": 24,
+      "step": 2,
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "bullet_card_px",
+      "label": "Bullet Card Padding X (px)",
+      "min": 6,
+      "max": 32,
+      "step": 2,
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "bullet_text_color",
+      "label": "Bullet Text Color",
+      "default": "#1e3a5f"
+    },
+    {
+      "type": "select",
+      "id": "bullet_text_weight",
+      "label": "Bullet Text Font Weight",
+      "options": [
+        { "value": "400", "label": "Regular" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi Bold" }
+      ],
+      "default": "500"
+    },
+    {
+      "type": "range",
+      "id": "bullet_gap",
+      "label": "Gap Between Bullets (px)",
+      "min": 4,
+      "max": 32,
+      "step": 2,
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "bullet_icon_gap",
+      "label": "Icon → Text Gap (px)",
+      "min": 4,
+      "max": 24,
+      "step": 2,
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "bullet_icon_size",
+      "label": "Bullet Icon Size (px)",
+      "min": 12,
+      "max": 28,
+      "step": 2,
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "bullet_icon_wrap_size",
+      "label": "Icon Wrap Size (px)",
+      "min": 24,
+      "max": 52,
+      "step": 2,
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "bullet_icon_wrap_radius",
+      "label": "Icon Wrap Border Radius (px)",
+      "min": 4,
+      "max": 20,
+      "step": 2,
+      "default": 8
+    },
+    {
+      "type": "color",
+      "id": "bullet_icon_bg1",
+      "label": "Icon Wrap Gradient Start",
+      "default": "#1a5caa"
+    },
+    {
+      "type": "color",
+      "id": "bullet_icon_bg2",
+      "label": "Icon Wrap Gradient End",
+      "default": "#2e88e0"
+    },
+    {
+      "type": "color",
+      "id": "bullet_icon_color",
+      "label": "Icon Stroke Color",
+      "default": "#ffffff"
+    },
+
+    {
+      "type": "header",
+      "content": "➗ Divider"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_divider",
+      "label": "Show Divider",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "divider_width",
+      "label": "Divider Width (px)",
+      "min": 20,
+      "max": 120,
+      "step": 4,
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "divider_height",
+      "label": "Divider Height (px)",
+      "min": 1,
+      "max": 8,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "divider_my",
+      "label": "Divider Margin Top/Bottom (px)",
+      "min": 8,
+      "max": 48,
+      "step": 4,
+      "default": 28
+    },
+
+    {
+      "type": "header",
+      "content": "📊 Stats Grid"
+    },
+    {
+      "type": "color",
+      "id": "stat_bg",
+      "label": "Stat Card Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "stat_border",
+      "label": "Stat Card Border Color",
+      "default": "#dde3f0"
+    },
+    {
+      "type": "range",
+      "id": "stat_radius",
+      "label": "Stat Card Border Radius (px)",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "stat_py",
+      "label": "Stat Card Padding Y (px)",
+      "min": 8,
+      "max": 32,
+      "step": 2,
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "stat_px",
+      "label": "Stat Card Padding X (px)",
+      "min": 8,
+      "max": 32,
+      "step": 2,
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "stats_gap",
+      "label": "Stats Grid Gap (px)",
+      "min": 4,
+      "max": 24,
+      "step": 2,
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "stat_num_size",
+      "label": "Stat Number Font Size (px)",
+      "min": 16,
+      "max": 40,
+      "step": 1,
+      "default": 24
+    },
+    {
+      "type": "color",
+      "id": "stat_num_color",
+      "label": "Stat Number Color",
+      "default": "#1a5caa"
+    },
+    {
+      "type": "range",
+      "id": "stat_label_size",
+      "label": "Stat Label Font Size (px)",
+      "min": 10,
+      "max": 16,
+      "step": 1,
+      "default": 12
+    },
+    {
+      "type": "color",
+      "id": "stat_label_color",
+      "label": "Stat Label Color",
+      "default": "#6b7fa3"
+    },
+
+    {
+      "type": "header",
+      "content": "📅 Timeline Settings"
+    },
+    {
+      "type": "text",
+      "id": "timeline_section_title",
+      "label": "Timeline Section Label",
+      "default": "Company milestones"
+    },
+    {
+      "type": "color",
+      "id": "tl_title_color",
+      "label": "Timeline Label Color",
+      "default": "#6b7fa3"
+    },
+    {
+      "type": "range",
+      "id": "tl_title_mb",
+      "label": "Timeline Label Margin Bottom (px)",
+      "min": 8,
+      "max": 40,
+      "step": 4,
+      "default": 24
+    },
+    {
+      "type": "color",
+      "id": "year_color",
+      "label": "Year Label Color",
+      "default": "#1a5caa"
+    },
+    {
+      "type": "color",
+      "id": "year_future_color",
+      "label": "Year Label Color — Future style",
+      "default": "#6b7fa3"
+    },
+    {
+      "type": "select",
+      "id": "year_weight",
+      "label": "Year Font Weight",
+      "options": [
+        { "value": "400", "label": "Regular" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi Bold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "700"
+    },
+    {
+      "type": "color",
+      "id": "desc_color",
+      "label": "Description Text Color",
+      "default": "#2c3e55"
+    },
+    {
+      "type": "select",
+      "id": "desc_weight",
+      "label": "Description Font Weight",
+      "options": [
+        { "value": "300", "label": "Light" },
+        { "value": "400", "label": "Regular" },
+        { "value": "500", "label": "Medium" }
+      ],
+      "default": "400"
+    },
+    {
+      "type": "range",
+      "id": "timeline_item_gap",
+      "label": "Gap Between Timeline Items (px)",
+      "min": 8,
+      "max": 60,
+      "step": 2,
+      "default": 22
+    },
+    {
+      "type": "range",
+      "id": "timeline_year_width",
+      "label": "Year Column Width (px)",
+      "min": 40,
+      "max": 120,
+      "step": 2,
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "timeline_dot_col_width",
+      "label": "Dot Column Width (px)",
+      "min": 10,
+      "max": 40,
+      "step": 2,
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "timeline_col_gap",
+      "label": "Year → Dot → Desc Gap (px)",
+      "min": 4,
+      "max": 32,
+      "step": 2,
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "timeline_line_left",
+      "label": "Line Left Offset (px)",
+      "min": 40,
+      "max": 140,
+      "step": 2,
+      "default": 68,
+      "info": "Adjust to align the line with the dot center"
+    },
+    {
+      "type": "range",
+      "id": "timeline_line_width",
+      "label": "Dashed Line Thickness (px)",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 1
+    },
+    {
+      "type": "color",
+      "id": "timeline_line_color",
+      "label": "Dashed Line Color",
+      "default": "#b0bec5"
+    },
+    {
+      "type": "range",
+      "id": "timeline_dot_size",
+      "label": "Dot Size (px)",
+      "min": 6,
+      "max": 20,
+      "step": 2,
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "timeline_dot_border",
+      "label": "Dot Border Width (px)",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "color",
+      "id": "timeline_dot_color",
+      "label": "Dot Border / Fill Color",
+      "default": "#1a5caa"
+    },
+    {
+      "type": "color",
+      "id": "timeline_dot_glow",
+      "label": "Dot Hover Glow Color",
+      "default": "rgba(26,92,170,0.15)"
+    },
+    {
+      "type": "color",
+      "id": "dot_future_color",
+      "label": "Future Dot Color",
+      "default": "#a0b0d0"
+    },
+    {
+      "type": "color",
+      "id": "dot_future_glow",
+      "label": "Future Dot Hover Glow",
+      "default": "rgba(100,120,180,0.15)"
+    },
+
+    {
+      "type": "header",
+      "content": "🃏 Timeline Card Settings"
+    },
+    {
+      "type": "color",
+      "id": "tl_card_bg",
+      "label": "Card Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "tl_card_border",
+      "label": "Card Border Color",
+      "default": "#dde3f0"
+    },
+    {
+      "type": "color",
+      "id": "tl_card_border_hover",
+      "label": "Card Border Color (Hover)",
+      "default": "#b0c2e8"
+    },
+    {
+      "type": "range",
+      "id": "tl_card_radius",
+      "label": "Card Border Radius (px)",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "tl_card_py",
+      "label": "Card Padding Y (px)",
+      "min": 6,
+      "max": 24,
+      "step": 2,
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "tl_card_px",
+      "label": "Card Padding X (px)",
+      "min": 6,
+      "max": 32,
+      "step": 2,
+      "default": 14
+    },
+
+    {
+      "type": "header",
+      "content": "🏷️ Timeline Tag Colors"
+    },
+    {
+      "type": "color",
+      "id": "tag_milestone_bg",
+      "label": "Milestone Tag Background",
+      "default": "#e8ecf5"
+    },
+    {
+      "type": "color",
+      "id": "tag_milestone_color",
+      "label": "Milestone Tag Text Color",
+      "default": "#1a5caa"
+    },
+    {
+      "type": "color",
+      "id": "tag_cert_bg",
+      "label": "Certification Tag Background",
+      "default": "#e4f4ec"
+    },
+    {
+      "type": "color",
+      "id": "tag_cert_color",
+      "label": "Certification Tag Text Color",
+      "default": "#1a7a47"
+    },
+    {
+      "type": "color",
+      "id": "tag_future_bg",
+      "label": "Future Tag Background",
+      "default": "#f3f0fb"
+    },
+    {
+      "type": "color",
+      "id": "tag_future_color",
+      "label": "Future Tag Text Color",
+      "default": "#6040c0"
+    }
+  ],
+
+  "blocks": [
+    {
+      "type": "bullet",
+      "name": "Bullet Point",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Bullet Text",
+          "default": "17 years of R&D and clinical innovation."
+        },
+        {
+          "type": "checkbox",
+          "id": "show_icon",
+          "label": "Show Icon",
+          "default": true
+        },
+        {
+          "type": "select",
+          "id": "icon_type",
+          "label": "Icon Type",
+          "options": [
+            { "value": "emoji",  "label": "Emoji / Text" },
+            { "value": "svg",    "label": "Custom SVG (white stroke)" }
+          ],
+          "default": "svg"
+        },
+        {
+          "type": "text",
+          "id": "icon_text",
+          "label": "Emoji / Text Icon",
+          "default": "🏅",
+          "info": "Used when Icon Type is Emoji"
+        },
+        {
+          "type": "textarea",
+          "id": "icon_svg",
+          "label": "Custom SVG Code",
+          "info": "Paste a white-stroke SVG path here. The wrapper already sets stroke color via CSS.",
+          "default": "<svg viewBox='0 0 24 24' fill='none' stroke='#fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z'/></svg>"
+        }
+      ]
+    },
+    {
+      "type": "stat",
+      "name": "Stat Card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "number",
+          "label": "Stat Number / Value",
+          "default": "15M+",
+          "info": "e.g. 15M+, 17yr, 50+"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Stat Label",
+          "default": "Pens sold annually"
+        }
+      ]
+    },
+    {
+      "type": "timeline_item",
+      "name": "Timeline Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "year",
+          "label": "Year Label",
+          "default": "2008",
+          "info": "Can be a year, range, or text. Use a newline for two-line year (e.g. '2014\\n2015')"
+        },
+        {
+          "type": "select",
+          "id": "year_style",
+          "label": "Year Style",
+          "options": [
+            { "value": "default", "label": "Default (blue)" },
+            { "value": "future",  "label": "Future (muted)" }
+          ],
+          "default": "default"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Successfully developed China's first MTS192 roller, gaining high recognition and laying a solid foundation in the microneedling field."
+        },
+        {
+          "type": "text",
+          "id": "tag",
+          "label": "Tag Label",
+          "default": "Founding innovation",
+          "info": "Leave blank to hide the tag"
+        },
+        {
+          "type": "select",
+          "id": "tag_style",
+          "label": "Tag Style",
+          "options": [
+            { "value": "milestone", "label": "Milestone (blue)" },
+            { "value": "cert",      "label": "Certification (green)" },
+            { "value": "future",    "label": "Future (purple)" }
+          ],
+          "default": "milestone"
+        }
+      ]
+    }
+  ],
+
+  "presets": [
+    {
+      "name": "DrPen Who Is Section",
+      "blocks": [
+        { "type": "bullet", "settings": { "text": "17 years of R&D and clinical innovation.", "icon_type": "svg" } },
+        { "type": "bullet", "settings": { "text": "Annual sales of 15 million electric microneedling pens.", "icon_type": "svg" } },
+        { "type": "bullet", "settings": { "text": "The Most Popular Beauty Brand in 2017.", "icon_type": "svg" } },
+        { "type": "bullet", "settings": { "text": "FDA 510(k) cleared · ISO 13485 · MDSAP certified.", "icon_type": "svg" } },
+        { "type": "stat", "settings": { "number": "15M+", "label": "Pens sold annually" } },
+        { "type": "stat", "settings": { "number": "17yr", "label": "Years of R&D" } },
+        { "type": "stat", "settings": { "number": "14K㎡", "label": "Clean-room facility" } },
+        { "type": "stat", "settings": { "number": "50+", "label": "Countries served" } },
+        { "type": "timeline_item", "settings": { "year": "2008", "year_style": "default", "description": "Successfully developed China's first MTS192 roller, gaining high recognition and laying a solid foundation in the microneedling field.", "tag": "Founding innovation", "tag_style": "milestone" } },
+        { "type": "timeline_item", "settings": { "year": "2014–15", "year_style": "default", "description": "Pioneered the development of the first electric microneedling pen in China and established the Dr. Pen brand.", "tag": "Brand launch", "tag_style": "milestone" } },
+        { "type": "timeline_item", "settings": { "year": "2017–18", "year_style": "default", "description": "Achieved ISO 13485 certification, gaining international market recognition and paving the way for medical-grade standards.", "tag": "ISO 13485 certified", "tag_style": "cert" } },
+        { "type": "timeline_item", "settings": { "year": "2023–24", "year_style": "default", "description": "Obtained China's medical device production license. Certified with ISO 13485/MDSAP and FDA 510(k) clearance in the USA. A 14,000 m² cleanroom facility became operational.", "tag": "FDA 510(k) cleared", "tag_style": "cert" } },
+        { "type": "timeline_item", "settings": { "year": "2025", "year_style": "default", "description": "The first liquid carrier chip technology was created and applied, leading the industry into a new era of intelligent liquid dispensing.", "tag": "Chip innovation", "tag_style": "milestone" } },
+        { "type": "timeline_item", "settings": { "year": "Future", "year_style": "future", "description": "Dr. Pen will continue innovating to make advanced beauty technology accessible to everyone, worldwide.", "tag": "Coming soon", "tag_style": "future" } }
+      ]
+    }
+  ],
+  "max_blocks": 30
+}
+{% endschema %}

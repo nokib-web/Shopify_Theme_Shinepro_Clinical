@@ -1,0 +1,535 @@
+{% comment %}
+  Services - What We Do Here Section
+  Fully customizable via Shopify Theme Editor
+{% endcomment %}
+
+<section
+  id="services-{{ section.id }}"
+  class="services-section"
+  style="
+    background-color: {{ section.settings.section_bg_color }};
+    padding-top: {{ section.settings.section_padding_top }}px;
+    padding-bottom: {{ section.settings.section_padding_bottom }}px;
+  "
+>
+  <div
+    class="services-section__container"
+    style="max-width: {{ section.settings.container_max_width }}px; margin: 0 auto; padding: 0 {{ section.settings.container_padding_x }}px;"
+  >
+
+    <!-- Header -->
+    <div
+      class="services-section__header"
+      style="
+        text-align: {{ section.settings.header_align }};
+        margin-bottom: {{ section.settings.header_margin_bottom }}px;
+      "
+    >
+      <p
+        class="services-section__tag"
+        style="
+          font-size: {{ section.settings.tag_font_size }}px;
+          color: {{ section.settings.tag_color }};
+          font-weight: 700;
+          letter-spacing: {{ section.settings.tag_letter_spacing }}px;
+          text-transform: uppercase;
+          margin: 0 0 {{ section.settings.tag_margin_bottom }}px;
+        "
+      >
+        {{ section.settings.tag_text }}
+      </p>
+      <h2
+        class="services-section__heading"
+        style="
+          font-size: {{ section.settings.heading_font_size }}px;
+          color: {{ section.settings.heading_color }};
+          font-weight: {{ section.settings.heading_font_weight }};
+          letter-spacing: {{ section.settings.heading_letter_spacing }}px;
+          text-transform: {{ section.settings.heading_text_transform }};
+          margin: 0;
+          line-height: 1.1;
+        "
+      >
+        {{ section.settings.heading_text }}
+      </h2>
+    </div>
+
+    <!-- Cards Grid -->
+    <div
+      class="services-section__grid"
+      style="
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: {{ section.settings.cards_gap }}px;
+      "
+    >
+      {% for block in section.blocks %}
+        {% if block.type == 'service_card' %}
+          <div
+            class="services-section__card"
+            {{ block.shopify_attributes }}
+            style="
+              background-color: {{ block.settings.card_bg_color }};
+              border-radius: {{ section.settings.card_border_radius }}px;
+              overflow: hidden;
+              box-shadow: {{ section.settings.card_shadow }};
+              transition: transform 0.25s ease, box-shadow 0.25s ease;
+            "
+          >
+            <!-- Card Image -->
+            <div
+              class="services-section__card-img-wrap"
+              style="
+                height: {{ section.settings.card_image_height }}px;
+                overflow: hidden;
+                position: relative;
+              "
+            >
+              {% if block.settings.card_image != blank %}
+                <img
+                  src="{{ block.settings.card_image | img_url: 'master' }}"
+                  alt="{{ block.settings.card_image.alt | escape }}"
+                  loading="lazy"
+                  style="width:100%; height:100%; object-fit:cover; display:block; transition: transform 0.4s ease;"
+                  class="services-section__card-img"
+                >
+              {% else %}
+                <div style="width:100%;height:100%;background:#dde4f0;display:flex;align-items:center;justify-content:center;">
+                  {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                </div>
+              {% endif %}
+
+              <!-- Fade overlay at bottom of image -->
+              {% if section.settings.show_image_fade %}
+                <div style="
+                  position:absolute;
+                  bottom:0;left:0;right:0;
+                  height: {{ section.settings.image_fade_height }}px;
+                  background: linear-gradient(to bottom, transparent, {{ block.settings.card_bg_color }});
+                "></div>
+              {% endif %}
+            </div>
+
+            <!-- Card Body -->
+            <div
+              class="services-section__card-body"
+              style="
+                padding: {{ section.settings.card_padding_top }}px {{ section.settings.card_padding_x }}px {{ section.settings.card_padding_bottom }}px;
+              "
+            >
+              <h3
+                style="
+                  font-size: {{ section.settings.card_title_size }}px;
+                  color: {{ section.settings.card_title_color }};
+                  font-weight: 700;
+                  letter-spacing: {{ section.settings.card_title_letter_spacing }}px;
+                  text-transform: uppercase;
+                  margin: 0 0 {{ section.settings.card_title_margin_bottom }}px;
+                "
+              >
+                {{ block.settings.card_title }}
+              </h3>
+              <p
+                style="
+                  font-size: {{ section.settings.card_desc_size }}px;
+                  color: {{ section.settings.card_desc_color }};
+                  line-height: 1.7;
+                  margin: 0;
+                "
+              >
+                {{ block.settings.card_description }}
+              </p>
+
+              {% if block.settings.card_link != blank and block.settings.card_link_text != blank %}
+                <a
+                  href="{{ block.settings.card_link }}"
+                  style="
+                    display: inline-block;
+                    margin-top: {{ section.settings.card_link_margin_top }}px;
+                    font-size: {{ section.settings.card_link_size }}px;
+                    color: {{ section.settings.card_link_color }};
+                    font-weight: 600;
+                    text-decoration: none;
+                    letter-spacing: 0.5px;
+                  "
+                >
+                  {{ block.settings.card_link_text }} →
+                </a>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  #services-{{ section.id }} .services-section__card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.12) !important;
+  }
+
+  #services-{{ section.id }} .services-section__card:hover .services-section__card-img {
+    transform: scale(1.04);
+  }
+
+  @media (max-width: 1024px) {
+    #services-{{ section.id }} .services-section__grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+  }
+
+  @media (max-width: 640px) {
+    #services-{{ section.id }} .services-section__grid {
+      grid-template-columns: 1fr !important;
+    }
+    #services-{{ section.id }} .services-section__heading {
+      font-size: calc({{ section.settings.heading_font_size }}px * 0.65) !important;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Services - What We Do",
+  "tag": "section",
+  "class": "services-what-we-do",
+  "blocks": [
+    {
+      "type": "service_card",
+      "name": "Service Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "card_image",
+          "label": "Card Image"
+        },
+        {
+          "type": "text",
+          "id": "card_title",
+          "label": "Card Title",
+          "default": "Medical Care"
+        },
+        {
+          "type": "textarea",
+          "id": "card_description",
+          "label": "Card Description",
+          "default": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        },
+        {
+          "type": "url",
+          "id": "card_link",
+          "label": "Card Link URL"
+        },
+        {
+          "type": "text",
+          "id": "card_link_text",
+          "label": "Card Link Text",
+          "default": "Learn More"
+        },
+        {
+          "type": "color",
+          "id": "card_bg_color",
+          "label": "Card Background Color",
+          "default": "#ffffff"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "🎨 Section Layout"
+    },
+    {
+      "type": "color",
+      "id": "section_bg_color",
+      "label": "Section Background Color",
+      "default": "#f0f3f8"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Section Padding Top (px)",
+      "min": 0, "max": 160, "step": 4, "default": 80
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Section Padding Bottom (px)",
+      "min": 0, "max": 160, "step": 4, "default": 80
+    },
+    {
+      "type": "range",
+      "id": "container_max_width",
+      "label": "Container Max Width (px)",
+      "min": 800, "max": 1600, "step": 20, "default": 1280
+    },
+    {
+      "type": "range",
+      "id": "container_padding_x",
+      "label": "Container Side Padding (px)",
+      "min": 0, "max": 80, "step": 4, "default": 20
+    },
+
+    {
+      "type": "header",
+      "content": "🏷️ Header Text"
+    },
+    {
+      "type": "select",
+      "id": "header_align",
+      "label": "Header Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "header_margin_bottom",
+      "label": "Header Margin Bottom (px)",
+      "min": 10, "max": 100, "step": 2, "default": 60
+    },
+    {
+      "type": "text",
+      "id": "tag_text",
+      "label": "Tag / Label Text",
+      "default": "Services"
+    },
+    {
+      "type": "color",
+      "id": "tag_color",
+      "label": "Tag Color",
+      "default": "#e07050"
+    },
+    {
+      "type": "range",
+      "id": "tag_font_size",
+      "label": "Tag Font Size (px)",
+      "min": 10, "max": 22, "step": 1, "default": 13
+    },
+    {
+      "type": "range",
+      "id": "tag_letter_spacing",
+      "label": "Tag Letter Spacing (px)",
+      "min": 0, "max": 10, "step": 1, "default": 3
+    },
+    {
+      "type": "range",
+      "id": "tag_margin_bottom",
+      "label": "Tag Margin Bottom (px)",
+      "min": 0, "max": 30, "step": 2, "default": 10
+    },
+    {
+      "type": "text",
+      "id": "heading_text",
+      "label": "Main Heading",
+      "default": "What We Do Here."
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#1a2455"
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size",
+      "label": "Heading Font Size (px)",
+      "min": 24, "max": 96, "step": 2, "default": 56
+    },
+    {
+      "type": "select",
+      "id": "heading_font_weight",
+      "label": "Heading Font Weight",
+      "options": [
+        { "value": "400", "label": "Normal" },
+        { "value": "600", "label": "Semi Bold" },
+        { "value": "700", "label": "Bold" },
+        { "value": "800", "label": "Extra Bold" },
+        { "value": "900", "label": "Black" }
+      ],
+      "default": "800"
+    },
+    {
+      "type": "select",
+      "id": "heading_text_transform",
+      "label": "Heading Text Case",
+      "options": [
+        { "value": "none", "label": "Normal" },
+        { "value": "uppercase", "label": "UPPERCASE" },
+        { "value": "capitalize", "label": "Capitalize" }
+      ],
+      "default": "uppercase"
+    },
+    {
+      "type": "range",
+      "id": "heading_letter_spacing",
+      "label": "Heading Letter Spacing (px)",
+      "min": -2, "max": 10, "step": 1, "default": 1
+    },
+
+    {
+      "type": "header",
+      "content": "🃏 Cards Layout"
+    },
+    {
+      "type": "range",
+      "id": "cards_gap",
+      "label": "Gap Between Cards (px)",
+      "min": 0, "max": 60, "step": 2, "default": 28
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "label": "Card Border Radius (px)",
+      "min": 0, "max": 40, "step": 2, "default": 16
+    },
+    {
+      "type": "select",
+      "id": "card_shadow",
+      "label": "Card Shadow",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "0 2px 8px rgba(0,0,0,0.07)", "label": "Light" },
+        { "value": "0 4px 16px rgba(0,0,0,0.10)", "label": "Medium" },
+        { "value": "0 8px 32px rgba(0,0,0,0.14)", "label": "Strong" }
+      ],
+      "default": "0 4px 16px rgba(0,0,0,0.10)"
+    },
+
+    {
+      "type": "header",
+      "content": "🖼️ Card Image"
+    },
+    {
+      "type": "range",
+      "id": "card_image_height",
+      "label": "Card Image Height (px)",
+      "min": 100, "max": 500, "step": 10, "default": 260
+    },
+    {
+      "type": "checkbox",
+      "id": "show_image_fade",
+      "label": "Show Fade at Bottom of Image",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "image_fade_height",
+      "label": "Image Fade Height (px)",
+      "min": 20, "max": 120, "step": 10, "default": 60
+    },
+
+    {
+      "type": "header",
+      "content": "📝 Card Content"
+    },
+    {
+      "type": "range",
+      "id": "card_padding_top",
+      "label": "Card Body Padding Top (px)",
+      "min": 8, "max": 60, "step": 2, "default": 28
+    },
+    {
+      "type": "range",
+      "id": "card_padding_bottom",
+      "label": "Card Body Padding Bottom (px)",
+      "min": 8, "max": 60, "step": 2, "default": 32
+    },
+    {
+      "type": "range",
+      "id": "card_padding_x",
+      "label": "Card Body Padding Left/Right (px)",
+      "min": 8, "max": 60, "step": 2, "default": 28
+    },
+    {
+      "type": "color",
+      "id": "card_title_color",
+      "label": "Card Title Color",
+      "default": "#1a2455"
+    },
+    {
+      "type": "range",
+      "id": "card_title_size",
+      "label": "Card Title Font Size (px)",
+      "min": 12, "max": 32, "step": 1, "default": 17
+    },
+    {
+      "type": "range",
+      "id": "card_title_letter_spacing",
+      "label": "Card Title Letter Spacing (px)",
+      "min": 0, "max": 8, "step": 1, "default": 2
+    },
+    {
+      "type": "range",
+      "id": "card_title_margin_bottom",
+      "label": "Card Title Margin Bottom (px)",
+      "min": 4, "max": 40, "step": 2, "default": 14
+    },
+    {
+      "type": "color",
+      "id": "card_desc_color",
+      "label": "Card Description Color",
+      "default": "#555555"
+    },
+    {
+      "type": "range",
+      "id": "card_desc_size",
+      "label": "Card Description Font Size (px)",
+      "min": 11, "max": 20, "step": 1, "default": 14
+    },
+    {
+      "type": "color",
+      "id": "card_link_color",
+      "label": "Card Link Color",
+      "default": "#1a2455"
+    },
+    {
+      "type": "range",
+      "id": "card_link_size",
+      "label": "Card Link Font Size (px)",
+      "min": 11, "max": 20, "step": 1, "default": 13
+    },
+    {
+      "type": "range",
+      "id": "card_link_margin_top",
+      "label": "Card Link Margin Top (px)",
+      "min": 4, "max": 40, "step": 2, "default": 16
+    }
+  ],
+  "presets": [
+    {
+      "name": "Services - What We Do",
+      "blocks": [
+        {
+          "type": "service_card",
+          "settings": {
+            "card_title": "Medical Care",
+            "card_description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+          }
+        },
+        {
+          "type": "service_card",
+          "settings": {
+            "card_title": "Resident Care",
+            "card_description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+          }
+        },
+        {
+          "type": "service_card",
+          "settings": {
+            "card_title": "Independent",
+            "card_description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

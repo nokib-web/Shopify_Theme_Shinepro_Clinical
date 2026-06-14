@@ -1,0 +1,439 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "60910267-55e8-4e0d-a9f9-79b26b3533dc": {
+      "type": "rich-text",
+      "blocks": {
+        "template--18407212810569__60910267-55e8-4e0d-a9f9-79b26b3533dc-16795881913b1fb5f3-0": {
+          "type": "heading",
+          "settings": {
+            "title": "Talk about your brand",
+            "title_highlight_color": "#6d388b",
+            "heading_size": "h1"
+          }
+        },
+        "template--18407212810569__60910267-55e8-4e0d-a9f9-79b26b3533dc-16795881913b1fb5f3-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>At [Your company], your satisfaction is our top priority. We encourage you to reach out with any questions, concerns, or feedback, as our dedicated team is always eager to assist you. Whether you need help with product inquiries or simply want to share your experience with us, we're just a message away. </p>"
+          }
+        }
+      },
+      "block_order": [
+        "template--18407212810569__60910267-55e8-4e0d-a9f9-79b26b3533dc-16795881913b1fb5f3-0",
+        "template--18407212810569__60910267-55e8-4e0d-a9f9-79b26b3533dc-16795881913b1fb5f3-1"
+      ],
+      "disabled": true,
+      "settings": {
+        "display_id": false,
+        "visibility": "always-display",
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "full_width": true,
+        "color_scheme": "background-1",
+        "padding_top": 40,
+        "padding_bottom": 12,
+        "custom_colors_background": "#ffffff",
+        "custom_gradient_background": "",
+        "custom_colors_text": "#2e2a39",
+        "custom_colors_solid_button_background": "#dd1d1d",
+        "custom_colors_solid_button_text": "#ffffff",
+        "custom_colors_outline_button": "#dd1d1d"
+      }
+    },
+    "contact_help_banner_bM8fmb": {
+      "type": "contact-help-banner",
+      "blocks": {
+        "badge_3gdKCp": {
+          "type": "badge",
+          "settings": {
+            "badge_icon": "shield",
+            "badge_custom_icon": "shopify://shop_images/official-document.png",
+            "badge_label": "Official Products"
+          }
+        },
+        "badge_hNTTJb": {
+          "type": "badge",
+          "settings": {
+            "badge_icon": "shield",
+            "badge_custom_icon": "shopify://shop_images/retailer.png",
+            "badge_label": "Trusted Retailer"
+          }
+        },
+        "badge_tegLzk": {
+          "type": "badge",
+          "settings": {
+            "badge_icon": "shield",
+            "badge_custom_icon": "shopify://shop_images/customer-service.png",
+            "badge_label": "Fast Support"
+          }
+        }
+      },
+      "block_order": [
+        "badge_3gdKCp",
+        "badge_hNTTJb",
+        "badge_tegLzk"
+      ],
+      "name": "Contact Banner",
+      "settings": {
+        "section_max_width": 1400,
+        "bg_color": "rgba(0,0,0,0)",
+        "bg_image": "shopify://shop_images/final_contact_banner.png",
+        "bg_image_size": "cover",
+        "bg_image_position": "center center",
+        "bg_image_repeat": "no-repeat",
+        "overlay_color": "#ffffff",
+        "overlay_opacity": 0,
+        "mobile_overlay_color": "#fcfcfc",
+        "mobile_overlay_opacity": 60,
+        "padding_top": 120,
+        "padding_bottom": 120,
+        "padding_horizontal": 40,
+        "mobile_padding_top": 32,
+        "mobile_padding_bottom": 32,
+        "mobile_padding_horizontal": 20,
+        "eyebrow": "CONTACT US",
+        "eyebrow_color": "#2196f3",
+        "eyebrow_font_size": 13,
+        "eyebrow_font_weight": "600",
+        "heading": "We're Here To Help",
+        "heading_color": "#1a1a2e",
+        "heading_font_size": 44,
+        "tablet_heading_font_size": 30,
+        "mobile_heading_font_size": 30,
+        "heading_font_weight": "700",
+        "subtext": "Have questions about Dr. Pen devices, cartridges, or your order? Our support team is ready to assist you.",
+        "subtext_color": "#000000",
+        "subtext_font_size": 16,
+        "tablet_subtext_font_size": 15,
+        "mobile_subtext_font_size": 14,
+        "subtext_font_weight": "400",
+        "badge_font_size": 14,
+        "mobile_badge_font_size": 13,
+        "badge_font_weight": "500",
+        "badge_text_color": "#000000",
+        "badge_icon_color": "#1a73e8",
+        "badge_icon_size": 22,
+        "image_width": 420,
+        "image_height": 220,
+        "tablet_image_width": 320,
+        "mobile_image_height": 180,
+        "image_object_fit": "contain",
+        "mobile_layout": "column",
+        "mobile_image_order": "2",
+        "mobile_content_order": "2",
+        "mobile_text_align": "center",
+        "mobile_badges_align": "center"
+      }
+    },
+    "contact_form_U9ptC4": {
+      "type": "contact-form",
+      "blocks": {
+        "textarea_xfwizH": {
+          "type": "textarea",
+          "settings": {
+            "input_type": "custom",
+            "input_required": false,
+            "input_error_message": "This field is required",
+            "input_custom_name": "Custom name"
+          }
+        },
+        "field_row_B7EVcM": {
+          "type": "field_row",
+          "settings": {
+            "input_1_enabled": true,
+            "input_1_type": "name",
+            "input_1_required": false,
+            "input_1_error_message": "This field is required",
+            "input_1_custom_name": "Custom input name",
+            "input_2_enabled": true,
+            "input_2_type": "email",
+            "input_2_required": false,
+            "input_2_error_message": "This field is required",
+            "input_2_custom_name": "Custom input name"
+          }
+        },
+        "field_row_HX8WGh": {
+          "type": "field_row",
+          "settings": {
+            "input_1_enabled": true,
+            "input_1_type": "phone",
+            "input_1_required": false,
+            "input_1_error_message": "This field is required",
+            "input_1_custom_name": "Custom input name",
+            "input_2_enabled": false,
+            "input_2_type": "custom",
+            "input_2_required": false,
+            "input_2_error_message": "This field is required",
+            "input_2_custom_name": "Custom input name"
+          }
+        },
+        "textarea_trVaGc": {
+          "type": "textarea",
+          "settings": {
+            "input_type": "comment",
+            "input_required": false,
+            "input_error_message": "This field is required",
+            "input_custom_name": "Custom name"
+          }
+        }
+      },
+      "block_order": [
+        "textarea_xfwizH",
+        "field_row_B7EVcM",
+        "field_row_HX8WGh",
+        "textarea_trVaGc"
+      ],
+      "settings": {
+        "display_id": false,
+        "visibility": "always-display",
+        "title": "Contact Form",
+        "title_highlight_color": "#6d388b",
+        "heading_size": "h1",
+        "button_full_width": true,
+        "color_scheme": "background-1",
+        "success_icon": "check_circle",
+        "success_icon_filled": false,
+        "success_text_color": "#28c100",
+        "success_bg_color": "#f2ffed",
+        "success_border_radius": 8,
+        "success_border_width": 1,
+        "success_border_color": "#28c100",
+        "errors_icon": "error",
+        "errors_icon_filled": false,
+        "errors_text_color": "#b39563",
+        "errors_bg_color": "#fff5f5",
+        "errors_border_radius": 8,
+        "errors_border_width": 1,
+        "errors_border_color": "#b39563",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "custom_colors_background": "#ffffff",
+        "custom_gradient_background": "",
+        "custom_image_background": "shopify://shop_images/background.png",
+        "custom_colors_text": "#2e2a39",
+        "custom_colors_solid_button_background": "#b39563",
+        "custom_colors_solid_button_text": "#ffffff"
+      }
+    },
+    "icons_with_content_R9wp9b": {
+      "type": "icons-with-content",
+      "blocks": {
+        "icon_YJgDqG": {
+          "type": "icon",
+          "settings": {
+            "icon": "check_circle",
+            "filled_icon": false,
+            "image": "shopify://shop_images/address.png",
+            "title": "Address Line",
+            "text": "<p>Pair text with an icon to focus on your chosen product, collection, or blog post</p>"
+          }
+        },
+        "icon_D3eyAM": {
+          "type": "icon",
+          "settings": {
+            "icon": "check_circle",
+            "filled_icon": false,
+            "image": "shopify://shop_images/fon_number.png",
+            "title": "Pho",
+            "text": "<p>Pair text with an icon to focus on your chosen product, collection, or blog post</p>"
+          }
+        },
+        "icon_cHX3LJ": {
+          "type": "icon",
+          "settings": {
+            "icon": "check_circle",
+            "filled_icon": false,
+            "image": "shopify://shop_images/mail_address.png",
+            "title": "Mail Address",
+            "text": "<p>Pair text with an icon to focus on your chosen product, collection, or blog post</p>"
+          }
+        },
+        "heading_K9PL4C": {
+          "type": "heading",
+          "settings": {
+            "title": "Content",
+            "title_highlight_color": "#6d388b",
+            "heading_size": "h1"
+          }
+        },
+        "text_G4bQcT": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Pair icons with content to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+            "text_style": "body"
+          }
+        },
+        "button_L4Yg4V": {
+          "type": "button",
+          "settings": {
+            "button_label": "All Product",
+            "button_link": "shopify://collections/all",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "icon_YJgDqG",
+        "icon_D3eyAM",
+        "icon_cHX3LJ",
+        "heading_K9PL4C",
+        "text_G4bQcT",
+        "button_L4Yg4V"
+      ],
+      "disabled": true,
+      "name": "Icons with content",
+      "settings": {
+        "display_id": false,
+        "visibility": "always-display",
+        "color_scheme": "background-1",
+        "icon_size": "m",
+        "icon_position": "next-to-title",
+        "icon_color": "accent-1",
+        "icon_heading_size": "h3",
+        "icon_text_alignment": "left",
+        "icons_desktop_layout": "1-column",
+        "icons_mobile_layout": "1-column",
+        "desktop_content_alignment": "left",
+        "layout": "image_first",
+        "mobile_layout": "text_first",
+        "hide_content_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "custom_colors_background": "#ffffff",
+        "custom_gradient_background": "",
+        "custom_image_background": "shopify://shop_images/contact-background.png",
+        "custom_colors_text": "#2e2a39",
+        "custom_colors_solid_button_background": "#dd1d1d",
+        "custom_colors_solid_button_text": "#ffffff",
+        "custom_colors_outline_button": "#dd1d1d"
+      }
+    },
+    "faq_costom_QXKMHr": {
+      "type": "faq-costom",
+      "blocks": {
+        "faq_item_cj8VyV": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How does microneedling work?",
+            "answer": "<p>Microneedling creates tiny micro-channels in the skin to support natural collagen production and improve overall skin texture and appearance.</p>"
+          }
+        },
+        "faq_item_dPBcAP": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is microneedling painful?",
+            "answer": "<p>Most users experience mild discomfort depending on needle depth and skin sensitivity. Proper technique and skincare preparation can improve comfort.</p>"
+          }
+        },
+        "faq_item_xpmX98": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Which Dr. Pen device is best?",
+            "answer": "<p>The ideal device depends on your skincare goals, experience level, and preferred features. Comparison guides can help you choose the right model.</p>"
+          }
+        },
+        "faq_item_ccHyJz": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How often should I use my Dr. Pen device?",
+            "answer": "<p>Treatment frequency depends on needle depth and skin condition. Most users allow sufficient recovery time between sessions for best results.</p>"
+          }
+        },
+        "faq_item_pgY4MK": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can cartridges be reused?",
+            "answer": "<p>For hygiene and safety reasons, cartridges are intended for single use only and should be replaced after every treatment session.</p>"
+          }
+        },
+        "faq_item_MQeQg4": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How long does shipping take?",
+            "answer": "<p>Orders are processed quickly and shipped within standard US delivery timeframes depending on location and shipping method.</p>"
+          }
+        },
+        "faq_item_VHaHUM": {
+          "type": "faq_item",
+          "disabled": true,
+          "settings": {
+            "question": "What skin concerns can microneedling support?",
+            "answer": "<p>Microneedling is commonly used to support smoother-looking skin texture, uneven tone, and overall skin rejuvenation.</p>"
+          }
+        },
+        "faq_item_pTyMaY": {
+          "type": "faq_item",
+          "disabled": true,
+          "settings": {
+            "question": "Are your products authentic?",
+            "answer": "<p>Yes, we provide authentic Dr. Pen devices and skincare accessories sourced from trusted and verified suppliers.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_item_cj8VyV",
+        "faq_item_dPBcAP",
+        "faq_item_xpmX98",
+        "faq_item_ccHyJz",
+        "faq_item_pgY4MK",
+        "faq_item_MQeQg4",
+        "faq_item_VHaHUM",
+        "faq_item_pTyMaY"
+      ],
+      "name": "Custom FAQ Image Style",
+      "settings": {
+        "container_width": 800,
+        "open_first": true,
+        "subtitle": "TRUSTED BY",
+        "title": "Frequently Asked Questions",
+        "bg_color": "#f3f3f3",
+        "title_color": "#111111",
+        "subtitle_color": "#4a4a4a",
+        "question_color": "#111111",
+        "answer_color": "#555555",
+        "item_bg_closed": "#f3f5f9",
+        "item_bg_open": "#ffffff",
+        "icon_bg_closed": "#ffffff",
+        "icon_bg_open": "#f3f5f9",
+        "icon_color": "#111111",
+        "title_size_desktop": 48,
+        "subtitle_size_desktop": 12,
+        "question_size_desktop": 16,
+        "answer_size_desktop": 15,
+        "title_size_mobile": 32,
+        "subtitle_size_mobile": 12,
+        "question_size_mobile": 16,
+        "answer_size_mobile": 15,
+        "padding_top_desktop": 64,
+        "padding_bottom_desktop": 64,
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40
+      }
+    }
+  },
+  "order": [
+    "main",
+    "60910267-55e8-4e0d-a9f9-79b26b3533dc",
+    "contact_help_banner_bM8fmb",
+    "contact_form_U9ptC4",
+    "icons_with_content_R9wp9b",
+    "faq_costom_QXKMHr"
+  ]
+}

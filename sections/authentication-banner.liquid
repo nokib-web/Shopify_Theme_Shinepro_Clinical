@@ -1,0 +1,1171 @@
+{% comment %}
+  Dr.pen Product Authentication Banner Section — v2
+  - Overlay fix: desktop + mobile separate overlay support
+  - opacity properly applied via CSS variable
+{% endcomment %}
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700;1,800&display=swap');
+
+  .drpen-banner-{{ section.id }} {
+    position: relative;
+    width: 100%;
+    font-family: 'Montserrat', sans-serif;
+    background-color: {{ section.settings.bg_color }};
+    {% if section.settings.bg_image != blank %}
+    background-image: url('{{ section.settings.bg_image | image_url: width: 2000 }}');
+    background-size: cover;
+    background-position: {{ section.settings.bg_position }};
+    background-repeat: no-repeat;
+    {% endif %}
+    overflow: hidden;
+  }
+
+  /* ── Desktop Overlay ── */
+  .drpen-banner-{{ section.id }} .drpen-overlay {
+    display: none;
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  {% if section.settings.show_overlay %}
+  .drpen-banner-{{ section.id }} .drpen-overlay {
+    display: block;
+    background: {{ section.settings.overlay_color }};
+    opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+  }
+  {% endif %}
+
+  /* Decorative glow accent */
+  .drpen-banner-{{ section.id }} .drpen-glow {
+    position: absolute;
+    top: -80px;
+    right: -80px;
+    width: 420px;
+    height: 420px;
+    background: radial-gradient(circle, rgba(59,130,246,0.18) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .drpen-banner-{{ section.id }} .drpen-glow-2 {
+    position: absolute;
+    bottom: -60px;
+    left: 20%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(96,165,250,0.10) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .drpen-banner-{{ section.id }} .drpen-container {
+    position: relative;
+    z-index: 1;
+    max-width: {{ section.settings.max_width }}px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    padding: {{ section.settings.padding_top }}px {{ section.settings.padding_right }}px {{ section.settings.padding_bottom }}px {{ section.settings.padding_left }}px;
+    gap: {{ section.settings.col_gap }}px;
+    {% if section.settings.section_height_mode == 'fixed' %}
+      height: {{ section.settings.section_height }}px;
+    {% elsif section.settings.section_height_mode == 'min' %}
+      min-height: {{ section.settings.section_height }}px;
+    {% endif %}
+  }
+
+  /* ── LEFT IMAGE COLUMN ── */
+  .drpen-banner-{{ section.id }} .drpen-img-col {
+    flex: 0 0 {{ section.settings.img_col_width }}%;
+    max-width: {{ section.settings.img_col_width }}%;
+    position: relative;
+  }
+
+  .drpen-banner-{{ section.id }} .drpen-img-wrap {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+  }
+
+  .drpen-banner-{{ section.id }} .drpen-img-col img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: {{ section.settings.img_radius }}px;
+    object-fit: cover;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── RIGHT CONTENT COLUMN ── */
+  .drpen-banner-{{ section.id }} .drpen-content-col {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .drpen-banner-{{ section.id }} .drpen-top-line {
+    width: 48px;
+    height: 3px;
+    background: linear-gradient(90deg, #60a5fa, #3b82f6);
+    border-radius: 2px;
+    margin-bottom: 14px;
+    display: block;
+  }
+
+  .drpen-banner-{{ section.id }} .drpen-brand {
+    font-size: {{ section.settings.brand_size }}px;
+    font-weight: {{ section.settings.brand_weight }};
+    color: {{ section.settings.brand_color }};
+    font-style: italic;
+    line-height: 1;
+    margin: 0 0 {{ section.settings.brand_mb }}px 0;
+    letter-spacing: -1px;
+  }
+
+  .drpen-banner-{{ section.id }} .drpen-brand sup {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 0.4em;
+    vertical-align: super;
+    letter-spacing: 0;
+  }
+
+  .drpen-banner-{{ section.id }} .drpen-heading {
+    font-size: {{ section.settings.heading_size }}px;
+    font-weight: {{ section.settings.heading_weight }};
+    color: {{ section.settings.heading_color }};
+    margin: 0 0 {{ section.settings.heading_mb }}px 0;
+    line-height: 1.35;
+    padding-bottom: {{ section.settings.heading_mb | divided_by: 2 }}px;
+    border-bottom: 1px solid rgba(96,165,250,0.25);
+  }
+
+  .drpen-banner-{{ section.id }} .drpen-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: {{ section.settings.item_gap }}px;
+  }
+
+  .drpen-banner-{{ section.id }} .drpen-list-item {
+    display: flex;
+    align-items: flex-start;
+    gap: {{ section.settings.icon_gap }}px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(96,165,250,0.12);
+    backdrop-filter: blur(4px);
+    transition: background 0.2s, border-color 0.2s;
+  }
+
+  .drpen-banner-{{ section.id }} .drpen-list-item:hover {
+    background: rgba(96,165,250,0.08);
+    border-color: rgba(96,165,250,0.28);
+  }
+
+  .drpen-banner-{{ section.id }} .drpen-icon {
+    flex-shrink: 0;
+    width: {{ section.settings.icon_size }}px;
+    height: {{ section.settings.icon_size }}px;
+    color: {{ section.settings.icon_color }};
+    margin-top: 2px;
+    filter: drop-shadow(0 0 5px {{ section.settings.icon_color }});
+  }
+
+  .drpen-banner-{{ section.id }} .drpen-icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .drpen-banner-{{ section.id }} .drpen-item-body {
+    color: {{ section.settings.item_color }};
+    font-size: {{ section.settings.item_size }}px;
+    font-weight: {{ section.settings.item_weight }};
+    line-height: 1.5;
+  }
+
+  .drpen-banner-{{ section.id }} .drpen-item-label {
+    color: {{ section.settings.label_color }};
+    font-weight: {{ section.settings.label_weight }};
+  }
+
+  .drpen-banner-{{ section.id }} .drpen-sublist {
+    list-style: none;
+    margin: {{ section.settings.sub_mt }}px 0 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: {{ section.settings.sub_gap }}px;
+  }
+
+  .drpen-banner-{{ section.id }} .drpen-sublist-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: {{ section.settings.sub_size }}px;
+    color: {{ section.settings.sub_color }};
+    font-weight: {{ section.settings.sub_weight }};
+    line-height: 1.5;
+    padding-left: {{ section.settings.sub_indent }}px;
+  }
+
+  .drpen-banner-{{ section.id }} .drpen-sub-dot {
+    flex-shrink: 0;
+    font-size: 1.3em;
+    line-height: 1.2;
+    color: {{ section.settings.sub_dot_color }};
+  }
+
+  .drpen-banner-{{ section.id }} .drpen-sublist-item strong {
+    font-weight: {{ section.settings.sub_strong_weight }};
+    color: {{ section.settings.sub_strong_color }};
+  }
+
+  /* ══════ MOBILE ══════ */
+  @media screen and (max-width: 768px) {
+    .drpen-banner-{{ section.id }} {
+      {% if section.settings.m_bg_image != blank %}
+      background-image: url('{{ section.settings.m_bg_image | image_url: width: 1200 }}');
+      background-size: cover;
+      background-position: {{ section.settings.m_bg_position }};
+      background-repeat: no-repeat;
+      {% elsif section.settings.bg_image != blank %}
+      background-image: url('{{ section.settings.bg_image | image_url: width: 1200 }}');
+      background-position: {{ section.settings.m_bg_position }};
+      {% endif %}
+    }
+
+    /* Mobile Overlay — overrides desktop overlay inside media query */
+    .drpen-banner-{{ section.id }} .drpen-overlay {
+      {% if section.settings.m_show_overlay %}
+        display: block;
+        background: {{ section.settings.m_overlay_color }};
+        opacity: {{ section.settings.m_overlay_opacity | divided_by: 100.0 }};
+      {% else %}
+        display: none;
+      {% endif %}
+    }
+
+    .drpen-banner-{{ section.id }} .drpen-glow {
+      width: 220px;
+      height: 220px;
+      top: -40px;
+      right: -40px;
+    }
+
+    .drpen-banner-{{ section.id }} .drpen-glow-2 {
+      display: none;
+    }
+
+    .drpen-banner-{{ section.id }} .drpen-container {
+      flex-direction: column;
+      padding: {{ section.settings.m_pt }}px {{ section.settings.m_pr }}px {{ section.settings.m_pb }}px {{ section.settings.m_pl }}px;
+      gap: {{ section.settings.m_gap }}px;
+      {% if section.settings.m_section_height_mode == 'fixed' %}
+        height: {{ section.settings.m_section_height }}px;
+      {% elsif section.settings.m_section_height_mode == 'min' %}
+        min-height: {{ section.settings.m_section_height }}px;
+      {% else %}
+        height: auto;
+      {% endif %}
+    }
+
+    .drpen-banner-{{ section.id }} .drpen-img-col {
+      flex: 0 0 100%;
+      max-width: {{ section.settings.m_img_width }}%;
+      margin: 0 auto;
+      {% unless section.settings.m_show_img %}
+        display: none;
+      {% endunless %}
+    }
+
+    .drpen-banner-{{ section.id }} .drpen-content-col {
+      width: 100%;
+    }
+
+    .drpen-banner-{{ section.id }} .drpen-brand {
+      font-size: {{ section.settings.m_brand_size }}px;
+    }
+
+    .drpen-banner-{{ section.id }} .drpen-heading {
+      font-size: {{ section.settings.m_heading_size }}px;
+      margin-bottom: {{ section.settings.m_heading_mb }}px;
+    }
+
+    .drpen-banner-{{ section.id }} .drpen-item-body {
+      font-size: {{ section.settings.m_item_size }}px;
+    }
+
+    .drpen-banner-{{ section.id }} .drpen-sublist-item {
+      font-size: {{ section.settings.m_sub_size }}px;
+    }
+
+    .drpen-banner-{{ section.id }} .drpen-icon {
+      width: {{ section.settings.m_icon_size }}px;
+      height: {{ section.settings.m_icon_size }}px;
+    }
+
+    .drpen-banner-{{ section.id }} .drpen-list-item {
+      padding: 8px 10px;
+    }
+  }
+</style>
+
+<div class="drpen-banner-{{ section.id }}">
+  <div class="drpen-overlay"></div>
+  <div class="drpen-glow"></div>
+  <div class="drpen-glow-2"></div>
+
+  <div class="drpen-container">
+
+    {%- comment -%} LEFT: Image {%- endcomment -%}
+    <div class="drpen-img-col">
+      <div class="drpen-img-wrap">
+        {%- if section.settings.main_image != blank -%}
+          <img
+            src="{{ section.settings.main_image | image_url: width: 900 }}"
+            srcset="
+              {{ section.settings.main_image | image_url: width: 400 }} 400w,
+              {{ section.settings.main_image | image_url: width: 700 }} 700w,
+              {{ section.settings.main_image | image_url: width: 900 }} 900w
+            "
+            sizes="(max-width: 768px) 90vw, {{ section.settings.img_col_width }}vw"
+            alt="{{ section.settings.main_image.alt | escape | default: section.settings.brand_name }}"
+            width="{{ section.settings.main_image.width }}"
+            height="{{ section.settings.main_image.height }}"
+            loading="lazy"
+          >
+        {%- endif -%}
+      </div>
+    </div>
+
+    {%- comment -%} RIGHT: Content {%- endcomment -%}
+    <div class="drpen-content-col">
+
+      <span class="drpen-top-line"></span>
+
+      {%- if section.settings.brand_name != blank -%}
+        <p class="drpen-brand">
+          {{ section.settings.brand_name }}{%- if section.settings.show_reg -%}<sup>®</sup>{%- endif -%}
+        </p>
+      {%- endif -%}
+
+      {%- if section.settings.main_heading != blank -%}
+        <h2 class="drpen-heading">{{ section.settings.main_heading }}</h2>
+      {%- endif -%}
+
+      {%- if section.blocks.size > 0 -%}
+        <ul class="drpen-list">
+          {%- for block in section.blocks -%}
+            <li class="drpen-list-item" {{ block.shopify_attributes }}>
+              <span class="drpen-icon" aria-hidden="true">
+                {%- case block.settings.icon -%}
+                  {%- when 'warning' -%}
+                    <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-2a1 1 0 01-1-1V8a1 1 0 012 0v2a1 1 0 01-1 1z" clip-rule="evenodd"/></svg>
+                  {%- when 'shield' -%}
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L4 5v6c0 5.25 3.5 10.15 8 11.35C16.5 21.15 20 16.25 20 11V5L12 2z"/></svg>
+                  {%- when 'check' -%}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                  {%- when 'info' -%}
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 4a1 1 0 110 2 1 1 0 010-2zm0 4a1 1 0 011 1v4a1 1 0 11-2 0v-4a1 1 0 011-1z" clip-rule="evenodd"/></svg>
+                  {%- when 'lock' -%}
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M12 2a5 5 0 00-5 5v2H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2v-9a2 2 0 00-2-2h-2V7a5 5 0 00-5-5zm-3 7V7a3 3 0 016 0v2H9zm3 3a1 1 0 011 1v3a1 1 0 11-2 0v-3a1 1 0 011-1z" clip-rule="evenodd"/></svg>
+                  {%- when 'star' -%}
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  {%- when 'custom' -%}
+                    {{ block.settings.custom_svg }}
+                  {%- else -%}
+                    <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-2a1 1 0 01-1-1V8a1 1 0 012 0v2a1 1 0 01-1 1z" clip-rule="evenodd"/></svg>
+                {%- endcase -%}
+              </span>
+
+              <div class="drpen-item-body">
+                {%- if block.settings.label != blank -%}
+                  <span class="drpen-item-label">{{ block.settings.label }} </span>
+                {%- endif -%}
+                {{- block.settings.text -}}
+
+                {%- if block.settings.sub1 != blank or block.settings.sub2 != blank -%}
+                  <ul class="drpen-sublist">
+                    {%- if block.settings.sub1 != blank -%}
+                      <li class="drpen-sublist-item">
+                        <span class="drpen-sub-dot">·</span>
+                        <span>{{ block.settings.sub1 }}</span>
+                      </li>
+                    {%- endif -%}
+                    {%- if block.settings.sub2 != blank -%}
+                      <li class="drpen-sublist-item">
+                        <span class="drpen-sub-dot">·</span>
+                        <span>{{ block.settings.sub2 }}</span>
+                      </li>
+                    {%- endif -%}
+                  </ul>
+                {%- endif -%}
+              </div>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Dr.pen Auth Banner",
+  "tag": "section",
+  "class": "drpen-auth-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "🖼️ Desktop Background"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image (Desktop)"
+    },
+    {
+      "type": "select",
+      "id": "bg_position",
+      "label": "Background Position (Desktop)",
+      "options": [
+        { "value": "center center", "label": "Center" },
+        { "value": "top center", "label": "Top Center" },
+        { "value": "bottom center", "label": "Bottom Center" },
+        { "value": "left center", "label": "Left Center" },
+        { "value": "right center", "label": "Right Center" }
+      ],
+      "default": "center center"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Fallback Background Color",
+      "default": "#0a1e3d"
+    },
+    {
+      "type": "header",
+      "content": "🌑 Desktop Overlay"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_overlay",
+      "label": "Enable Overlay (Desktop)",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay Color (Desktop)",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "unit": "%",
+      "label": "Overlay Opacity (Desktop)",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "📱 Mobile Background"
+    },
+    {
+      "type": "image_picker",
+      "id": "m_bg_image",
+      "label": "Background Image (Mobile Only)",
+      "info": "If blank, the desktop background image will be used on mobile."
+    },
+    {
+      "type": "select",
+      "id": "m_bg_position",
+      "label": "Background Position (Mobile)",
+      "options": [
+        { "value": "center center", "label": "Center" },
+        { "value": "top center", "label": "Top Center" },
+        { "value": "bottom center", "label": "Bottom Center" },
+        { "value": "left center", "label": "Left Center" },
+        { "value": "right center", "label": "Right Center" }
+      ],
+      "default": "center center"
+    },
+    {
+      "type": "header",
+      "content": "🌑 Mobile Overlay"
+    },
+    {
+      "type": "checkbox",
+      "id": "m_show_overlay",
+      "label": "Enable Overlay (Mobile)",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "m_overlay_color",
+      "label": "Overlay Color (Mobile)",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "m_overlay_opacity",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "unit": "%",
+      "label": "Overlay Opacity (Mobile)",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "📐 Desktop Height"
+    },
+    {
+      "type": "select",
+      "id": "section_height_mode",
+      "label": "Height Mode (Desktop)",
+      "options": [
+        { "value": "auto", "label": "Auto (fits content)" },
+        { "value": "min", "label": "Min Height" },
+        { "value": "fixed", "label": "Fixed Height" }
+      ],
+      "default": "min"
+    },
+    {
+      "type": "range",
+      "id": "section_height",
+      "min": 100,
+      "max": 900,
+      "step": 10,
+      "unit": "px",
+      "label": "Section Height (Desktop)",
+      "default": 420
+    },
+    {
+      "type": "header",
+      "content": "📱 Mobile Height"
+    },
+    {
+      "type": "select",
+      "id": "m_section_height_mode",
+      "label": "Height Mode (Mobile)",
+      "options": [
+        { "value": "auto", "label": "Auto (fits content)" },
+        { "value": "min", "label": "Min Height" },
+        { "value": "fixed", "label": "Fixed Height" }
+      ],
+      "default": "auto"
+    },
+    {
+      "type": "range",
+      "id": "m_section_height",
+      "min": 100,
+      "max": 900,
+      "step": 10,
+      "unit": "px",
+      "label": "Section Height (Mobile)",
+      "default": 500
+    },
+    {
+      "type": "header",
+      "content": "🖼️ Left Image (Shield / Product Photo)"
+    },
+    {
+      "type": "image_picker",
+      "id": "main_image",
+      "label": "Left Image"
+    },
+    {
+      "type": "range",
+      "id": "img_col_width",
+      "min": 20,
+      "max": 60,
+      "step": 1,
+      "unit": "%",
+      "label": "Image Column Width",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "img_radius",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Image Border Radius",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "📝 Brand Name"
+    },
+    {
+      "type": "text",
+      "id": "brand_name",
+      "label": "Brand Name",
+      "default": "Dr. pen"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_reg",
+      "label": "Show ® symbol",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "brand_color",
+      "label": "Brand Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "brand_size",
+      "min": 24,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "label": "Brand Font Size (Desktop)",
+      "default": 52
+    },
+    {
+      "type": "select",
+      "id": "brand_weight",
+      "label": "Brand Font Weight",
+      "options": [
+        { "value": "400", "label": "Regular" },
+        { "value": "600", "label": "Semi Bold" },
+        { "value": "700", "label": "Bold" },
+        { "value": "800", "label": "Extra Bold" },
+        { "value": "900", "label": "Black" }
+      ],
+      "default": "700"
+    },
+    {
+      "type": "range",
+      "id": "brand_mb",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Brand Margin Bottom",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "📌 Section Heading"
+    },
+    {
+      "type": "text",
+      "id": "main_heading",
+      "label": "Heading Text",
+      "default": "Dr.pen Product Authentication Instructions"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 12,
+      "max": 36,
+      "step": 1,
+      "unit": "px",
+      "label": "Heading Font Size (Desktop)",
+      "default": 20
+    },
+    {
+      "type": "select",
+      "id": "heading_weight",
+      "label": "Heading Font Weight",
+      "options": [
+        { "value": "400", "label": "Regular" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi Bold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "600"
+    },
+    {
+      "type": "range",
+      "id": "heading_mb",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading Margin Bottom",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "🔶 Icons"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon Color",
+      "default": "#f0a500"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "min": 12,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "label": "Icon Size",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "icon_gap",
+      "min": 4,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Icon to Text Gap",
+      "default": 10
+    },
+    {
+      "type": "header",
+      "content": "📋 List Items"
+    },
+    {
+      "type": "color",
+      "id": "item_color",
+      "label": "Item Text Color",
+      "default": "#e0e8f0"
+    },
+    {
+      "type": "range",
+      "id": "item_size",
+      "min": 12,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "label": "Item Font Size (Desktop)",
+      "default": 16
+    },
+    {
+      "type": "select",
+      "id": "item_weight",
+      "label": "Item Font Weight",
+      "options": [
+        { "value": "300", "label": "Light" },
+        { "value": "400", "label": "Regular" },
+        { "value": "500", "label": "Medium" }
+      ],
+      "default": "400"
+    },
+    {
+      "type": "range",
+      "id": "item_gap",
+      "min": 4,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Gap Between Items",
+      "default": 10
+    },
+    {
+      "type": "color",
+      "id": "label_color",
+      "label": "Bold Label Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "select",
+      "id": "label_weight",
+      "label": "Bold Label Font Weight",
+      "options": [
+        { "value": "600", "label": "Semi Bold" },
+        { "value": "700", "label": "Bold" },
+        { "value": "800", "label": "Extra Bold" }
+      ],
+      "default": "700"
+    },
+    {
+      "type": "header",
+      "content": "↳ Sub Items"
+    },
+    {
+      "type": "color",
+      "id": "sub_color",
+      "label": "Sub Item Text Color",
+      "default": "#d0dce8"
+    },
+    {
+      "type": "range",
+      "id": "sub_size",
+      "min": 11,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Sub Item Font Size (Desktop)",
+      "default": 15
+    },
+    {
+      "type": "select",
+      "id": "sub_weight",
+      "label": "Sub Item Font Weight",
+      "options": [
+        { "value": "300", "label": "Light" },
+        { "value": "400", "label": "Regular" },
+        { "value": "500", "label": "Medium" }
+      ],
+      "default": "400"
+    },
+    {
+      "type": "range",
+      "id": "sub_mt",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Sub List Margin Top",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "sub_gap",
+      "min": 2,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Sub Item Gap",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "sub_indent",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Sub Item Left Indent",
+      "default": 4
+    },
+    {
+      "type": "color",
+      "id": "sub_dot_color",
+      "label": "Sub Dot Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "sub_strong_color",
+      "label": "Sub Bold Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "select",
+      "id": "sub_strong_weight",
+      "label": "Sub Bold Text Weight",
+      "options": [
+        { "value": "600", "label": "Semi Bold" },
+        { "value": "700", "label": "Bold" },
+        { "value": "800", "label": "Extra Bold" }
+      ],
+      "default": "700"
+    },
+    {
+      "type": "header",
+      "content": "📐 Desktop Layout"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 800,
+      "max": 1920,
+      "step": 20,
+      "unit": "px",
+      "label": "Max Width",
+      "default": 1440
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_left",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Left",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_right",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Right",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "col_gap",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Gap Between Columns",
+      "default": 48
+    },
+    {
+      "type": "header",
+      "content": "📱 Mobile Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "m_show_img",
+      "label": "Show Image on Mobile",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "m_img_width",
+      "min": 40,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Mobile Image Width",
+      "default": 85
+    },
+    {
+      "type": "range",
+      "id": "m_pt",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top (Mobile)",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "m_pb",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom (Mobile)",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "m_pl",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Left (Mobile)",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "m_pr",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Right (Mobile)",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "m_gap",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "label": "Gap (Mobile)",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "m_brand_size",
+      "min": 20,
+      "max": 56,
+      "step": 1,
+      "unit": "px",
+      "label": "Brand Font Size (Mobile)",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "m_heading_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Heading Font Size (Mobile)",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "m_heading_mb",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading Margin Bottom (Mobile)",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "m_item_size",
+      "min": 11,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Item Font Size (Mobile)",
+      "default": 13
+    },
+    {
+      "type": "range",
+      "id": "m_sub_size",
+      "min": 10,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Sub Item Font Size (Mobile)",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "m_icon_size",
+      "min": 12,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "label": "Icon Size (Mobile)",
+      "default": 15
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Auth Item",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "warning", "label": "⚠ Warning" },
+            { "value": "shield", "label": "🛡 Shield" },
+            { "value": "check", "label": "✓ Check" },
+            { "value": "info", "label": "ℹ Info" },
+            { "value": "lock", "label": "🔒 Lock" },
+            { "value": "star", "label": "★ Star" },
+            { "value": "custom", "label": "Custom SVG" }
+          ],
+          "default": "warning"
+        },
+        {
+          "type": "textarea",
+          "id": "custom_svg",
+          "label": "Custom SVG (if icon = Custom SVG)"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Bold Label",
+          "default": "Verification Limit:"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Item Text",
+          "default": "3 uses per code."
+        },
+        {
+          "type": "richtext",
+          "id": "sub1",
+          "label": "Sub Item 1 (optional)"
+        },
+        {
+          "type": "richtext",
+          "id": "sub2",
+          "label": "Sub Item 2 (optional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Dr.pen Auth Banner",
+      "blocks": [
+        {
+          "type": "item",
+          "settings": {
+            "icon": "warning",
+            "label": "Verification Limit:",
+            "text": "3 uses per code."
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "icon": "warning",
+            "label": "Invalidation:",
+            "text": "Code expires after the 3rd use."
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "icon": "warning",
+            "label": "Reference Info:",
+            "text": "\"Previous verification count\" is for reference only."
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "icon": "warning",
+            "label": "Critical Step:",
+            "text": "Check the \"First verification time\".",
+            "sub1": "<p>It must match the <strong>exact time you first scanned the code.</strong></p>",
+            "sub2": "<p><strong>Note:</strong> A query within 24 hours of purchase counts as the first verification.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

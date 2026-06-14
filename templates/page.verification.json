@@ -1,0 +1,605 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "title": "Subscribe to our emails",
+            "title_highlight_color": "#6d388b",
+            "heading_size": "h1"
+          }
+        },
+        "paragraph": {
+          "type": "paragraph",
+          "settings": {
+            "text": "<p>Join our email list for exclusive offers and the latest news. </p>"
+          }
+        },
+        "email-form": {
+          "type": "email_form",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "heading",
+        "paragraph",
+        "email-form"
+      ],
+      "disabled": true,
+      "settings": {
+        "display_id": false,
+        "visibility": "always-display",
+        "button_type": "solid",
+        "button_label": "Sign up",
+        "button_style_secondary": false,
+        "color_scheme": "background-2",
+        "full_width": true,
+        "padding_top": 68,
+        "padding_bottom": 52,
+        "custom_colors_background": "#ffffff",
+        "custom_gradient_background": "",
+        "custom_colors_text": "#2e2a39",
+        "custom_colors_solid_button_background": "#dd1d1d",
+        "custom_colors_solid_button_text": "#ffffff"
+      }
+    },
+    "safty_expertise_YNH8zJ": {
+      "type": "safty-expertise",
+      "blocks": {
+        "card_AapTRc": {
+          "type": "card",
+          "settings": {
+            "image_alt": "",
+            "image_overlay_text": "",
+            "card_background": "#ffffff",
+            "card_title": "Feature Title",
+            "card_text": "Describe this feature or highlight in a few sentences.",
+            "card_button_text": "",
+            "card_button_url": ""
+          }
+        },
+        "card_V6rdt9": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/skin-surface.webp",
+            "image_alt": "",
+            "image_overlay_text": "",
+            "card_background": "#ffffff",
+            "card_title": "Scientific R&D",
+            "card_text": "Every product is designed based on dermatological science and clinical research to ensure reliability and safety.",
+            "card_button_text": "",
+            "card_button_url": ""
+          }
+        },
+        "card_CCUrhT": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/pins.webp",
+            "image_alt": "",
+            "image_overlay_text": "TESTED FOR EXCELLENCE",
+            "card_background": "#ffffff",
+            "card_title": "Rigorous Testing",
+            "card_text": "From needle precision to materials, each device undergoes thorough testing, giving users confidence in every use.",
+            "card_button_text": "",
+            "card_button_url": ""
+          }
+        },
+        "card_EtpRbq": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/3_845e929b-d0ac-4e6d-b5eb-42a3d39f2628.jpg",
+            "image_alt": "",
+            "image_overlay_text": "",
+            "card_background": "#ffffff",
+            "card_title": "Transparent Verification",
+            "card_text": "Each product can be verified with a serial number or QR code, assuring authenticity and trust.",
+            "card_button_text": "",
+            "card_button_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "card_AapTRc",
+        "card_V6rdt9",
+        "card_CCUrhT",
+        "card_EtpRbq"
+      ],
+      "disabled": true,
+      "name": "Safety & Expertise",
+      "settings": {
+        "background_color": "#f0f4f8",
+        "container_max_width": 1400,
+        "section_padding_top": 60,
+        "section_padding_bottom": 60,
+        "header_margin_bottom": 40,
+        "show_eyebrow": true,
+        "eyebrow_text": "SAFETY & EXPERTISE",
+        "eyebrow_color": "#1a3a6b",
+        "eyebrow_font_size": 13,
+        "eyebrow_font_weight": "600",
+        "eyebrow_letter_spacing": 2,
+        "show_eyebrow_line": true,
+        "eyebrow_line_width": 30,
+        "heading": "Precision, from conception to certification.",
+        "heading_tag": "h2",
+        "heading_color": "#0d2340",
+        "heading_font_size": 42,
+        "heading_font_size_mobile": 28,
+        "heading_font_weight": "700",
+        "heading_line_height": "1.15",
+        "heading_max_width": 700,
+        "subheading": "Trust is earned, not claimed. That's why every device carries the result of years of research and quality control, ensuring you feel safe and confident.",
+        "subheading_color": "#4a5568",
+        "subheading_font_size": 16,
+        "subheading_font_size_mobile": 14,
+        "subheading_line_height": "1.6",
+        "subheading_max_width": 900,
+        "heading_font_family": "assistant_n4",
+        "body_font_family": "assistant_n4",
+        "columns_desktop": "3",
+        "columns_tablet": "2",
+        "columns_mobile": "1",
+        "card_gap": 24,
+        "card_gap_mobile": 16,
+        "card_image_height": 260,
+        "card_image_height_mobile": 200,
+        "image_object_fit": "cover",
+        "image_object_position": "center center",
+        "overlay_opacity": 25,
+        "overlay_text_size": 22,
+        "card_border_radius": 8,
+        "card_border_width": 1,
+        "card_border_color": "#dce3ec",
+        "card_shadow": "0 2px 12px rgba(0,0,0,0.07)",
+        "card_content_padding": 24,
+        "card_hover_lift": true,
+        "card_hover_lift_px": 6,
+        "card_shadow_hover": "0 12px 32px rgba(0,0,0,0.14)",
+        "image_hover_scale": 105,
+        "card_title_tag": "h3",
+        "card_title_font_size": 20,
+        "card_title_font_weight": "700",
+        "card_title_color": "#1a3a6b",
+        "card_text_font_size": 15,
+        "card_text_color": "#4a5568",
+        "card_text_line_height": "1.6",
+        "button_background": "#1a3a6b",
+        "button_text_color": "#ffffff",
+        "button_border_color": "#1a3a6b",
+        "button_border_width": 1,
+        "button_border_radius": 4,
+        "button_font_size": 14,
+        "button_font_weight": "600",
+        "button_padding_v": 10,
+        "button_padding_h": 20
+      }
+    },
+    "bran_values_GnGfia": {
+      "type": "bran-values",
+      "blocks": {
+        "value_card_cTxfWW": {
+          "type": "value_card",
+          "settings": {
+            "title": "Scientific Skincare",
+            "description": "Empowering skin's natural repair with safe and well-researched methods.",
+            "card_bg_override": "",
+            "card_text_override": "",
+            "card_subtext_override": ""
+          }
+        },
+        "value_card_VkQDJi": {
+          "type": "value_card",
+          "settings": {
+            "title": "",
+            "description": "",
+            "image": "shopify://shop_images/skn.webp",
+            "card_bg_override": "",
+            "card_text_override": "",
+            "card_subtext_override": ""
+          }
+        },
+        "value_card_9HBeh4": {
+          "type": "value_card",
+          "settings": {
+            "title": "Raising Industry Standards",
+            "description": "Striving to make the microneedling industry safer and more standardized for everyone.",
+            "card_bg_override": "",
+            "card_text_override": "",
+            "card_subtext_override": ""
+          }
+        },
+        "value_card_ykHxQW": {
+          "type": "value_card",
+          "settings": {
+            "title": "",
+            "description": "",
+            "image": "shopify://shop_images/mmmr.webp",
+            "card_bg_override": "",
+            "card_text_override": "",
+            "card_subtext_override": ""
+          }
+        },
+        "value_card_qEdwNr": {
+          "type": "value_card",
+          "settings": {
+            "title": "Accessible Innovation",
+            "description": "Bringing professional skincare technology into everyday life.",
+            "card_bg_override": "",
+            "card_text_override": "",
+            "card_subtext_override": ""
+          }
+        },
+        "value_card_9MTdHH": {
+          "type": "value_card",
+          "settings": {
+            "title": "",
+            "description": "",
+            "image": "shopify://shop_images/stndr.webp",
+            "card_bg_override": "",
+            "card_text_override": "",
+            "card_subtext_override": ""
+          }
+        }
+      },
+      "block_order": [
+        "value_card_cTxfWW",
+        "value_card_VkQDJi",
+        "value_card_9HBeh4",
+        "value_card_ykHxQW",
+        "value_card_qEdwNr",
+        "value_card_9MTdHH"
+      ],
+      "disabled": true,
+      "name": "Brand Values",
+      "settings": {
+        "section_bg_color": "#f4f6f8",
+        "section_padding_top": 60,
+        "section_padding_bottom": 60,
+        "section_padding_lr": 40,
+        "container_max_width": 1260,
+        "eyebrow": "OUR VALUES",
+        "eyebrow_color": "#1a3a6b",
+        "eyebrow_font_size": 12,
+        "eyebrow_margin_bottom": 12,
+        "heading": "Brand Values",
+        "heading_color": "#0d1f3c",
+        "heading_font_size": 42,
+        "heading_font_weight": "700",
+        "heading_margin_bottom": 16,
+        "intro_text": "Dr. Pen® believes that effective skincare shouldn't be limited to professional clinics. The brand focuses on making high-performance tools more accessible — without compromising on quality or safety.",
+        "intro_text_2": "Each device is designed with precision and consistency in mind, guided by principles rooted in dermatological practice. Rather than chasing trends or making exaggerated claims, Dr. Pen® emphasizes reliability, transparency, and long-term value.",
+        "intro_text_color": "#333333",
+        "intro_font_size": 15,
+        "intro_line_height": 1.7,
+        "intro_margin_bottom": 16,
+        "intro_max_width": 1260,
+        "body_font_size": 15,
+        "grid_margin_top": 32,
+        "grid_gap": 8,
+        "card_min_height": 260,
+        "card_border_radius": 6,
+        "card_bg_color": "#6b8cae",
+        "card_text_color": "#ffffff",
+        "card_subtext_color": "#dce8f5",
+        "card_padding": 32,
+        "card_title_font_size": 26,
+        "card_title_font_weight": "700",
+        "card_title_mb": 12,
+        "card_desc_font_size": 14,
+        "card_image_overlay_opacity": 30
+      }
+    },
+    "drpen_testomonial_9b6hna": {
+      "type": "drpen-testomonial",
+      "blocks": {
+        "testimonial_LNQtcr": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "\"I've been using Dr Pen for a few months, and it's incredibly easy and safe to use at home. My skin feels smoother, and my serums absorb much better. Highly recommend it!\"",
+            "name": "Emily R.",
+            "role": "Skincare Enthusiast",
+            "show_icon": false,
+            "icon_type": "emoji",
+            "icon_text": "★★★★★",
+            "icon_svg": "/"
+          }
+        },
+        "testimonial_knJCVB": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "\"I've been using Dr Pen for a few months, and it's incredibly easy and safe to use at home. My skin feels smoother, and my serums absorb much better. Highly recommend it!\"",
+            "name": "Emily R.",
+            "role": "Skincare Enthusiast",
+            "show_icon": false,
+            "icon_type": "emoji",
+            "icon_text": "★★★★★",
+            "icon_svg": "/"
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_LNQtcr",
+        "testimonial_knJCVB"
+      ],
+      "disabled": true,
+      "name": "DrPen Testimonials",
+      "settings": {
+        "label": "",
+        "show_label_line": true,
+        "heading": "Happy customers",
+        "subheading": "Our customers are at the heart of everything we do. Over the years, we've built lasting relationships by delivering reliable repairs, honest advice, and exceptional service.",
+        "bg_color": "#f2f4f7",
+        "header_align": "center",
+        "max_width": 1200,
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "desktop_padding_top": 64,
+        "desktop_padding_bottom": 64,
+        "desktop_padding_lr": 24,
+        "desktop_heading_size": 42,
+        "desktop_subheading_size": 16,
+        "desktop_quote_size": 16,
+        "desktop_name_size": 15,
+        "desktop_role_size": 14,
+        "desktop_columns": "2",
+        "desktop_gap": 48,
+        "tablet_columns": "2",
+        "tablet_gap": 32,
+        "tablet_heading_size": 34,
+        "tablet_subheading_size": 15,
+        "tablet_quote_size": 15,
+        "mobile_padding_top": 40,
+        "mobile_padding_bottom": 40,
+        "mobile_padding_lr": 16,
+        "mobile_heading_size": 28,
+        "mobile_heading_weight": "700",
+        "mobile_subheading_size": 14,
+        "mobile_quote_size": 15,
+        "mobile_name_size": 14,
+        "mobile_role_size": 13,
+        "mobile_columns": "1",
+        "mobile_gap": 24,
+        "label_color": "#0f2e4e",
+        "label_size": 13,
+        "label_weight": "700",
+        "label_letter_spacing": 15,
+        "label_line_width": 32,
+        "label_margin_bottom": 12,
+        "heading_color": "#0f2e4e",
+        "heading_weight": "700",
+        "heading_margin_bottom": 16,
+        "subheading_color": "#555e6c",
+        "subheading_weight": "400",
+        "subheading_max_width": 680,
+        "subheading_margin_bottom": 56,
+        "card_bg_color": "rgba(0,0,0,0)",
+        "card_border_radius": 0,
+        "card_padding": 0,
+        "card_shadow": "none",
+        "card_text_align": "center",
+        "quote_color": "#2c3a4a",
+        "quote_weight": "700",
+        "quote_italic": false,
+        "quote_margin_bottom": 24,
+        "avatar_size": 64,
+        "avatar_border_width": 2,
+        "avatar_border_color": "#d0d8e4",
+        "avatar_margin_bottom": 12,
+        "name_color": "#0f2e4e",
+        "name_weight": "700",
+        "role_color": "#7a8899",
+        "role_weight": "400",
+        "icon_size": 20,
+        "icon_color": "#f5a623"
+      }
+    },
+    "authentication_banner_TrADbF": {
+      "type": "authentication-banner",
+      "blocks": {
+        "item_Ca7tNK": {
+          "type": "item",
+          "settings": {
+            "icon": "warning",
+            "custom_svg": "",
+            "label": "Verification Limit:",
+            "text": "3 uses per code.",
+            "sub1": "",
+            "sub2": ""
+          }
+        },
+        "item_FwHbY3": {
+          "type": "item",
+          "settings": {
+            "icon": "warning",
+            "custom_svg": "",
+            "label": "Invalidation:",
+            "text": "Code expires after the 3rd use.",
+            "sub1": "",
+            "sub2": ""
+          }
+        },
+        "item_wWmTDP": {
+          "type": "item",
+          "settings": {
+            "icon": "warning",
+            "custom_svg": "",
+            "label": "Reference Info:",
+            "text": "\"Previous verification count\" is for reference only.",
+            "sub1": "",
+            "sub2": ""
+          }
+        },
+        "item_PPTkUY": {
+          "type": "item",
+          "settings": {
+            "icon": "warning",
+            "custom_svg": "",
+            "label": "Critical Step:",
+            "text": "Check the \"First verification time\".",
+            "sub1": "<p>It must match the <strong>exact time you first scanned the code.</strong></p>",
+            "sub2": "<p><strong>Note:</strong> A query within 24 hours of purchase counts as the first verification.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "item_Ca7tNK",
+        "item_FwHbY3",
+        "item_wWmTDP",
+        "item_PPTkUY"
+      ],
+      "disabled": true,
+      "name": "Dr.pen Auth Banner",
+      "settings": {
+        "bg_image": "shopify://shop_images/test.png",
+        "bg_position": "center center",
+        "bg_color": "rgba(0,0,0,0)",
+        "show_overlay": false,
+        "overlay_color": "#000000",
+        "overlay_opacity": 25,
+        "m_bg_image": "shopify://shop_images/text-mobile.png",
+        "m_bg_position": "center center",
+        "m_show_overlay": true,
+        "m_overlay_color": "#000000",
+        "m_overlay_opacity": 65,
+        "section_height_mode": "min",
+        "section_height": 420,
+        "m_section_height_mode": "auto",
+        "m_section_height": 500,
+        "img_col_width": 50,
+        "img_radius": 0,
+        "brand_name": "Official Dr. pen",
+        "show_reg": true,
+        "brand_color": "#ffffff",
+        "brand_size": 52,
+        "brand_weight": "700",
+        "brand_mb": 12,
+        "main_heading": "Dr.pen Product Authentication Instructions",
+        "heading_color": "#ffffff",
+        "heading_size": 20,
+        "heading_weight": "600",
+        "heading_mb": 20,
+        "icon_color": "#f0a500",
+        "icon_size": 18,
+        "icon_gap": 10,
+        "item_color": "#e0e8f0",
+        "item_size": 16,
+        "item_weight": "400",
+        "item_gap": 10,
+        "label_color": "#ffffff",
+        "label_weight": "700",
+        "sub_color": "#d0dce8",
+        "sub_size": 15,
+        "sub_weight": "400",
+        "sub_mt": 6,
+        "sub_gap": 4,
+        "sub_indent": 4,
+        "sub_dot_color": "#ffffff",
+        "sub_strong_color": "#ffffff",
+        "sub_strong_weight": "700",
+        "max_width": 1440,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_left": 40,
+        "padding_right": 40,
+        "col_gap": 48,
+        "m_show_img": true,
+        "m_img_width": 85,
+        "m_pt": 4,
+        "m_pb": 28,
+        "m_pl": 16,
+        "m_pr": 16,
+        "m_gap": 20,
+        "m_brand_size": 36,
+        "m_heading_size": 15,
+        "m_heading_mb": 14,
+        "m_item_size": 13,
+        "m_sub_size": 12,
+        "m_icon_size": 15
+      }
+    },
+    "authentication_code_jnJK3r": {
+      "type": "authentication-code",
+      "disabled": true,
+      "name": "Anti-Counterfeit Verify",
+      "settings": {
+        "section_title": "Anti-Counterfeit Verification",
+        "input_placeholder": "Enter authentication number",
+        "button_label": "VERIFY",
+        "website_url": "officialdrpen.com",
+        "brand_name": "Dr.pen®",
+        "brand_tagline": "Define Your Skin",
+        "sample_code": "DR8316689440890",
+        "qr_image_card1": "shopify://shop_images/https_officialdrpen_com.png",
+        "qr_image_card2": "shopify://shop_images/https_officialdrpen_com.png",
+        "valid_codes": "DR8316689440890, DRPEN2024, VERIFY123, AUTH-001, DRM8PENS",
+        "success_message": "Verification successful! This is a genuine official Dr.pen product.",
+        "error_message": "Verification failed. This code is not recognized. Please check the code and try again, or contact our support team.",
+        "max_width": 1400,
+        "min_height": 420,
+        "padding_top": 32,
+        "padding_bottom": 32,
+        "font_family": "inherit",
+        "font_size": 16,
+        "font_weight": "500",
+        "bg_color": "#f0f4f8",
+        "title_color": "#1a3a6b",
+        "button_bg_color": "#1a3a6b",
+        "button_text_color": "#ffffff",
+        "card_width": 230,
+        "card_height": 400,
+        "card_radius": 22,
+        "card_gap": 40,
+        "card_bg": "#132d55",
+        "card_header_bg": "#0e2140",
+        "qr_bg": "#ffffff",
+        "card_url_bg": "#ffffff",
+        "card_url_color": "#1a3a6b",
+        "step_bg": "#dce8f8",
+        "step_color": "#1a3a6b",
+        "mobile_font_size": 18,
+        "mobile_padding": 20
+      }
+    },
+    "custom_liquid_jC3Nza": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "display_id": false,
+        "visibility": "always-display",
+        "custom_liquid": "<form\n  action=\"https://drpen.com/verify.php\"\n  method=\"GET\"\n  target=\"_blank\">\n\n    <input\n      type=\"text\"\n      name=\"bianhao\"\n      placeholder=\"Enter authentication number\">\n\n    <input\n      type=\"hidden\"\n      name=\"ddd\"\n      value=\"VERIFY\">\n\n    <button type=\"submit\">\n      VERIFY\n    </button>\n\n</form>",
+        "color_scheme": "background-1",
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    }
+  },
+  "order": [
+    "main",
+    "newsletter",
+    "safty_expertise_YNH8zJ",
+    "bran_values_GnGfia",
+    "drpen_testomonial_9b6hna",
+    "authentication_banner_TrADbF",
+    "authentication_code_jnJK3r",
+    "custom_liquid_jC3Nza"
+  ]
+}

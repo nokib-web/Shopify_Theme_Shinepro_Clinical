@@ -1,0 +1,924 @@
+{% comment %}
+  About Us - Senior Care Section
+  Fully customizable via Shopify Theme Editor
+{% endcomment %}
+
+<section
+  id="about-us-{{ section.id }}"
+  class="about-senior"
+  style="
+    padding-top: {{ section.settings.section_padding_top }}px;
+    padding-bottom: {{ section.settings.section_padding_bottom }}px;
+    background-color: {{ section.settings.section_bg_color }};
+  "
+>
+  <div
+    class="about-senior__container"
+    style="max-width: {{ section.settings.container_max_width }}px; margin: 0 auto; padding: 0 {{ section.settings.container_padding_x }}px;"
+  >
+    <div class="about-senior__inner">
+
+      <!-- LEFT: Image Column -->
+      <div class="about-senior__left">
+        <div
+          class="about-senior__img-wrap"
+          style="
+            border-radius: {{ section.settings.image_border_radius }}px;
+            overflow: hidden;
+            height: {{ section.settings.image_height }}px;
+            width: {{ section.settings.image_width_percent }}%;
+          "
+        >
+          {% if section.settings.main_image != blank %}
+            <img
+              src="{{ section.settings.main_image | img_url: 'master' }}"
+              alt="{{ section.settings.main_image.alt | escape }}"
+              loading="lazy"
+              style="width:100%; height:100%; object-fit:cover; display:block;"
+            >
+          {% else %}
+            <div class="about-senior__img-placeholder">
+              {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+            </div>
+          {% endif %}
+        </div>
+
+        <!-- Stats Badge -->
+        <div
+          class="about-senior__badge"
+          style="
+            background-color: {{ section.settings.badge_bg_color }};
+            border-radius: {{ section.settings.badge_border_radius }}px;
+            padding: {{ section.settings.badge_padding_y }}px {{ section.settings.badge_padding_x }}px;
+            margin-top: {{ section.settings.badge_margin_top }}px;
+            margin-left: {{ section.settings.badge_margin_left }}px;
+          "
+        >
+          <span
+            class="about-senior__badge-number"
+            style="
+              font-size: {{ section.settings.badge_number_size }}px;
+              color: {{ section.settings.badge_number_color }};
+              font-weight: 700;
+            "
+          >
+            {{ section.settings.badge_number }}
+          </span>
+          <span
+            class="about-senior__badge-text"
+            style="
+              font-size: {{ section.settings.badge_text_size }}px;
+              color: {{ section.settings.badge_text_color }};
+            "
+          >
+            {{ section.settings.badge_text }}
+          </span>
+        </div>
+      </div>
+
+      <!-- RIGHT: Content Column -->
+      <div class="about-senior__right">
+
+        <!-- Tag Label -->
+        <div
+          class="about-senior__tag"
+          style="
+            background-color: {{ section.settings.tag_bg_color }};
+            color: {{ section.settings.tag_text_color }};
+            font-size: {{ section.settings.tag_font_size }}px;
+            padding: {{ section.settings.tag_padding_y }}px {{ section.settings.tag_padding_x }}px;
+            border-radius: 30px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: {{ section.settings.tag_margin_bottom }}px;
+          "
+        >
+          <span
+            class="about-senior__tag-dot"
+            style="
+              width: {{ section.settings.tag_dot_size }}px;
+              height: {{ section.settings.tag_dot_size }}px;
+              background-color: {{ section.settings.tag_dot_color }};
+              border-radius: 50%;
+              display: inline-block;
+            "
+          ></span>
+          {{ section.settings.tag_text }}
+        </div>
+
+        <!-- Heading -->
+        <h2
+          class="about-senior__heading"
+          style="
+            font-size: {{ section.settings.heading_font_size }}px;
+            color: {{ section.settings.heading_color }};
+            margin-bottom: {{ section.settings.heading_margin_bottom }}px;
+            line-height: 1.2;
+            font-weight: 700;
+          "
+        >
+          {{ section.settings.heading }}
+        </h2>
+
+        <!-- Description -->
+        <p
+          class="about-senior__desc"
+          style="
+            font-size: {{ section.settings.desc_font_size }}px;
+            color: {{ section.settings.desc_color }};
+            margin-bottom: {{ section.settings.desc_margin_bottom }}px;
+            line-height: 1.7;
+          "
+        >
+          {{ section.settings.description }}
+        </p>
+
+        <hr style="border: none; border-top: 1px solid {{ section.settings.divider_color }}; margin-bottom: {{ section.settings.specialty_margin_top }}px;">
+
+        <!-- Specialty Block -->
+        <div class="about-senior__specialty">
+          <div class="about-senior__specialty-left">
+            <h3
+              style="
+                font-size: {{ section.settings.specialty_heading_size }}px;
+                color: {{ section.settings.specialty_heading_color }};
+                margin-bottom: {{ section.settings.specialty_heading_margin_bottom }}px;
+                font-weight: 700;
+              "
+            >
+              {{ section.settings.specialty_heading }}
+            </h3>
+            <ul
+              class="about-senior__checklist"
+              style="
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                margin-bottom: {{ section.settings.checklist_margin_bottom }}px;
+              "
+            >
+              {% for i in (1..3) %}
+                {% assign item_key = 'checklist_item_' | append: i %}
+                {% if section.settings[item_key] != blank %}
+                  <li
+                    style="
+                      display: flex;
+                      align-items: center;
+                      gap: {{ section.settings.checklist_icon_gap }}px;
+                      font-size: {{ section.settings.checklist_font_size }}px;
+                      color: {{ section.settings.checklist_text_color }};
+                      margin-bottom: {{ section.settings.checklist_item_gap }}px;
+                    "
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="{{ section.settings.checklist_icon_size }}"
+                      height="{{ section.settings.checklist_icon_size }}"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="{{ section.settings.checklist_icon_color }}"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    {{ section.settings[item_key] }}
+                  </li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+          </div>
+
+          <!-- Video Thumbnail -->
+          <div
+            class="about-senior__video-wrap"
+            style="
+              border-radius: {{ section.settings.video_border_radius }}px;
+              overflow: hidden;
+              width: {{ section.settings.video_width }}px;
+              height: {{ section.settings.video_height }}px;
+              flex-shrink: 0;
+              cursor: pointer;
+              position: relative;
+            "
+            onclick="openYoutubeVideo('{{ section.settings.youtube_url }}')"
+          >
+            {% if section.settings.video_thumbnail != blank %}
+              <img
+                src="{{ section.settings.video_thumbnail | img_url: 'master' }}"
+                alt="Video thumbnail"
+                style="width:100%; height:100%; object-fit:cover; display:block;"
+              >
+            {% else %}
+              <div style="width:100%;height:100%;background:#ddd;display:flex;align-items:center;justify-content:center;">
+                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+              </div>
+            {% endif %}
+
+            <!-- Play Button Overlay -->
+            <div class="about-senior__play-btn" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">
+              <div
+                style="
+                  width: {{ section.settings.play_btn_size }}px;
+                  height: {{ section.settings.play_btn_size }}px;
+                  background-color: {{ section.settings.play_btn_bg }};
+                  border-radius: 50%;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+                  transition: transform 0.2s ease;
+                "
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="{{ section.settings.play_icon_size }}" height="{{ section.settings.play_icon_size }}" viewBox="0 0 24 24" fill="{{ section.settings.play_icon_color }}">
+                  <polygon points="5 3 19 12 5 21 5 3"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr style="border: none; border-top: 1px solid {{ section.settings.divider_color }}; margin-top: 10px; margin-bottom: {{ section.settings.btn_margin_top }}px;">
+
+        <!-- CTA Button -->
+        <div>
+          <a
+            href="{{ section.settings.button_url }}"
+            class="about-senior__btn"
+            style="
+              display: inline-flex;
+              align-items: center;
+              gap: {{ section.settings.btn_icon_gap }}px;
+              background-color: {{ section.settings.btn_bg_color }};
+              color: {{ section.settings.btn_text_color }};
+              font-size: {{ section.settings.btn_font_size }}px;
+              font-weight: 600;
+              padding: {{ section.settings.btn_padding_y }}px {{ section.settings.btn_padding_x }}px;
+              border-radius: {{ section.settings.btn_border_radius }}px;
+              text-decoration: none;
+              transition: all 0.25s ease;
+              letter-spacing: 0.3px;
+            "
+          >
+            {{ section.settings.button_text }}
+            <!-- Toggle/Arrow Icon -->
+            <span
+              style="
+                width: {{ section.settings.btn_toggle_size }}px;
+                height: {{ section.settings.btn_toggle_size }}px;
+                background: {{ section.settings.btn_toggle_bg }};
+                border-radius: 50%;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+              "
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="{{ section.settings.btn_toggle_icon_color }}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"/>
+              </svg>
+            </span>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- YouTube Modal -->
+<div id="yt-modal-{{ section.id }}" class="yt-modal" style="display:none; position:fixed; inset:0; z-index:99999; background:rgba(0,0,0,0.85); align-items:center; justify-content:center;">
+  <div style="position:relative; width:90%; max-width:900px; aspect-ratio:16/9;">
+    <iframe
+      id="yt-iframe-{{ section.id }}"
+      src=""
+      style="width:100%; height:100%; border:none; border-radius:12px;"
+      allow="autoplay; encrypted-media"
+      allowfullscreen
+    ></iframe>
+    <button
+      onclick="closeYoutubeVideo()"
+      style="position:absolute; top:-40px; right:0; background:transparent; border:none; color:white; font-size:32px; cursor:pointer; line-height:1;"
+      aria-label="Close"
+    >&times;</button>
+  </div>
+</div>
+
+<style>
+  #about-us-{{ section.id }} .about-senior__inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: {{ section.settings.columns_gap }}px;
+    align-items: center;
+  }
+
+  #about-us-{{ section.id }} .about-senior__specialty {
+    display: flex;
+    align-items: flex-start;
+    gap: {{ section.settings.specialty_gap }}px;
+  }
+
+  #about-us-{{ section.id }} .about-senior__play-btn div:hover {
+    transform: scale(1.1);
+  }
+
+  #about-us-{{ section.id }} .about-senior__btn:hover {
+    opacity: 0.88;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+  }
+
+  .yt-modal {
+    display: none;
+  }
+  .yt-modal.active {
+    display: flex !important;
+  }
+
+  @media (max-width: 1024px) {
+    #about-us-{{ section.id }} .about-senior__inner {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+    #about-us-{{ section.id }} .about-senior__img-wrap {
+      width: 100% !important;
+      height: 400px !important;
+    }
+    #about-us-{{ section.id }} .about-senior__heading {
+      font-size: calc({{ section.settings.heading_font_size }}px * 0.8) !important;
+    }
+  }
+
+  @media (max-width: 640px) {
+    #about-us-{{ section.id }} .about-senior__specialty {
+      flex-direction: column;
+    }
+    #about-us-{{ section.id }} .about-senior__video-wrap {
+      width: 100% !important;
+      height: 180px !important;
+    }
+    #about-us-{{ section.id }} .about-senior__heading {
+      font-size: calc({{ section.settings.heading_font_size }}px * 0.65) !important;
+    }
+    #about-us-{{ section.id }} .about-senior__img-wrap {
+      height: 280px !important;
+    }
+  }
+</style>
+
+<script>
+  function openYoutubeVideo(url) {
+    if (!url) return;
+    var videoId = '';
+    var regExp = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/i;
+    var match = url.match(regExp);
+    if (match && match[1]) {
+      videoId = match[1];
+    }
+    if (!videoId) return;
+    var modal = document.querySelector('.yt-modal');
+    var iframe = document.getElementById('yt-iframe-{{ section.id }}');
+    iframe.src = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1';
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeYoutubeVideo() {
+    var modal = document.querySelector('.yt-modal');
+    var iframe = document.getElementById('yt-iframe-{{ section.id }}');
+    iframe.src = '';
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelector('.yt-modal').addEventListener('click', function(e) {
+    if (e.target === this) closeYoutubeVideo();
+  });
+</script>
+
+{% schema %}
+{
+  "name": "About Us - Senior Care",
+  "tag": "section",
+  "class": "about-senior-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "🎨 Section Layout"
+    },
+    {
+      "type": "color",
+      "id": "section_bg_color",
+      "label": "Section Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Section Padding Top (px)",
+      "min": 0, "max": 160, "step": 4, "default": 80
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Section Padding Bottom (px)",
+      "min": 0, "max": 160, "step": 4, "default": 80
+    },
+    {
+      "type": "range",
+      "id": "container_max_width",
+      "label": "Container Max Width (px)",
+      "min": 800, "max": 1600, "step": 20, "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "container_padding_x",
+      "label": "Container Side Padding (px)",
+      "min": 0, "max": 80, "step": 4, "default": 20
+    },
+    {
+      "type": "range",
+      "id": "columns_gap",
+      "label": "Gap Between Columns (px)",
+      "min": 10, "max": 120, "step": 5, "default": 60
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Divider Line Color",
+      "default": "#e8e8e8"
+    },
+
+    {
+      "type": "header",
+      "content": "🖼️ Main Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "main_image",
+      "label": "Upload Main Image"
+    },
+    {
+      "type": "range",
+      "id": "image_height",
+      "label": "Image Height (px)",
+      "min": 200, "max": 800, "step": 10, "default": 520
+    },
+    {
+      "type": "range",
+      "id": "image_width_percent",
+      "label": "Image Width (%)",
+      "min": 40, "max": 100, "step": 5, "default": 100
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "label": "Image Border Radius (px)",
+      "min": 0, "max": 60, "step": 2, "default": 20
+    },
+
+    {
+      "type": "header",
+      "content": "🏅 Stats Badge"
+    },
+    {
+      "type": "text",
+      "id": "badge_number",
+      "label": "Badge Number/Stat",
+      "default": "25+"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge Label Text",
+      "default": "Years of Work Experience"
+    },
+    {
+      "type": "color",
+      "id": "badge_bg_color",
+      "label": "Badge Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "badge_number_color",
+      "label": "Badge Number Color",
+      "default": "#2d2d2d"
+    },
+    {
+      "type": "color",
+      "id": "badge_text_color",
+      "label": "Badge Text Color",
+      "default": "#666666"
+    },
+    {
+      "type": "range",
+      "id": "badge_number_size",
+      "label": "Badge Number Font Size (px)",
+      "min": 20, "max": 72, "step": 2, "default": 42
+    },
+    {
+      "type": "range",
+      "id": "badge_text_size",
+      "label": "Badge Label Font Size (px)",
+      "min": 10, "max": 24, "step": 1, "default": 13
+    },
+    {
+      "type": "range",
+      "id": "badge_border_radius",
+      "label": "Badge Border Radius (px)",
+      "min": 0, "max": 40, "step": 2, "default": 16
+    },
+    {
+      "type": "range",
+      "id": "badge_padding_y",
+      "label": "Badge Padding Top/Bottom (px)",
+      "min": 8, "max": 40, "step": 2, "default": 18
+    },
+    {
+      "type": "range",
+      "id": "badge_padding_x",
+      "label": "Badge Padding Left/Right (px)",
+      "min": 8, "max": 60, "step": 2, "default": 28
+    },
+    {
+      "type": "range",
+      "id": "badge_margin_top",
+      "label": "Badge Margin Top (px)",
+      "min": -120, "max": 0, "step": 4, "default": -60
+    },
+    {
+      "type": "range",
+      "id": "badge_margin_left",
+      "label": "Badge Margin Left (px)",
+      "min": 0, "max": 100, "step": 4, "default": 20
+    },
+
+    {
+      "type": "header",
+      "content": "🏷️ Tag / Label"
+    },
+    {
+      "type": "text",
+      "id": "tag_text",
+      "label": "Tag Text",
+      "default": "About Us"
+    },
+    {
+      "type": "color",
+      "id": "tag_bg_color",
+      "label": "Tag Background Color",
+      "default": "#fde8e0"
+    },
+    {
+      "type": "color",
+      "id": "tag_text_color",
+      "label": "Tag Text Color",
+      "default": "#c0603a"
+    },
+    {
+      "type": "color",
+      "id": "tag_dot_color",
+      "label": "Tag Dot Color",
+      "default": "#e07050"
+    },
+    {
+      "type": "range",
+      "id": "tag_dot_size",
+      "label": "Tag Dot Size (px)",
+      "min": 4, "max": 16, "step": 1, "default": 8
+    },
+    {
+      "type": "range",
+      "id": "tag_font_size",
+      "label": "Tag Font Size (px)",
+      "min": 10, "max": 20, "step": 1, "default": 13
+    },
+    {
+      "type": "range",
+      "id": "tag_padding_y",
+      "label": "Tag Padding Top/Bottom (px)",
+      "min": 4, "max": 20, "step": 1, "default": 8
+    },
+    {
+      "type": "range",
+      "id": "tag_padding_x",
+      "label": "Tag Padding Left/Right (px)",
+      "min": 8, "max": 32, "step": 2, "default": 16
+    },
+    {
+      "type": "range",
+      "id": "tag_margin_bottom",
+      "label": "Tag Margin Bottom (px)",
+      "min": 0, "max": 40, "step": 2, "default": 16
+    },
+
+    {
+      "type": "header",
+      "content": "📝 Heading & Description"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Main Heading",
+      "default": "We Make a Difference in Senior Lives"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size",
+      "label": "Heading Font Size (px)",
+      "min": 24, "max": 72, "step": 2, "default": 42
+    },
+    {
+      "type": "range",
+      "id": "heading_margin_bottom",
+      "label": "Heading Margin Bottom (px)",
+      "min": 0, "max": 60, "step": 2, "default": 20
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description Text",
+      "default": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less."
+    },
+    {
+      "type": "color",
+      "id": "desc_color",
+      "label": "Description Text Color",
+      "default": "#666666"
+    },
+    {
+      "type": "range",
+      "id": "desc_font_size",
+      "label": "Description Font Size (px)",
+      "min": 12, "max": 22, "step": 1, "default": 15
+    },
+    {
+      "type": "range",
+      "id": "desc_margin_bottom",
+      "label": "Description Margin Bottom (px)",
+      "min": 0, "max": 60, "step": 2, "default": 24
+    },
+
+    {
+      "type": "header",
+      "content": "✅ Specialty Section"
+    },
+    {
+      "type": "text",
+      "id": "specialty_heading",
+      "label": "Specialty Heading",
+      "default": "Our Best Specialty"
+    },
+    {
+      "type": "color",
+      "id": "specialty_heading_color",
+      "label": "Specialty Heading Color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "range",
+      "id": "specialty_heading_size",
+      "label": "Specialty Heading Size (px)",
+      "min": 14, "max": 36, "step": 1, "default": 22
+    },
+    {
+      "type": "range",
+      "id": "specialty_heading_margin_bottom",
+      "label": "Specialty Heading Margin Bottom (px)",
+      "min": 0, "max": 40, "step": 2, "default": 16
+    },
+    {
+      "type": "range",
+      "id": "specialty_margin_top",
+      "label": "Specialty Block Margin Top (px)",
+      "min": 0, "max": 60, "step": 2, "default": 24
+    },
+    {
+      "type": "range",
+      "id": "specialty_gap",
+      "label": "Gap: Checklist & Video (px)",
+      "min": 10, "max": 80, "step": 2, "default": 24
+    },
+
+    {
+      "type": "header",
+      "content": "✔️ Checklist Items"
+    },
+    {
+      "type": "text",
+      "id": "checklist_item_1",
+      "label": "Checklist Item 1",
+      "default": "Personalized care for every senior"
+    },
+    {
+      "type": "text",
+      "id": "checklist_item_2",
+      "label": "Checklist Item 2",
+      "default": "Compassion and trust"
+    },
+    {
+      "type": "text",
+      "id": "checklist_item_3",
+      "label": "Checklist Item 3",
+      "default": "Expert support for recovery"
+    },
+    {
+      "type": "color",
+      "id": "checklist_text_color",
+      "label": "Checklist Text Color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "checklist_icon_color",
+      "label": "Checklist Icon Color",
+      "default": "#e07050"
+    },
+    {
+      "type": "range",
+      "id": "checklist_font_size",
+      "label": "Checklist Font Size (px)",
+      "min": 11, "max": 22, "step": 1, "default": 14
+    },
+    {
+      "type": "range",
+      "id": "checklist_icon_size",
+      "label": "Checklist Icon Size (px)",
+      "min": 12, "max": 32, "step": 2, "default": 18
+    },
+    {
+      "type": "range",
+      "id": "checklist_icon_gap",
+      "label": "Icon & Text Gap (px)",
+      "min": 4, "max": 24, "step": 2, "default": 10
+    },
+    {
+      "type": "range",
+      "id": "checklist_item_gap",
+      "label": "Space Between Items (px)",
+      "min": 4, "max": 24, "step": 2, "default": 10
+    },
+    {
+      "type": "range",
+      "id": "checklist_margin_bottom",
+      "label": "Checklist Margin Bottom (px)",
+      "min": 0, "max": 40, "step": 2, "default": 0
+    },
+
+    {
+      "type": "header",
+      "content": "🎬 YouTube Video"
+    },
+    {
+      "type": "text",
+      "id": "youtube_url",
+      "label": "YouTube Video URL",
+      "info": "Paste a full YouTube URL, e.g. https://www.youtube.com/watch?v=XXXXXXXX",
+      "default": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+    },
+    {
+      "type": "image_picker",
+      "id": "video_thumbnail",
+      "label": "Video Thumbnail Image"
+    },
+    {
+      "type": "range",
+      "id": "video_width",
+      "label": "Video Thumbnail Width (px)",
+      "min": 100, "max": 400, "step": 10, "default": 210
+    },
+    {
+      "type": "range",
+      "id": "video_height",
+      "label": "Video Thumbnail Height (px)",
+      "min": 80, "max": 300, "step": 10, "default": 150
+    },
+    {
+      "type": "range",
+      "id": "video_border_radius",
+      "label": "Video Border Radius (px)",
+      "min": 0, "max": 30, "step": 2, "default": 14
+    },
+    {
+      "type": "range",
+      "id": "play_btn_size",
+      "label": "Play Button Size (px)",
+      "min": 30, "max": 80, "step": 2, "default": 48
+    },
+    {
+      "type": "color",
+      "id": "play_btn_bg",
+      "label": "Play Button Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "play_icon_size",
+      "label": "Play Icon Size (px)",
+      "min": 10, "max": 36, "step": 2, "default": 20
+    },
+    {
+      "type": "color",
+      "id": "play_icon_color",
+      "label": "Play Icon Color",
+      "default": "#e07050"
+    },
+
+    {
+      "type": "header",
+      "content": "🔘 CTA Button"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Discover More"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button Link URL"
+    },
+    {
+      "type": "color",
+      "id": "btn_bg_color",
+      "label": "Button Background Color",
+      "default": "#e07050"
+    },
+    {
+      "type": "color",
+      "id": "btn_text_color",
+      "label": "Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "btn_font_size",
+      "label": "Button Font Size (px)",
+      "min": 12, "max": 24, "step": 1, "default": 15
+    },
+    {
+      "type": "range",
+      "id": "btn_padding_y",
+      "label": "Button Padding Top/Bottom (px)",
+      "min": 8, "max": 30, "step": 2, "default": 14
+    },
+    {
+      "type": "range",
+      "id": "btn_padding_x",
+      "label": "Button Padding Left/Right (px)",
+      "min": 12, "max": 60, "step": 2, "default": 28
+    },
+    {
+      "type": "range",
+      "id": "btn_border_radius",
+      "label": "Button Border Radius (px)",
+      "min": 0, "max": 50, "step": 2, "default": 30
+    },
+    {
+      "type": "range",
+      "id": "btn_margin_top",
+      "label": "Button Margin Top (px)",
+      "min": 0, "max": 60, "step": 2, "default": 24
+    },
+    {
+      "type": "range",
+      "id": "btn_icon_gap",
+      "label": "Button Text & Icon Gap (px)",
+      "min": 4, "max": 24, "step": 2, "default": 10
+    },
+    {
+      "type": "color",
+      "id": "btn_toggle_bg",
+      "label": "Button Toggle Circle Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "btn_toggle_icon_color",
+      "label": "Button Toggle Icon Color",
+      "default": "#e07050"
+    },
+    {
+      "type": "range",
+      "id": "btn_toggle_size",
+      "label": "Button Toggle Circle Size (px)",
+      "min": 20, "max": 50, "step": 2, "default": 32
+    }
+  ],
+  "presets": [
+    {
+      "name": "About Us - Senior Care"
+    }
+  ]
+}
+{% endschema %}

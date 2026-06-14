@@ -1,0 +1,631 @@
+{% liquid
+  assign desktop_image = section.settings.desktop_image
+  assign mobile_image = section.settings.mobile_image
+%}
+
+<section
+  id="learn-hero-{{ section.id }}"
+  class="learn-hero-section"
+  style="
+    margin-top: {{ section.settings.margin_top }}px;
+    margin-bottom: {{ section.settings.margin_bottom }}px;
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  "
+>
+  <div class="learn-hero-wrapper">
+
+    <div class="learn-hero-media">
+
+      {% if desktop_image != blank %}
+        <picture>
+
+          {% if mobile_image != blank %}
+            <source
+              media="(max-width: 767px)"
+              srcset="{{ mobile_image | image_url: width: 900 }}"
+            >
+          {% endif %}
+
+          {{
+            desktop_image
+            | image_url: width: 2200
+            | image_tag:
+              loading: 'lazy',
+              class: 'learn-hero-image',
+              widths: '375,550,750,1100,1500,1780,2000,2200',
+              alt: section.settings.heading
+          }}
+
+        </picture>
+      {% endif %}
+
+      <div
+        class="learn-hero-overlay"
+        style="background: rgba(0,0,0,{{ section.settings.overlay_opacity | divided_by: 100.0 }});"
+      ></div>
+
+      <div class="learn-hero-content">
+
+        {% if section.settings.subheading != blank %}
+          <div class="learn-hero-subheading">
+            {{ section.settings.subheading }}
+          </div>
+        {% endif %}
+
+        {% if section.settings.heading != blank %}
+          <h1 class="learn-hero-heading">
+            {{ section.settings.heading }}
+          </h1>
+        {% endif %}
+
+        {% if section.settings.description != blank %}
+          <div class="learn-hero-description rte">
+            {{ section.settings.description }}
+          </div>
+        {% endif %}
+
+        <div class="learn-hero-buttons">
+
+          {% if section.settings.button_label != blank %}
+            <a
+              href="{{ section.settings.button_link }}"
+              class="learn-btn learn-btn-primary"
+            >
+              {{ section.settings.button_label }}
+            </a>
+          {% endif %}
+
+          {% if section.settings.button_label_2 != blank %}
+            <a
+              href="{{ section.settings.button_link_2 }}"
+              class="learn-btn learn-btn-secondary"
+            >
+              {{ section.settings.button_label_2 }}
+            </a>
+          {% endif %}
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<style>
+
+#learn-hero-{{ section.id }} .learn-hero-wrapper{
+  max-width: {{ section.settings.container_width }}px;
+  margin: 0 auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+#learn-hero-{{ section.id }} .learn-hero-media{
+  position: relative;
+  overflow: hidden;
+  border-radius: {{ section.settings.image_radius }}px;
+  min-height: {{ section.settings.hero_height_desktop }}px;
+}
+
+#learn-hero-{{ section.id }} .learn-hero-image{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  position: absolute;
+  inset: 0;
+}
+
+#learn-hero-{{ section.id }} .learn-hero-overlay{
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+#learn-hero-{{ section.id }} .learn-hero-content{
+  position: relative;
+  z-index: 2;
+  max-width: {{ section.settings.content_width }}px;
+
+  padding-top: {{ section.settings.content_padding_top }}px;
+  padding-bottom: {{ section.settings.content_padding_bottom }}px;
+  padding-left: {{ section.settings.content_padding_side }}px;
+  padding-right: {{ section.settings.content_padding_side }}px;
+}
+
+#learn-hero-{{ section.id }} .learn-hero-subheading{
+  font-size: {{ section.settings.subheading_size }}px;
+  line-height: 1.4;
+  margin-bottom: 12px;
+  color: {{ section.settings.subheading_color }};
+  font-weight: 500;
+}
+
+#learn-hero-{{ section.id }} .learn-hero-heading{
+  font-size: {{ section.settings.heading_size }}px;
+  line-height: 1.1;
+  margin: 0 0 20px;
+  color: {{ section.settings.heading_color }};
+  font-weight: 700;
+}
+
+#learn-hero-{{ section.id }} .learn-hero-description{
+  font-size: {{ section.settings.description_size }}px;
+  line-height: 1.7;
+  color: {{ section.settings.description_color }};
+  margin-bottom: 30px;
+}
+
+#learn-hero-{{ section.id }} .learn-hero-buttons{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+#learn-hero-{{ section.id }} .learn-btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+
+  min-width: 160px;
+  min-height: 54px;
+
+  padding: 14px 28px;
+
+  border-radius: {{ section.settings.button_radius }}px;
+
+  transition: all .3s ease;
+
+  font-size: 15px;
+  font-weight: 600;
+}
+
+#learn-hero-{{ section.id }} .learn-btn-primary{
+  background: {{ section.settings.button_bg }};
+  color: {{ section.settings.button_text }};
+}
+
+#learn-hero-{{ section.id }} .learn-btn-primary:hover{
+  opacity: .9;
+}
+
+#learn-hero-{{ section.id }} .learn-btn-secondary{
+  background: transparent;
+  border: 1px solid {{ section.settings.button_secondary_border }};
+  color: {{ section.settings.button_secondary_text }};
+}
+
+#learn-hero-{{ section.id }} .learn-btn-secondary:hover{
+  background: {{ section.settings.button_secondary_hover }};
+}
+
+@media screen and (max-width: 991px){
+
+  #learn-hero-{{ section.id }} .learn-hero-media{
+    min-height: {{ section.settings.hero_height_tablet }}px;
+  }
+
+  #learn-hero-{{ section.id }} .learn-hero-heading{
+    font-size: {{ section.settings.heading_size_tablet }}px;
+  }
+
+}
+
+@media screen and (max-width: 767px){
+
+  #learn-hero-{{ section.id }} .learn-hero-media{
+    min-height: {{ section.settings.hero_height_mobile }}px;
+  }
+
+  #learn-hero-{{ section.id }} .learn-hero-content{
+    max-width: 100%;
+
+    padding-top: {{ section.settings.mobile_content_padding_top }}px;
+    padding-bottom: {{ section.settings.mobile_content_padding_bottom }}px;
+
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  #learn-hero-{{ section.id }} .learn-hero-heading{
+    font-size: {{ section.settings.heading_size_mobile }}px;
+  }
+
+  #learn-hero-{{ section.id }} .learn-hero-description{
+    font-size: {{ section.settings.description_size_mobile }}px;
+  }
+
+  #learn-hero-{{ section.id }} .learn-btn{
+    width: 100%;
+  }
+
+}
+
+</style>
+
+{% schema %}
+{
+  "name": "Learn Hero",
+  "settings": [
+
+    {
+      "type": "image_picker",
+      "id": "desktop_image",
+      "label": "Desktop Image"
+    },
+
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile Image"
+    },
+
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Professional Education"
+    },
+
+    {
+      "type": "range",
+      "id": "subheading_size",
+      "min": 12,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Subheading Size",
+      "default": 16
+    },
+
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Learn Microneedling The Right Way"
+    },
+
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Professional microneedling guides, tutorials, skincare education, and device tips.</p>"
+    },
+
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Primary Button Label",
+      "default": "Browse Guides"
+    },
+
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Primary Button Link"
+    },
+
+    {
+      "type": "text",
+      "id": "button_label_2",
+      "label": "Secondary Button Label",
+      "default": "Watch Tutorials"
+    },
+
+    {
+      "type": "url",
+      "id": "button_link_2",
+      "label": "Secondary Button Link"
+    },
+
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "unit": "%",
+      "label": "Overlay Opacity",
+      "default": 30
+    },
+
+    {
+      "type": "range",
+      "id": "hero_height_desktop",
+      "min": 400,
+      "max": 1000,
+      "step": 20,
+      "unit": "px",
+      "label": "Desktop Height",
+      "default": 700
+    },
+
+    {
+      "type": "range",
+      "id": "hero_height_tablet",
+      "min": 340,
+      "max": 900,
+      "step": 20,
+      "unit": "px",
+      "label": "Tablet Height",
+      "default": 600
+    },
+
+    {
+      "type": "range",
+      "id": "hero_height_mobile",
+      "min": 300,
+      "max": 800,
+      "step": 20,
+      "unit": "px",
+      "label": "Mobile Height",
+      "default": 500
+    },
+
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 28,
+      "max": 90,
+      "step": 2,
+      "unit": "px",
+      "label": "Desktop Heading Size",
+      "default": 58
+    },
+
+    {
+      "type": "range",
+      "id": "heading_size_tablet",
+      "min": 24,
+      "max": 70,
+      "step": 2,
+      "unit": "px",
+      "label": "Tablet Heading Size",
+      "default": 46
+    },
+
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "min": 22,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "label": "Mobile Heading Size",
+      "default": 34
+    },
+
+    {
+      "type": "range",
+      "id": "description_size",
+      "min": 14,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Desktop Description Size",
+      "default": 18
+    },
+
+    {
+      "type": "range",
+      "id": "description_size_mobile",
+      "min": 13,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile Description Size",
+      "default": 15
+    },
+
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#ffffff"
+    },
+
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description Color",
+      "default": "#ffffff"
+    },
+
+    {
+      "type": "color",
+      "id": "subheading_color",
+      "label": "Subheading Color",
+      "default": "#ffffff"
+    },
+
+    {
+      "type": "color",
+      "id": "button_bg",
+      "label": "Primary Button Background",
+      "default": "#111111"
+    },
+
+    {
+      "type": "color",
+      "id": "button_text",
+      "label": "Primary Button Text",
+      "default": "#ffffff"
+    },
+
+    {
+      "type": "color",
+      "id": "button_secondary_text",
+      "label": "Secondary Button Text",
+      "default": "#ffffff"
+    },
+
+    {
+      "type": "color",
+      "id": "button_secondary_border",
+      "label": "Secondary Button Border",
+      "default": "#ffffff"
+    },
+
+    {
+      "type": "color",
+      "id": "button_secondary_hover",
+      "label": "Secondary Button Hover",
+      "default": "#333333"
+    },
+
+    {
+      "type": "range",
+      "id": "container_width",
+      "min": 1000,
+      "max": 1800,
+      "step": 20,
+      "unit": "px",
+      "label": "Container Width",
+      "default": 1400
+    },
+
+    {
+      "type": "range",
+      "id": "content_width",
+      "min": 300,
+      "max": 900,
+      "step": 20,
+      "unit": "px",
+      "label": "Content Width",
+      "default": 640
+    },
+
+    {
+      "type": "range",
+      "id": "image_radius",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "label": "Image Radius",
+      "default": 24
+    },
+
+    {
+      "type": "range",
+      "id": "button_radius",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "label": "Button Radius",
+      "default": 10
+    },
+
+    {
+      "type": "range",
+      "id": "content_padding_top",
+      "min": 40,
+      "max": 240,
+      "step": 10,
+      "unit": "px",
+      "label": "Content Top Padding",
+      "default": 140
+    },
+
+    {
+      "type": "range",
+      "id": "content_padding_bottom",
+      "min": 40,
+      "max": 240,
+      "step": 10,
+      "unit": "px",
+      "label": "Content Bottom Padding",
+      "default": 140
+    },
+
+    {
+      "type": "range",
+      "id": "content_padding_side",
+      "min": 20,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Content Side Padding",
+      "default": 60
+    },
+
+    {
+      "type": "range",
+      "id": "mobile_content_padding_top",
+      "min": 20,
+      "max": 140,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile Top Padding",
+      "default": 80
+    },
+
+    {
+      "type": "range",
+      "id": "mobile_content_padding_bottom",
+      "min": 20,
+      "max": 140,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile Bottom Padding",
+      "default": 80
+    },
+
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Section Top Padding",
+      "default": 40
+    },
+
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Section Bottom Padding",
+      "default": 40
+    },
+
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Section Top Margin",
+      "default": 0
+    },
+
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Section Bottom Margin",
+      "default": 0
+    }
+
+  ],
+
+  "presets": [
+    {
+      "name": "Learn Hero"
+    }
+  ]
+}
+{% endschema %}

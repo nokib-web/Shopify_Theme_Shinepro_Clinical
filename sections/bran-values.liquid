@@ -1,0 +1,652 @@
+{% comment %}
+  Brand Values Section — Shopify Liquid
+  Fully customizable via Schema settings
+{% endcomment %}
+
+<section
+  class="brand-values-section"
+  id="brand-values-{{ section.id }}"
+  style="
+    background-color: {{ section.settings.section_bg_color }};
+    padding-top: {{ section.settings.section_padding_top }}px;
+    padding-bottom: {{ section.settings.section_padding_bottom }}px;
+    padding-left: {{ section.settings.section_padding_lr }}px;
+    padding-right: {{ section.settings.section_padding_lr }}px;
+    font-size: {{ section.settings.body_font_size }}px;
+  "
+>
+  <div class="bv-container" style="max-width: {{ section.settings.container_max_width }}px; margin: 0 auto;">
+
+    {%- if section.settings.eyebrow != blank -%}
+      <div class="bv-eyebrow" style="
+        color: {{ section.settings.eyebrow_color }};
+        font-size: {{ section.settings.eyebrow_font_size }}px;
+        margin-bottom: {{ section.settings.eyebrow_margin_bottom }}px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      ">
+        <span style="display:inline-block;width:28px;height:2px;background:{{ section.settings.eyebrow_color }};"></span>
+        {{ section.settings.eyebrow }}
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.heading != blank -%}
+      <h2 class="bv-heading" style="
+        color: {{ section.settings.heading_color }};
+        font-size: {{ section.settings.heading_font_size }}px;
+        font-weight: {{ section.settings.heading_font_weight }};
+        margin-top: 0;
+        margin-bottom: {{ section.settings.heading_margin_bottom }}px;
+        line-height: 1.15;
+      ">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+
+    {%- if section.settings.intro_text != blank -%}
+      <div class="bv-intro" style="
+        color: {{ section.settings.intro_text_color }};
+        font-size: {{ section.settings.intro_font_size }}px;
+        line-height: {{ section.settings.intro_line_height }};
+        margin-bottom: {{ section.settings.intro_margin_bottom }}px;
+        max-width: {{ section.settings.intro_max_width }}px;
+      ">{{ section.settings.intro_text }}</div>
+    {%- endif -%}
+
+    {%- if section.settings.intro_text_2 != blank -%}
+      <div class="bv-intro bv-intro-2" style="
+        color: {{ section.settings.intro_text_color }};
+        font-size: {{ section.settings.intro_font_size }}px;
+        line-height: {{ section.settings.intro_line_height }};
+        margin-bottom: {{ section.settings.grid_margin_top }}px;
+        max-width: {{ section.settings.intro_max_width }}px;
+      ">{{ section.settings.intro_text_2 }}</div>
+    {%- endif -%}
+
+    {%- assign total_blocks = section.blocks.size -%}
+    {%- if total_blocks > 0 -%}
+      <div class="bv-grid bv-grid-{{ total_blocks }}" style="
+        gap: {{ section.settings.grid_gap }}px;
+        --card-bg: {{ section.settings.card_bg_color }};
+        --card-text-color: {{ section.settings.card_text_color }};
+        --card-subtext-color: {{ section.settings.card_subtext_color }};
+        --card-radius: {{ section.settings.card_border_radius }}px;
+        --card-padding: {{ section.settings.card_padding }}px;
+        --card-title-size: {{ section.settings.card_title_font_size }}px;
+        --card-title-weight: {{ section.settings.card_title_font_weight }};
+        --card-desc-size: {{ section.settings.card_desc_font_size }}px;
+        --card-min-height: {{ section.settings.card_min_height }}px;
+      ">
+        {%- for block in section.blocks -%}
+          {%- assign is_image_only = false -%}
+          {%- if block.settings.image != blank and block.settings.title == blank and block.settings.description == blank -%}
+            {%- assign is_image_only = true -%}
+          {%- endif -%}
+
+          <div
+            class="bv-card{% if is_image_only %} bv-card--image-only{% else %} bv-card--content{% endif %}"
+            {{ block.shopify_attributes }}
+            style="
+              {% if is_image_only %}
+                background-color: transparent;
+                padding: 0;
+              {% else %}
+                background-color: {% if block.settings.card_bg_override != blank %}{{ block.settings.card_bg_override }}{% else %}{{ section.settings.card_bg_color }}{% endif %};
+                padding: {{ section.settings.card_padding }}px;
+              {% endif %}
+              border-radius: {{ section.settings.card_border_radius }}px;
+              min-height: {{ section.settings.card_min_height }}px;
+              overflow: hidden;
+              position: relative;
+            "
+          >
+            {%- if block.settings.image != blank -%}
+              <img
+                src="{{ block.settings.image | img_url: '800x' }}"
+                alt="{{ block.settings.image.alt | escape }}"
+                loading="lazy"
+                style="
+                  width: 100%;
+                  height: 100%;
+                  object-fit: cover;
+                  display: block;
+                  {% unless is_image_only %}
+                    position: absolute;
+                    top: 0; left: 0;
+                    opacity: {{ section.settings.card_image_overlay_opacity | divided_by: 100.0 }};
+                    z-index: 0;
+                  {% endunless %}
+                "
+              >
+            {%- endif -%}
+
+            {%- unless is_image_only -%}
+              <div style="position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; justify-content: flex-end;">
+                {%- if block.settings.title != blank -%}
+                  <h3 style="
+                    color: {% if block.settings.card_text_override != blank %}{{ block.settings.card_text_override }}{% else %}{{ section.settings.card_text_color }}{% endif %};
+                    font-size: {{ section.settings.card_title_font_size }}px;
+                    font-weight: {{ section.settings.card_title_font_weight }};
+                    margin: 0 0 {{ section.settings.card_title_mb }}px 0;
+                    line-height: 1.2;
+                  ">{{ block.settings.title }}</h3>
+                {%- endif -%}
+                {%- if block.settings.description != blank -%}
+                  <p style="
+                    color: {% if block.settings.card_subtext_override != blank %}{{ block.settings.card_subtext_override }}{% else %}{{ section.settings.card_subtext_color }}{% endif %};
+                    font-size: {{ section.settings.card_desc_font_size }}px;
+                    margin: 0;
+                    line-height: 1.5;
+                  ">{{ block.settings.description }}</p>
+                {%- endif -%}
+              </div>
+            {%- endunless -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+  </div>
+</section>
+
+<style>
+  #brand-values-{{ section.id }} .bv-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: var(--card-min-height, 260px);
+  }
+
+  /* 6-block layout: top row 3 cols, bottom row 3 cols */
+  #brand-values-{{ section.id }} .bv-grid-6 {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto auto;
+  }
+
+  /* 5-block layout matching screenshot: col1 row1, col2 rows1+2, col3 row1, col1 row2, col3 row2 */
+  #brand-values-{{ section.id }} .bv-grid-5 .bv-card:nth-child(2) {
+    grid-row: span 2;
+  }
+
+  #brand-values-{{ section.id }} .bv-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  #brand-values-{{ section.id }} .bv-card--content:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  }
+
+  #brand-values-{{ section.id }} .bv-card--image-only img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: {{ section.settings.card_border_radius }}px;
+  }
+
+  /* Tablet */
+  @media (max-width: 900px) {
+    #brand-values-{{ section.id }} .bv-grid,
+    #brand-values-{{ section.id }} .bv-grid-5,
+    #brand-values-{{ section.id }} .bv-grid-6 {
+      grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: auto;
+    }
+    #brand-values-{{ section.id }} .bv-grid-5 .bv-card:nth-child(2) {
+      grid-row: span 1;
+    }
+    #brand-values-{{ section.id }} .bv-card {
+      min-height: 220px;
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 580px) {
+    #brand-values-{{ section.id }} .bv-grid,
+    #brand-values-{{ section.id }} .bv-grid-5,
+    #brand-values-{{ section.id }} .bv-grid-6 {
+      grid-template-columns: 1fr;
+      grid-auto-rows: auto;
+    }
+    #brand-values-{{ section.id }} .bv-card {
+      min-height: 200px !important;
+    }
+    #brand-values-{{ section.id }} .bv-heading {
+      font-size: clamp(22px, 5vw, {{ section.settings.heading_font_size }}px) !important;
+    }
+    #brand-values-{{ section.id }} .bv-intro {
+      font-size: clamp(13px, 3.5vw, {{ section.settings.intro_font_size }}px) !important;
+    }
+    #brand-values-{{ section.id }} {
+      padding-left: 16px !important;
+      padding-right: 16px !important;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Brand Values",
+  "tag": "section",
+  "class": "brand-values-shopify-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Layout"
+    },
+    {
+      "type": "color",
+      "id": "section_bg_color",
+      "label": "Section Background Color",
+      "default": "#f4f6f8"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Section Padding Top (px)",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Section Padding Bottom (px)",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "section_padding_lr",
+      "label": "Section Side Padding (px)",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "container_max_width",
+      "label": "Container Max Width (px)",
+      "min": 600,
+      "max": 1800,
+      "step": 20,
+      "default": 1260
+    },
+    {
+      "type": "header",
+      "content": "Eyebrow Label"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Text",
+      "default": "OUR VALUES"
+    },
+    {
+      "type": "color",
+      "id": "eyebrow_color",
+      "label": "Eyebrow Color",
+      "default": "#1a3a6b"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_font_size",
+      "label": "Eyebrow Font Size (px)",
+      "min": 8,
+      "max": 24,
+      "step": 1,
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_margin_bottom",
+      "label": "Eyebrow Margin Bottom (px)",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section Heading",
+      "default": "Brand Values"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#0d1f3c"
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size",
+      "label": "Heading Font Size (px)",
+      "min": 20,
+      "max": 80,
+      "step": 2,
+      "default": 42
+    },
+    {
+      "type": "select",
+      "id": "heading_font_weight",
+      "label": "Heading Font Weight",
+      "options": [
+        { "value": "400", "label": "Regular (400)" },
+        { "value": "500", "label": "Medium (500)" },
+        { "value": "600", "label": "Semi Bold (600)" },
+        { "value": "700", "label": "Bold (700)" },
+        { "value": "800", "label": "Extra Bold (800)" }
+      ],
+      "default": "700"
+    },
+    {
+      "type": "range",
+      "id": "heading_margin_bottom",
+      "label": "Heading Margin Bottom (px)",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Intro Text"
+    },
+    {
+      "type": "textarea",
+      "id": "intro_text",
+      "label": "Intro Paragraph 1",
+      "default": "Dr. Pen® believes that effective skincare shouldn't be limited to professional clinics. The brand focuses on making high-performance tools more accessible — without compromising on quality or safety."
+    },
+    {
+      "type": "textarea",
+      "id": "intro_text_2",
+      "label": "Intro Paragraph 2",
+      "default": "Each device is designed with precision and consistency in mind, guided by principles rooted in dermatological practice. Rather than chasing trends or making exaggerated claims, Dr. Pen® emphasizes reliability, transparency, and long-term value."
+    },
+    {
+      "type": "color",
+      "id": "intro_text_color",
+      "label": "Intro Text Color",
+      "default": "#333333"
+    },
+    {
+      "type": "range",
+      "id": "intro_font_size",
+      "label": "Intro Font Size (px)",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "intro_line_height",
+      "label": "Intro Line Height",
+      "min": 1,
+      "max": 2,
+      "step": 0.1,
+      "default": 1.7
+    },
+    {
+      "type": "range",
+      "id": "intro_margin_bottom",
+      "label": "Intro Paragraph 1 Bottom Margin (px)",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "intro_max_width",
+      "label": "Intro Text Max Width (px)",
+      "min": 400,
+      "max": 1400,
+      "step": 20,
+      "default": 1260
+    },
+    {
+      "type": "header",
+      "content": "Body Font"
+    },
+    {
+      "type": "range",
+      "id": "body_font_size",
+      "label": "Body Font Size (px)",
+      "min": 10,
+      "max": 28,
+      "step": 1,
+      "default": 15
+    },
+    {
+      "type": "header",
+      "content": "Grid & Cards"
+    },
+    {
+      "type": "range",
+      "id": "grid_margin_top",
+      "label": "Grid Top Margin (px)",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "label": "Grid Gap (px)",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "card_min_height",
+      "label": "Card Min Height (px)",
+      "min": 120,
+      "max": 600,
+      "step": 10,
+      "default": 260
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "label": "Card Border Radius (px)",
+      "min": 0,
+      "max": 32,
+      "step": 1,
+      "default": 6
+    },
+    {
+      "type": "color",
+      "id": "card_bg_color",
+      "label": "Default Card Background",
+      "default": "#6b8cae"
+    },
+    {
+      "type": "color",
+      "id": "card_text_color",
+      "label": "Card Title Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_subtext_color",
+      "label": "Card Description Color",
+      "default": "#dce8f5"
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "label": "Card Padding (px)",
+      "min": 8,
+      "max": 80,
+      "step": 4,
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "card_title_font_size",
+      "label": "Card Title Font Size (px)",
+      "min": 14,
+      "max": 48,
+      "step": 1,
+      "default": 26
+    },
+    {
+      "type": "select",
+      "id": "card_title_font_weight",
+      "label": "Card Title Font Weight",
+      "options": [
+        { "value": "400", "label": "Regular" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi Bold" },
+        { "value": "700", "label": "Bold" },
+        { "value": "800", "label": "Extra Bold" }
+      ],
+      "default": "700"
+    },
+    {
+      "type": "range",
+      "id": "card_title_mb",
+      "label": "Card Title Margin Bottom (px)",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "card_desc_font_size",
+      "label": "Card Description Font Size (px)",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "card_image_overlay_opacity",
+      "label": "Image Overlay Opacity (%) — for content cards with image bg",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 30
+    }
+  ],
+  "blocks": [
+    {
+      "type": "value_card",
+      "name": "Value Card",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Card Content"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Card Title",
+          "info": "Leave blank + add image only = pure image card"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Card Description"
+        },
+        {
+          "type": "header",
+          "content": "Card Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Card Image",
+          "info": "If title & description are empty, renders as a pure image card."
+        },
+        {
+          "type": "header",
+          "content": "Per-Card Color Overrides (optional)"
+        },
+        {
+          "type": "color",
+          "id": "card_bg_override",
+          "label": "Card Background Override"
+        },
+        {
+          "type": "color",
+          "id": "card_text_override",
+          "label": "Card Title Color Override"
+        },
+        {
+          "type": "color",
+          "id": "card_subtext_override",
+          "label": "Card Description Color Override"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand Values",
+      "blocks": [
+        {
+          "type": "value_card",
+          "settings": {
+            "title": "Scientific Skincare",
+            "description": "Empowering skin's natural repair with safe and well-researched methods."
+          }
+        },
+        {
+          "type": "value_card",
+          "settings": {
+            "title": "",
+            "description": ""
+          }
+        },
+        {
+          "type": "value_card",
+          "settings": {
+            "title": "Raising Industry Standards",
+            "description": "Striving to make the microneedling industry safer and more standardized for everyone."
+          }
+        },
+        {
+          "type": "value_card",
+          "settings": {
+            "title": "",
+            "description": ""
+          }
+        },
+        {
+          "type": "value_card",
+          "settings": {
+            "title": "Accessible Innovation",
+            "description": "Bringing professional skincare technology into everyday life."
+          }
+        },
+        {
+          "type": "value_card",
+          "settings": {
+            "title": "",
+            "description": ""
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,898 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "title": "Subscribe to our emails",
+            "title_highlight_color": "#6d388b",
+            "heading_size": "h1"
+          }
+        },
+        "paragraph": {
+          "type": "paragraph",
+          "settings": {
+            "text": "<p>Join our email list for exclusive offers and the latest news. </p>"
+          }
+        },
+        "email-form": {
+          "type": "email_form",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "heading",
+        "paragraph",
+        "email-form"
+      ],
+      "disabled": true,
+      "settings": {
+        "display_id": false,
+        "visibility": "always-display",
+        "button_type": "solid",
+        "button_label": "Sign up",
+        "button_style_secondary": false,
+        "color_scheme": "background-2",
+        "full_width": true,
+        "padding_top": 68,
+        "padding_bottom": 52,
+        "custom_colors_background": "#ffffff",
+        "custom_gradient_background": "",
+        "custom_colors_text": "#2e2a39",
+        "custom_colors_solid_button_background": "#dd1d1d",
+        "custom_colors_solid_button_text": "#ffffff"
+      }
+    },
+    "slideshow_UWLyjJ": {
+      "type": "slideshow",
+      "blocks": {
+        "slide_8qxtHR": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/ourstorybanner.png",
+            "mobile_image": "shopify://shop_images/ourstorybanner_mobile.png",
+            "image_overlay_opacity": 0,
+            "heading": "Pioneering Microneedling Innovation Since 2008",
+            "title_highlight_color": "#6d388b",
+            "heading_size": "h1",
+            "subheading": "For over 17 years, Dr. Pen has been dedicated to advancing microneedling technology through continuous research, product innovation, and professional-grade solutions. From our beginnings in China to becoming a globally recognized brand, our mission has remained the same: empowering skincare professionals and individuals with safe, effective, and cutting-edge devices.",
+            "button_label": "",
+            "link": "",
+            "button_style_secondary": false,
+            "atc_button_label": "",
+            "atc_product": "",
+            "atc_skip_cart": false,
+            "box_align": "middle-left",
+            "show_text_box": true,
+            "text_alignment": "left",
+            "color_scheme": "custom",
+            "transparent_container_color": "white",
+            "text_alignment_mobile": "center",
+            "custom_colors_background": "#ebeff9",
+            "custom_gradient_background": "",
+            "custom_colors_text": "#2e2a39",
+            "custom_colors_solid_button_background": "#dd1d1d",
+            "custom_colors_solid_button_text": "#ffffff",
+            "custom_colors_outline_button": "#dd1d1d"
+          }
+        }
+      },
+      "block_order": [
+        "slide_8qxtHR"
+      ],
+      "name": "t:sections.slideshow.presets.name",
+      "settings": {
+        "visibility": "always-display",
+        "layout": "full_bleed",
+        "slide_height": "large",
+        "slider_visual": "dots",
+        "desktop_pagination_position": "over",
+        "auto_rotate": false,
+        "change_slides_speed": 5,
+        "show_text_below": true,
+        "mobile_pagination_position": "under",
+        "accessibility_info": "Slideshow about our brand"
+      }
+    },
+    "image_banner_MzGbAY": {
+      "type": "image-banner",
+      "blocks": {
+        "heading_LNhfMr": {
+          "type": "heading",
+          "settings": {
+            "title": "Pioneering Microneedling Innovation Since 2008",
+            "title_highlight_color": "#6d388b",
+            "heading_size": "h1"
+          }
+        },
+        "text_cgWd8w": {
+          "type": "text",
+          "settings": {
+            "text": "For over 17 years, Dr. Pen has been dedicated to advancing microneedling technology through continuous research, product innovation, and professional-grade solutions. From our beginnings in China to becoming a globally recognized brand, our mission has remained the same: empowering skincare professionals and individuals with safe, effective, and cutting-edge devices.",
+            "text_style": "body"
+          }
+        }
+      },
+      "block_order": [
+        "heading_LNhfMr",
+        "text_cgWd8w"
+      ],
+      "disabled": true,
+      "name": "t:sections.image-banner.presets.name",
+      "settings": {
+        "display_id": false,
+        "visibility": "always-display",
+        "image": "shopify://shop_images/ourstorybanner.png",
+        "image_1_visibility": "always-display",
+        "image_2_visibility": "always-display",
+        "image_overlay_opacity": 0,
+        "image_height": "large",
+        "url": "",
+        "desktop_content_position": "middle-left",
+        "show_text_box": false,
+        "desktop_content_alignment": "left",
+        "color_scheme": "background-1",
+        "transparent_container_color": "black",
+        "mobile_content_alignment": "center",
+        "stack_images_on_mobile": true,
+        "show_text_below": true
+      }
+    },
+    "who_is_drpen_NG6h3J": {
+      "type": "who-is-drpen",
+      "blocks": {
+        "bullet_gQYb6N": {
+          "type": "bullet",
+          "settings": {
+            "text": "17 years of R&D and clinical innovation.",
+            "show_icon": true,
+            "icon_type": "svg",
+            "icon_text": "🏅",
+            "icon_svg": "<svg viewbox=\"0 0 24 24\" fill=\"none\" stroke=\"#fff\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z\"></path></svg>"
+          }
+        },
+        "bullet_PgkUTH": {
+          "type": "bullet",
+          "settings": {
+            "text": "Annual sales of 15 million electric microneedling pens.",
+            "show_icon": true,
+            "icon_type": "svg",
+            "icon_text": "🏅",
+            "icon_svg": "<svg viewbox=\"0 0 24 24\" fill=\"none\" stroke=\"#fff\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z\"></path></svg>"
+          }
+        },
+        "bullet_TqaBDt": {
+          "type": "bullet",
+          "settings": {
+            "text": "The Most Popular Beauty Brand in 2017.",
+            "show_icon": true,
+            "icon_type": "svg",
+            "icon_text": "🏅",
+            "icon_svg": "<svg viewbox=\"0 0 24 24\" fill=\"none\" stroke=\"#fff\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z\"></path></svg>"
+          }
+        },
+        "bullet_8XUi86": {
+          "type": "bullet",
+          "settings": {
+            "text": "FDA 510(k) cleared · ISO 13485 · MDSAP certified.",
+            "show_icon": true,
+            "icon_type": "svg",
+            "icon_text": "🏅",
+            "icon_svg": "<svg viewbox=\"0 0 24 24\" fill=\"none\" stroke=\"#fff\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z\"></path></svg>"
+          }
+        },
+        "stat_cDtPyc": {
+          "type": "stat",
+          "settings": {
+            "number": "15M+",
+            "label": "Pens sold annually"
+          }
+        },
+        "stat_Ddt7a9": {
+          "type": "stat",
+          "settings": {
+            "number": "17yr",
+            "label": "Years of R&D"
+          }
+        },
+        "stat_VGqmqM": {
+          "type": "stat",
+          "settings": {
+            "number": "14K㎡",
+            "label": "Clean-room facility"
+          }
+        },
+        "stat_DWdJH8": {
+          "type": "stat",
+          "settings": {
+            "number": "50+",
+            "label": "Countries served"
+          }
+        },
+        "timeline_item_g7Qdzy": {
+          "type": "timeline_item",
+          "settings": {
+            "year": "2008",
+            "year_style": "default",
+            "description": "Successfully developed China's first MTS192 roller, gaining high recognition and laying a solid foundation in the microneedling field.",
+            "tag": "Founding innovation",
+            "tag_style": "milestone"
+          }
+        },
+        "timeline_item_B8xber": {
+          "type": "timeline_item",
+          "settings": {
+            "year": "2014 2015",
+            "year_style": "future",
+            "description": "Pioneered the development of the first electric microneedling pen in China and established the Dr. Pen brand.",
+            "tag": "Brand launch",
+            "tag_style": "milestone"
+          }
+        },
+        "timeline_item_pkbhUY": {
+          "type": "timeline_item",
+          "settings": {
+            "year": "2017 2018",
+            "year_style": "default",
+            "description": "Achieved ISO 13485 certification, gaining international market recognition and paving the way for medical-grade standards.",
+            "tag": "ISO 13485 certified",
+            "tag_style": "cert"
+          }
+        },
+        "timeline_item_jWWXG4": {
+          "type": "timeline_item",
+          "settings": {
+            "year": "2023 2024",
+            "year_style": "default",
+            "description": "Obtained China's medical device production license. Certified with ISO 13485/MDSAP and FDA 510(k) clearance in the USA. A 14,000 m² cleanroom facility became operational.",
+            "tag": "FDA 510(k) cleared",
+            "tag_style": "cert"
+          }
+        },
+        "timeline_item_rNx4RK": {
+          "type": "timeline_item",
+          "settings": {
+            "year": "2025",
+            "year_style": "default",
+            "description": "The first liquid carrier chip technology was created and applied, leading the industry into a new era of intelligent liquid dispensing.",
+            "tag": "Chip innovation",
+            "tag_style": "milestone"
+          }
+        },
+        "timeline_item_M4GqjM": {
+          "type": "timeline_item",
+          "settings": {
+            "year": "Future",
+            "year_style": "future",
+            "description": "Dr. Pen will continue innovating to make advanced beauty technology accessible to everyone, worldwide.",
+            "tag": "Coming soon",
+            "tag_style": "future"
+          }
+        }
+      },
+      "block_order": [
+        "bullet_gQYb6N",
+        "bullet_PgkUTH",
+        "bullet_TqaBDt",
+        "bullet_8XUi86",
+        "stat_cDtPyc",
+        "stat_Ddt7a9",
+        "stat_VGqmqM",
+        "stat_DWdJH8",
+        "timeline_item_g7Qdzy",
+        "timeline_item_B8xber",
+        "timeline_item_pkbhUY",
+        "timeline_item_jWWXG4",
+        "timeline_item_rNx4RK",
+        "timeline_item_M4GqjM"
+      ],
+      "name": "DrPen Who Is Section",
+      "settings": {
+        "badge_text": "Est. 2008 · 17 Years of Innovation",
+        "badge_bg": "#e8ecf5",
+        "badge_color": "#1a3a6b",
+        "badge_border": "#c5cee8",
+        "badge_icon_color": "#4a6fa5",
+        "badge_mb": 20,
+        "heading_prefix": "Who is",
+        "heading_brand": "Dr. Pen",
+        "show_registered": true,
+        "tagline": "Built in China\nBacked Globally.\nGrowing Fast in the U.S. and Europe.",
+        "bg_color": "#f0f3f7",
+        "max_width": 1400,
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "desktop_pt": 72,
+        "desktop_pb": 72,
+        "desktop_plr": 32,
+        "desktop_left_width": 2,
+        "desktop_right_width": 3,
+        "desktop_col_gap": 56,
+        "left_padding_right": 16,
+        "desktop_heading_size": 42,
+        "desktop_tagline_size": 22,
+        "desktop_bullet_size": 15,
+        "desktop_year_size": 14,
+        "desktop_desc_size": 14,
+        "tablet_col_gap": 32,
+        "tablet_heading_size": 34,
+        "tablet_tagline_size": 18,
+        "tablet_bullet_size": 13,
+        "tablet_year_size": 13,
+        "tablet_desc_size": 13,
+        "mobile_pt": 40,
+        "mobile_pb": 40,
+        "mobile_plr": 16,
+        "mobile_col_gap": 40,
+        "mobile_heading_size": 30,
+        "mobile_tagline_size": 17,
+        "mobile_bullet_size": 14,
+        "mobile_year_size": 12,
+        "mobile_desc_size": 13,
+        "mobile_tl_item_gap": 20,
+        "mobile_year_width": 44,
+        "mobile_timeline_line_left": 56,
+        "heading_color": "#0d2b4e",
+        "heading_weight": "700",
+        "heading_italic_color": "#1a5caa",
+        "heading_italic_color2": "#2e88e0",
+        "heading_italic_weight": "800",
+        "heading_mb": 16,
+        "tagline_color": "#1e3a5f",
+        "tagline_weight": "600",
+        "tagline_line_height": "1.45",
+        "tagline_mb": 36,
+        "bullet_card_bg": "#ffffff",
+        "bullet_card_border": "#dde3f0",
+        "bullet_card_radius": 12,
+        "bullet_card_py": 12,
+        "bullet_card_px": 16,
+        "bullet_text_color": "#1e3a5f",
+        "bullet_text_weight": "500",
+        "bullet_gap": 10,
+        "bullet_icon_gap": 12,
+        "bullet_icon_size": 16,
+        "bullet_icon_wrap_size": 32,
+        "bullet_icon_wrap_radius": 8,
+        "bullet_icon_bg1": "#1a5caa",
+        "bullet_icon_bg2": "#2e88e0",
+        "bullet_icon_color": "#ffffff",
+        "show_divider": true,
+        "divider_width": 40,
+        "divider_height": 3,
+        "divider_my": 28,
+        "stat_bg": "#ffffff",
+        "stat_border": "#dde3f0",
+        "stat_radius": 12,
+        "stat_py": 14,
+        "stat_px": 16,
+        "stats_gap": 10,
+        "stat_num_size": 24,
+        "stat_num_color": "#1a5caa",
+        "stat_label_size": 12,
+        "stat_label_color": "#6b7fa3",
+        "timeline_section_title": "Company milestones",
+        "tl_title_color": "#6b7fa3",
+        "tl_title_mb": 24,
+        "year_color": "#1a5caa",
+        "year_future_color": "#6b7fa3",
+        "year_weight": "700",
+        "desc_color": "#2c3e55",
+        "desc_weight": "400",
+        "timeline_item_gap": 22,
+        "timeline_year_width": 60,
+        "timeline_dot_col_width": 16,
+        "timeline_col_gap": 16,
+        "timeline_line_left": 68,
+        "timeline_line_width": 1,
+        "timeline_line_color": "#b0bec5",
+        "timeline_dot_size": 14,
+        "timeline_dot_border": 2,
+        "timeline_dot_color": "#1a5caa",
+        "timeline_dot_glow": "#1a5caa26",
+        "dot_future_color": "#a0b0d0",
+        "dot_future_glow": "#6478b426",
+        "tl_card_bg": "#ffffff",
+        "tl_card_border": "#dde3f0",
+        "tl_card_border_hover": "#b0c2e8",
+        "tl_card_radius": 10,
+        "tl_card_py": 10,
+        "tl_card_px": 14,
+        "tag_milestone_bg": "#e8ecf5",
+        "tag_milestone_color": "#1a5caa",
+        "tag_cert_bg": "#e4f4ec",
+        "tag_cert_color": "#1a7a47",
+        "tag_future_bg": "#f3f0fb",
+        "tag_future_color": "#6040c0"
+      }
+    },
+    "real_results_KEW6cU": {
+      "type": "Real-Results",
+      "blocks": {
+        "image_card_FdLjDJ": {
+          "type": "image_card",
+          "settings": {
+            "image": "shopify://shop_images/4-2.jpg",
+            "show_icon": false,
+            "icon_type": "emoji",
+            "icon_text": "✨",
+            "icon_svg": "/"
+          }
+        },
+        "image_card_fTQ6Jn": {
+          "type": "image_card",
+          "settings": {
+            "image": "shopify://shop_images/4_9249aa30-8398-4fdb-a469-34ef3fe3d34b.jpg",
+            "show_icon": false,
+            "icon_type": "emoji",
+            "icon_text": "✨",
+            "icon_svg": "/"
+          }
+        },
+        "image_card_YmKf6M": {
+          "type": "image_card",
+          "settings": {
+            "image": "shopify://shop_images/lQDPJxQFwr4p5jXNAZDNAliwiUuCMVNa9LgJ1JmvcXGCAA_600_400.jpg",
+            "show_icon": false,
+            "icon_type": "emoji",
+            "icon_text": "✨",
+            "icon_svg": "/"
+          }
+        },
+        "image_card_ikf7px": {
+          "type": "image_card",
+          "settings": {
+            "image": "shopify://shop_images/1-1.jpg",
+            "show_icon": false,
+            "icon_type": "emoji",
+            "icon_text": "✨",
+            "icon_svg": "/"
+          }
+        },
+        "image_card_8ywGdM": {
+          "type": "image_card",
+          "settings": {
+            "image": "shopify://shop_images/lQDPJw1FuIUXJjXNAZDNAliwmZjf0EJeHmgJ1JmvcQHNAA_600_400.jpg",
+            "show_icon": false,
+            "icon_type": "emoji",
+            "icon_text": "✨",
+            "icon_svg": "/"
+          }
+        },
+        "image_card_dAdPF6": {
+          "type": "image_card",
+          "settings": {
+            "image": "shopify://shop_images/2_e8d3ac2b-c1e3-4681-a2a0-755586c08d84.jpg",
+            "show_icon": false,
+            "icon_type": "emoji",
+            "icon_text": "✨",
+            "icon_svg": "/"
+          }
+        }
+      },
+      "block_order": [
+        "image_card_FdLjDJ",
+        "image_card_fTQ6Jn",
+        "image_card_YmKf6M",
+        "image_card_ikf7px",
+        "image_card_8ywGdM",
+        "image_card_dAdPF6"
+      ],
+      "name": "Real Results",
+      "settings": {
+        "heading": "Professional microneedling. Real results. From home.",
+        "subheading": "Dr. Pen advances personal skincare by translating professional microneedling standards into carefully designed solutions for home use.",
+        "bg_color": "#ffffff",
+        "max_width": 1400,
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "desktop_padding_top": 48,
+        "desktop_padding_bottom": 48,
+        "desktop_padding_lr": 24,
+        "desktop_heading_size": 38,
+        "desktop_subheading_size": 16,
+        "desktop_columns": "3",
+        "desktop_gap": 8,
+        "tablet_columns": "2",
+        "tablet_gap": 8,
+        "tablet_heading_size": 30,
+        "tablet_subheading_size": 15,
+        "mobile_padding_top": 32,
+        "mobile_padding_bottom": 32,
+        "mobile_padding_lr": 16,
+        "mobile_heading_size": 24,
+        "mobile_heading_weight": "700",
+        "mobile_subheading_size": 14,
+        "mobile_columns": "2",
+        "mobile_gap": 6,
+        "heading_color": "#0f2e4e",
+        "heading_weight": "800",
+        "heading_align": "center",
+        "heading_margin_bottom": 16,
+        "subheading_color": "#555555",
+        "subheading_weight": "400",
+        "subheading_align": "center",
+        "subheading_max_width": 860,
+        "subheading_margin_bottom": 32,
+        "card_aspect_ratio": "4 / 3",
+        "card_border_radius": 8,
+        "card_bg_color": "#f0f4f8",
+        "card_shadow": "0 2px 12px rgba(0,0,0,0.08)",
+        "card_hover_zoom": true,
+        "icon_size": 22,
+        "icon_color": "#ffffff",
+        "icon_bg_color": "#0f2e4ebf",
+        "icon_border_radius": 50,
+        "icon_padding": 8,
+        "icon_bottom": 12,
+        "icon_right": 12
+      }
+    },
+    "safty_expertise_RzeDRH": {
+      "type": "safty-expertise",
+      "blocks": {
+        "card_9LbxUG": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/skin-surface.webp",
+            "image_alt": "",
+            "image_overlay_text": "",
+            "card_background": "#ffffff",
+            "card_title": "Scientific R&D",
+            "card_text": "Every product is designed based on dermatological science and clinical research to ensure reliability and safety.",
+            "card_button_text": "",
+            "card_button_url": ""
+          }
+        },
+        "card_WYXhf7": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/pins.webp",
+            "image_alt": "",
+            "image_overlay_text": "TESTED FOR EXCELLENCE",
+            "card_background": "#ffffff",
+            "card_title": "Rigorous Testing",
+            "card_text": "From needle precision to materials, each device undergoes thorough testing, giving users confidence in every use.",
+            "card_button_text": "",
+            "card_button_url": ""
+          }
+        },
+        "card_cRTFR8": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/3_845e929b-d0ac-4e6d-b5eb-42a3d39f2628.jpg",
+            "image_alt": "",
+            "image_overlay_text": "",
+            "card_background": "#ffffff",
+            "card_title": "Transparent Verification",
+            "card_text": "Each product can be verified with a serial number or QR code, assuring authenticity and trust.",
+            "card_button_text": "",
+            "card_button_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "card_9LbxUG",
+        "card_WYXhf7",
+        "card_cRTFR8"
+      ],
+      "name": "Safety & Expertise",
+      "settings": {
+        "background_color": "#f0f4f8",
+        "container_max_width": 1400,
+        "section_padding_top": 60,
+        "section_padding_bottom": 60,
+        "header_margin_bottom": 40,
+        "show_eyebrow": true,
+        "eyebrow_text": "SAFETY & EXPERTISE",
+        "eyebrow_color": "#1a3a6b",
+        "eyebrow_font_size": 13,
+        "eyebrow_font_weight": "600",
+        "eyebrow_letter_spacing": 2,
+        "show_eyebrow_line": true,
+        "eyebrow_line_width": 30,
+        "heading": "Precision, from conception to certification.",
+        "heading_tag": "h2",
+        "heading_color": "#0d2340",
+        "heading_font_size": 42,
+        "heading_font_size_mobile": 28,
+        "heading_font_weight": "700",
+        "heading_line_height": "1.15",
+        "heading_max_width": 700,
+        "subheading": "Trust is earned, not claimed. That's why every device carries the result of years of research and quality control, ensuring you feel safe and confident.",
+        "subheading_color": "#4a5568",
+        "subheading_font_size": 16,
+        "subheading_font_size_mobile": 14,
+        "subheading_line_height": "1.6",
+        "subheading_max_width": 900,
+        "heading_font_family": "assistant_n4",
+        "body_font_family": "assistant_n4",
+        "columns_desktop": "3",
+        "columns_tablet": "2",
+        "columns_mobile": "1",
+        "card_gap": 24,
+        "card_gap_mobile": 16,
+        "card_image_height": 260,
+        "card_image_height_mobile": 200,
+        "image_object_fit": "cover",
+        "image_object_position": "center center",
+        "overlay_opacity": 25,
+        "overlay_text_size": 22,
+        "card_border_radius": 8,
+        "card_border_width": 1,
+        "card_border_color": "#dce3ec",
+        "card_shadow": "0 2px 12px rgba(0,0,0,0.07)",
+        "card_content_padding": 24,
+        "card_hover_lift": true,
+        "card_hover_lift_px": 6,
+        "card_shadow_hover": "0 12px 32px rgba(0,0,0,0.14)",
+        "image_hover_scale": 105,
+        "card_title_tag": "h3",
+        "card_title_font_size": 20,
+        "card_title_font_weight": "700",
+        "card_title_color": "#1a3a6b",
+        "card_text_font_size": 15,
+        "card_text_color": "#4a5568",
+        "card_text_line_height": "1.6",
+        "button_background": "#1a3a6b",
+        "button_text_color": "#ffffff",
+        "button_border_color": "#1a3a6b",
+        "button_border_width": 1,
+        "button_border_radius": 4,
+        "button_font_size": 14,
+        "button_font_weight": "600",
+        "button_padding_v": 10,
+        "button_padding_h": 20
+      }
+    },
+    "bran_values_qpJ9CY": {
+      "type": "bran-values",
+      "blocks": {
+        "value_card_DxLB47": {
+          "type": "value_card",
+          "settings": {
+            "title": "Scientific Skincare",
+            "description": "Empowering skin's natural repair with safe and well-researched methods.",
+            "card_bg_override": "",
+            "card_text_override": "",
+            "card_subtext_override": ""
+          }
+        },
+        "value_card_633hQx": {
+          "type": "value_card",
+          "settings": {
+            "title": "",
+            "description": "",
+            "image": "shopify://shop_images/skn.webp",
+            "card_bg_override": "",
+            "card_text_override": "",
+            "card_subtext_override": ""
+          }
+        },
+        "value_card_VKt3d4": {
+          "type": "value_card",
+          "settings": {
+            "title": "Raising Industry Standards",
+            "description": "Striving to make the microneedling industry safer and more standardized for everyone.",
+            "card_bg_override": "",
+            "card_text_override": "",
+            "card_subtext_override": ""
+          }
+        },
+        "value_card_QU4Lxy": {
+          "type": "value_card",
+          "settings": {
+            "title": "",
+            "description": "",
+            "image": "shopify://shop_images/mmmr.webp",
+            "card_bg_override": "",
+            "card_text_override": "",
+            "card_subtext_override": ""
+          }
+        },
+        "value_card_ACPKeF": {
+          "type": "value_card",
+          "settings": {
+            "title": "Accessible Innovation",
+            "description": "Bringing professional skincare technology into everyday life.",
+            "card_bg_override": "",
+            "card_text_override": "",
+            "card_subtext_override": ""
+          }
+        },
+        "value_card_3aTrXr": {
+          "type": "value_card",
+          "settings": {
+            "title": "",
+            "description": "",
+            "image": "shopify://shop_images/stndr.webp",
+            "card_bg_override": "",
+            "card_text_override": "",
+            "card_subtext_override": ""
+          }
+        }
+      },
+      "block_order": [
+        "value_card_DxLB47",
+        "value_card_633hQx",
+        "value_card_VKt3d4",
+        "value_card_QU4Lxy",
+        "value_card_ACPKeF",
+        "value_card_3aTrXr"
+      ],
+      "name": "Brand Values",
+      "settings": {
+        "section_bg_color": "#f4f6f8",
+        "section_padding_top": 60,
+        "section_padding_bottom": 60,
+        "section_padding_lr": 40,
+        "container_max_width": 1260,
+        "eyebrow": "OUR VALUES",
+        "eyebrow_color": "#1a3a6b",
+        "eyebrow_font_size": 12,
+        "eyebrow_margin_bottom": 12,
+        "heading": "Brand Values",
+        "heading_color": "#0d1f3c",
+        "heading_font_size": 42,
+        "heading_font_weight": "700",
+        "heading_margin_bottom": 16,
+        "intro_text": "Dr. Pen® believes that effective skincare shouldn't be limited to professional clinics. The brand focuses on making high-performance tools more accessible — without compromising on quality or safety.",
+        "intro_text_2": "Each device is designed with precision and consistency in mind, guided by principles rooted in dermatological practice. Rather than chasing trends or making exaggerated claims, Dr. Pen® emphasizes reliability, transparency, and long-term value.",
+        "intro_text_color": "#333333",
+        "intro_font_size": 15,
+        "intro_line_height": 1.7,
+        "intro_margin_bottom": 16,
+        "intro_max_width": 1260,
+        "body_font_size": 15,
+        "grid_margin_top": 32,
+        "grid_gap": 8,
+        "card_min_height": 260,
+        "card_border_radius": 6,
+        "card_bg_color": "#6b8cae",
+        "card_text_color": "#ffffff",
+        "card_subtext_color": "#dce8f5",
+        "card_padding": 32,
+        "card_title_font_size": 26,
+        "card_title_font_weight": "700",
+        "card_title_mb": 12,
+        "card_desc_font_size": 14,
+        "card_image_overlay_opacity": 30
+      }
+    },
+    "drpen_testomonial_jGHBkd": {
+      "type": "drpen-testomonial",
+      "blocks": {
+        "testimonial_tpDDJy": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "\"I've been using Dr Pen for a few months, and it's incredibly easy and safe to use at home. My skin feels smoother, and my serums absorb much better. Highly recommend it!\"",
+            "avatar": "shopify://shop_images/download_21.jpg",
+            "name": "Sarah Jhonson",
+            "role": "Skincare Enthusiast",
+            "show_icon": false,
+            "icon_type": "emoji",
+            "icon_text": "★★★★★",
+            "icon_svg": "/"
+          }
+        },
+        "testimonial_7xzf4h": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "\"I was a bit nervous about microneedling at home, but Dr Pen made the process straightforward and comfortable. After several treatments.",
+            "avatar": "shopify://shop_images/download_18.jpg",
+            "name": "Emily R.",
+            "role": "Skincare Specialist",
+            "show_icon": false,
+            "icon_type": "emoji",
+            "icon_text": "★★★★★",
+            "icon_svg": "/"
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_tpDDJy",
+        "testimonial_7xzf4h"
+      ],
+      "name": "DrPen Testimonials",
+      "settings": {
+        "label": "",
+        "show_label_line": true,
+        "heading": "Happy customers",
+        "subheading": "",
+        "bg_color": "#f2f4f7",
+        "header_align": "center",
+        "max_width": 1200,
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "desktop_padding_top": 64,
+        "desktop_padding_bottom": 64,
+        "desktop_padding_lr": 24,
+        "desktop_heading_size": 42,
+        "desktop_subheading_size": 16,
+        "desktop_quote_size": 16,
+        "desktop_name_size": 15,
+        "desktop_role_size": 14,
+        "desktop_columns": "2",
+        "desktop_gap": 48,
+        "tablet_columns": "2",
+        "tablet_gap": 32,
+        "tablet_heading_size": 34,
+        "tablet_subheading_size": 15,
+        "tablet_quote_size": 15,
+        "mobile_padding_top": 40,
+        "mobile_padding_bottom": 40,
+        "mobile_padding_lr": 16,
+        "mobile_heading_size": 28,
+        "mobile_heading_weight": "700",
+        "mobile_subheading_size": 14,
+        "mobile_quote_size": 15,
+        "mobile_name_size": 14,
+        "mobile_role_size": 13,
+        "mobile_columns": "1",
+        "mobile_gap": 24,
+        "label_color": "#0f2e4e",
+        "label_size": 13,
+        "label_weight": "700",
+        "label_letter_spacing": 15,
+        "label_line_width": 32,
+        "label_margin_bottom": 12,
+        "heading_color": "#0f2e4e",
+        "heading_weight": "700",
+        "heading_margin_bottom": 16,
+        "subheading_color": "#555e6c",
+        "subheading_weight": "400",
+        "subheading_max_width": 680,
+        "subheading_margin_bottom": 56,
+        "card_bg_color": "rgba(0,0,0,0)",
+        "card_border_radius": 0,
+        "card_padding": 0,
+        "card_shadow": "none",
+        "card_text_align": "center",
+        "quote_color": "#2c3a4a",
+        "quote_weight": "700",
+        "quote_italic": false,
+        "quote_margin_bottom": 24,
+        "avatar_size": 64,
+        "avatar_border_width": 2,
+        "avatar_border_color": "#d0d8e4",
+        "avatar_margin_bottom": 12,
+        "name_color": "#0f2e4e",
+        "name_weight": "700",
+        "role_color": "#7a8899",
+        "role_weight": "400",
+        "icon_size": 20,
+        "icon_color": "#f5a623"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "newsletter",
+    "slideshow_UWLyjJ",
+    "image_banner_MzGbAY",
+    "who_is_drpen_NG6h3J",
+    "real_results_KEW6cU",
+    "safty_expertise_RzeDRH",
+    "bran_values_qpJ9CY",
+    "drpen_testomonial_jGHBkd"
+  ]
+}

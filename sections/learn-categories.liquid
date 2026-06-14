@@ -1,0 +1,1060 @@
+<section
+  id="learn-categories-{{ section.id }}"
+  class="learn-categories-section"
+  style="
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    margin-top: {{ section.settings.margin_top }}px;
+    margin-bottom: {{ section.settings.margin_bottom }}px;
+    background: {{ section.settings.section_bg }};
+  "
+>
+  <div class="learn-categories-wrapper">
+    {% if section.settings.subheading != blank %}
+      <div class="learn-categories-subheading">
+        {{ section.settings.subheading }}
+      </div>
+    {% endif %}
+
+    {% if section.settings.heading != blank %}
+      <h2 class="learn-categories-heading">
+        {{ section.settings.heading }}
+      </h2>
+    {% endif %}
+
+    {% if section.settings.description != blank %}
+      <div class="learn-categories-description">
+        {{ section.settings.description }}
+      </div>
+    {% endif %}
+
+    <div class="learn-categories-grid" id="learn-grid-{{ section.id }}">
+      {% for block in section.blocks %}
+        <div
+          class="learn-category-card"
+          {{ block.shopify_attributes }}
+          data-modal-target="learn-modal-{{ section.id }}-{{ forloop.index }}"
+          role="button"
+          tabindex="0"
+          aria-label="Open {{ block.settings.title }}"
+        >
+          {% if block.settings.image != blank %}
+            <div class="learn-category-image-wrapper">
+              {{
+                block.settings.image
+                | image_url: width: 600
+                | image_tag: loading: 'lazy', class: 'learn-category-image', alt: block.settings.title
+              }}
+            </div>
+          {% endif %}
+
+          <div class="learn-category-content">
+            {% if block.settings.title != blank %}
+              <h3 class="learn-category-title">
+                {{ block.settings.title }}
+              </h3>
+            {% endif %}
+
+            {% if block.settings.text != blank %}
+              <div class="learn-category-text">
+                {{ block.settings.text }}
+              </div>
+            {% endif %}
+
+            <div class="learn-category-read-more">Read More <span class="read-more-arrow">→</span></div>
+          </div>
+        </div>
+
+        <!-- Modal for this card -->
+        <div
+          id="learn-modal-{{ section.id }}-{{ forloop.index }}"
+          class="learn-modal-overlay"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="learn-modal-title-{{ section.id }}-{{ forloop.index }}"
+        >
+          <div class="learn-modal-container">
+            <button class="learn-modal-close" aria-label="Close modal">&times;</button>
+
+            {% if block.settings.image != blank %}
+              <div class="learn-modal-image-wrapper">
+                {{
+                  block.settings.image
+                  | image_url: width: 900
+                  | image_tag: loading: 'lazy', class: 'learn-modal-image', alt: block.settings.title
+                }}
+              </div>
+            {% endif %}
+
+            <div class="learn-modal-body">
+              {% if block.settings.title != blank %}
+                <h2
+                  class="learn-modal-heading"
+                  id="learn-modal-title-{{ section.id }}-{{ forloop.index }}"
+                >
+                  {{ block.settings.title }}
+                </h2>
+              {% endif %}
+
+              {% if block.settings.text != blank %}
+                <p class="learn-modal-description">
+                  {{ block.settings.text }}
+                </p>
+              {% endif %}
+
+              {% if block.settings.modal_paragraph != blank %}
+                <div class="learn-modal-paragraph">
+                  {{ block.settings.modal_paragraph }}
+                </div>
+              {% endif %}
+
+              {% if block.settings.link != blank %}
+                <a href="{{ block.settings.link }}" class="learn-modal-cta">
+                  {{ block.settings.cta_label | default: 'Explore Articles' }}
+                  <span>→</span>
+                </a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <!-- ▸ Mobile swipe hint & dots — only shown on mobile via CSS -->
+    <div class="learn-swipe-hint" id="learn-swipe-hint-{{ section.id }}">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      Swipe to explore
+    </div>
+    <div class="learn-scroll-dots" id="learn-scroll-dots-{{ section.id }}"></div>
+
+  </div>
+</section>
+
+<!-- Modal backdrop -->
+<div class="learn-modal-backdrop" id="learn-modal-backdrop-{{ section.id }}"></div>
+
+<style>
+  #learn-categories-{{ section.id }} .learn-categories-wrapper{
+    max-width: {{ section.settings.container_width }}px;
+    margin: 0 auto;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  #learn-categories-{{ section.id }} .learn-categories-subheading{
+    text-align: center;
+    margin-bottom: 12px;
+    color: {{ section.settings.subheading_color }};
+    font-size: {{ section.settings.subheading_size }}px;
+    font-weight: 500;
+  }
+
+  #learn-categories-{{ section.id }} .learn-categories-heading{
+    text-align: center;
+    margin: 0 0 16px;
+    color: {{ section.settings.heading_color }};
+    font-size: {{ section.settings.heading_size }}px;
+    line-height: 1.2;
+    font-weight: 700;
+  }
+
+  #learn-categories-{{ section.id }} .learn-categories-description{
+    max-width: 760px;
+    margin: 0 auto 50px;
+    text-align: center;
+    color: {{ section.settings.description_color }};
+    font-size: {{ section.settings.description_size }}px;
+    line-height: 1.7;
+  }
+
+  #learn-categories-{{ section.id }} .learn-categories-grid{
+    display: grid;
+    grid-template-columns: repeat({{ section.settings.desktop_columns }},1fr);
+    gap: {{ section.settings.grid_gap }}px;
+  }
+
+  /* ── Card ── */
+  #learn-categories-{{ section.id }} .learn-category-card{
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    cursor: pointer;
+    text-decoration: none;
+    background: {{ section.settings.card_bg }};
+    border-radius: {{ section.settings.card_radius }}px;
+    transition: all .3s ease;
+    min-height: {{ section.settings.card_height }}px;
+    border: 1px solid {{ section.settings.card_border }};
+  }
+
+  #learn-categories-{{ section.id }} .learn-category-card:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 12px 36px rgba(0,0,0,.10);
+  }
+
+  #learn-categories-{{ section.id }} .learn-category-image-wrapper{
+    position: relative;
+    overflow: hidden;
+    height: {{ section.settings.image_height }}px;
+  }
+
+  #learn-categories-{{ section.id }} .learn-category-image{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform .5s ease;
+  }
+
+  #learn-categories-{{ section.id }} .learn-category-card:hover .learn-category-image{
+    transform: scale(1.05);
+  }
+
+  #learn-categories-{{ section.id }} .learn-category-content{
+    padding:
+      {{ section.settings.content_padding_top }}px
+      {{ section.settings.content_padding_side }}px
+      {{ section.settings.content_padding_bottom }}px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  #learn-categories-{{ section.id }} .learn-category-title{
+    margin: 0 0 12px;
+    color: {{ section.settings.title_color }};
+    font-size: {{ section.settings.title_size }}px;
+    line-height: 1.3;
+    font-weight: 600;
+  }
+
+  #learn-categories-{{ section.id }} .learn-category-text{
+    color: {{ section.settings.text_color }};
+    font-size: {{ section.settings.text_size }}px;
+    line-height: 1.7;
+    flex: 1;
+  }
+
+  #learn-categories-{{ section.id }} .learn-category-read-more{
+    margin-top: 16px;
+    font-size: 14px;
+    font-weight: 600;
+    color: {{ section.settings.subheading_color }};
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: gap .2s ease;
+  }
+
+  #learn-categories-{{ section.id }} .learn-category-card:hover .learn-category-read-more{
+    gap: 10px;
+  }
+
+  /* ── Mobile Swipe Hint — hidden on desktop ── */
+  #learn-categories-{{ section.id }} .learn-swipe-hint {
+    display: none;
+  }
+
+  #learn-categories-{{ section.id }} .learn-scroll-dots {
+    display: none;
+  }
+
+  /* ── Modal Backdrop ── */
+  .learn-modal-backdrop{
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.55);
+    backdrop-filter: blur(4px);
+    z-index: 9998;
+    opacity: 0;
+    transition: opacity .3s ease;
+  }
+
+  .learn-modal-backdrop.is-active{
+    display: block;
+  }
+
+  .learn-modal-backdrop.is-visible{
+    opacity: 1;
+  }
+
+  /* ── Modal ── */
+  .learn-modal-overlay{
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    overflow-y: auto;
+  }
+
+  .learn-modal-overlay.is-active{
+    display: flex;
+  }
+
+  .learn-modal-container{
+    background: #ffffff;
+    border-radius: 20px;
+    max-width: 680px;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 30px 80px rgba(0,0,0,.20);
+    transform: translateY(30px) scale(.97);
+    opacity: 0;
+    transition: transform .35s cubic-bezier(.22,1,.36,1), opacity .3s ease;
+    margin: auto;
+  }
+
+  .learn-modal-overlay.is-visible .learn-modal-container{
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+
+  .learn-modal-close{
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(0,0,0,.08);
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+    z-index: 10;
+    transition: background .2s ease, transform .2s ease;
+  }
+
+  .learn-modal-close:hover{
+    background: rgba(0,0,0,.15);
+    transform: scale(1.1);
+  }
+
+  .learn-modal-image-wrapper{
+    width: 100%;
+    height: 280px;
+    overflow: hidden;
+  }
+
+  .learn-modal-image{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .learn-modal-body{
+    padding: 32px 36px 36px;
+  }
+
+  .learn-modal-heading{
+    font-size: 28px;
+    font-weight: 700;
+    color: #111111;
+    margin: 0 0 14px;
+    line-height: 1.25;
+  }
+
+  .learn-modal-description{
+    font-size: 16px;
+    color: #555555;
+    line-height: 1.7;
+    margin: 0 0 18px;
+  }
+
+  .learn-modal-paragraph{
+    font-size: 15px;
+    color: #666666;
+    line-height: 1.8;
+    border-top: 1px solid #eeeeee;
+    padding-top: 18px;
+    margin-bottom: 28px;
+  }
+
+  .learn-modal-paragraph p{
+    margin: 0 0 12px;
+  }
+
+  .learn-modal-paragraph p:last-child{
+    margin-bottom: 0;
+  }
+
+  .learn-modal-cta{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 28px;
+    background: {{ section.settings.subheading_color }};
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 50px;
+    font-size: 15px;
+    font-weight: 600;
+    transition: all .25s ease;
+  }
+
+  .learn-modal-cta:hover{
+    opacity: .88;
+    gap: 12px;
+  }
+
+  /* ── Responsive ── */
+  @media screen and (max-width: 991px){
+    #learn-categories-{{ section.id }} .learn-categories-grid{
+      grid-template-columns: repeat({{ section.settings.tablet_columns }},1fr);
+    }
+    #learn-categories-{{ section.id }} .learn-categories-heading{
+      font-size: {{ section.settings.heading_size_tablet }}px;
+    }
+  }
+
+  @media screen and (max-width: 767px){
+    #learn-categories-{{ section.id }} .learn-categories-grid{
+      display: flex;
+      overflow-x: auto;
+      gap: 0;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 10px;
+    }
+    #learn-categories-{{ section.id }} .learn-categories-grid::-webkit-scrollbar{
+      display: none;
+    }
+    #learn-categories-{{ section.id }} .learn-category-card{
+      min-width: 100%;
+      max-width: 100%;
+      width: 100%;
+      flex-shrink: 0;
+      scroll-snap-align: start;
+    }
+    #learn-categories-{{ section.id }} .learn-categories-heading{
+      font-size: {{ section.settings.heading_size_mobile }}px;
+    }
+    #learn-categories-{{ section.id }} .learn-categories-description{
+      font-size: {{ section.settings.description_size_mobile }}px;
+      margin-bottom: 36px;
+    }
+    #learn-categories-{{ section.id }} .learn-category-title{
+      font-size: {{ section.settings.title_size_mobile }}px;
+    }
+    #learn-categories-{{ section.id }} .learn-category-text{
+      font-size: {{ section.settings.text_size_mobile }}px;
+    }
+    .learn-modal-body{
+      padding: 24px 20px 28px;
+    }
+    .learn-modal-heading{
+      font-size: 22px;
+    }
+    .learn-modal-image-wrapper{
+      height: 200px;
+    }
+
+    /* ── Swipe hint — mobile only ── */
+    #learn-categories-{{ section.id }} .learn-swipe-hint {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 14px;
+      font-size: 13px;
+      font-weight: 500;
+      color: {{ section.settings.subheading_color }};
+      opacity: 0.75;
+      letter-spacing: 0.02em;
+      transition: opacity .4s ease;
+    }
+
+    #learn-categories-{{ section.id }} .learn-swipe-hint svg {
+      flex-shrink: 0;
+      animation: learnSwipeNudge 1.6s ease-in-out infinite;
+    }
+
+    @keyframes learnSwipeNudge {
+      0%, 100% { transform: translateX(0); }
+      40%       { transform: translateX(4px); }
+      60%       { transform: translateX(-2px); }
+    }
+
+    /* ── Scroll dots — mobile only ── */
+    #learn-categories-{{ section.id }} .learn-scroll-dots {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 7px;
+      margin-top: 14px;
+    }
+
+    #learn-categories-{{ section.id }} .learn-scroll-dots .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: {{ section.settings.subheading_color }};
+      opacity: 0.25;
+      transition: opacity .25s ease, transform .25s ease;
+      flex-shrink: 0;
+    }
+
+    #learn-categories-{{ section.id }} .learn-scroll-dots .dot.is-active {
+      opacity: 1;
+      transform: scale(1.35);
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    var sectionId = '{{ section.id }}';
+    var backdrop = document.getElementById('learn-modal-backdrop-' + sectionId);
+
+    function openModal(modalId) {
+      var modal = document.getElementById(modalId);
+      if (!modal) return;
+      document.body.style.overflow = 'hidden';
+      backdrop.classList.add('is-active');
+      modal.classList.add('is-active');
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          backdrop.classList.add('is-visible');
+          modal.classList.add('is-visible');
+        });
+      });
+    }
+
+    function closeModal(modal) {
+      backdrop.classList.remove('is-visible');
+      modal.classList.remove('is-visible');
+      setTimeout(function () {
+        backdrop.classList.remove('is-active');
+        modal.classList.remove('is-active');
+        document.body.style.overflow = '';
+      }, 320);
+    }
+
+    function closeAllModals() {
+      document.querySelectorAll('.learn-modal-overlay.is-active').forEach(function (m) {
+        closeModal(m);
+      });
+    }
+
+    document.querySelectorAll('#learn-categories-' + sectionId + ' .learn-category-card').forEach(function (card) {
+      card.addEventListener('click', function () {
+        openModal(card.dataset.modalTarget);
+      });
+      card.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openModal(card.dataset.modalTarget);
+        }
+      });
+    });
+
+    document.querySelectorAll('.learn-modal-close').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        closeModal(btn.closest('.learn-modal-overlay'));
+      });
+    });
+
+    backdrop.addEventListener('click', closeAllModals);
+    document.querySelectorAll('.learn-modal-overlay').forEach(function (modal) {
+      modal.addEventListener('click', function (e) {
+        if (!e.target.closest('.learn-modal-container')) {
+          closeModal(modal);
+        }
+      });
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeAllModals();
+    });
+
+    /* ── Mobile scroll dots — fixed ── */
+    (function () {
+      var grid     = document.getElementById('learn-grid-' + sectionId);
+      var dotsWrap = document.getElementById('learn-scroll-dots-' + sectionId);
+      var hint     = document.getElementById('learn-swipe-hint-' + sectionId);
+      if (!grid || !dotsWrap) return;
+
+      var cards = grid.querySelectorAll('.learn-category-card');
+      if (cards.length < 2) return;
+
+      /* Build dots */
+      var dots = [];
+      cards.forEach(function (_, i) {
+        var d = document.createElement('span');
+        d.className = 'dot' + (i === 0 ? ' is-active' : '');
+        dotsWrap.appendChild(d);
+        dots.push(d);
+      });
+
+      var hintHidden = false;
+
+      function getCardStep() {
+        /* Use live getBoundingClientRect diff between card left edges (card width + gap).
+           Falls back to offsetWidth + gap if only 1 card or diff is zero (before paint). */
+        if (cards.length >= 2) {
+          var r0 = cards[0].getBoundingClientRect();
+          var r1 = cards[1].getBoundingClientRect();
+          var diff = Math.abs(r1.left - r0.left);
+          if (diff > 0) return diff;
+        }
+        return cards[0].offsetWidth;
+      }
+
+      function updateDots() {
+        var cardStep   = getCardStep();
+        var scrollLeft = grid.scrollLeft;
+        /* floor + 0.4 threshold matches iOS snap point, prevents mid-point flickering */
+        var activeIndex = Math.floor((scrollLeft + cardStep * 0.4) / cardStep);
+        activeIndex = Math.max(0, Math.min(activeIndex, dots.length - 1));
+
+        dots.forEach(function (d, i) {
+          d.classList.toggle('is-active', i === activeIndex);
+        });
+
+        /* Fade out swipe hint once user scrolls */
+        if (!hintHidden && scrollLeft > 4 && hint) {
+          hintHidden = true;
+          hint.style.opacity = '0';
+          hint.style.pointerEvents = 'none';
+        }
+      }
+
+      grid.addEventListener('scroll', updateDots, { passive: true });
+
+      /* scrollend fires after momentum finishes — catches final snap position */
+      grid.addEventListener('scrollend', updateDots, { passive: true });
+
+      /* Fallback for Safari < 16.4 which lacks scrollend */
+      var scrollTimer;
+      grid.addEventListener('scroll', function () {
+        clearTimeout(scrollTimer);
+        scrollTimer = setTimeout(updateDots, 120);
+      }, { passive: true });
+
+    })();
+
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Learn Categories",
+
+  "settings": [
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Learning Topics"
+    },
+
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Explore Microneedling Education"
+    },
+
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Professional guides, tutorials, safety tips, skincare education, and expert-backed microneedling resources."
+    },
+
+    {
+      "type": "color",
+      "id": "section_bg",
+      "label": "Section Background",
+      "default": "#ffffff"
+    },
+
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#111111"
+    },
+
+    {
+      "type": "color",
+      "id": "subheading_color",
+      "label": "Subheading Color",
+      "default": "#8b7355"
+    },
+
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description Color",
+      "default": "#666666"
+    },
+
+    {
+      "type": "color",
+      "id": "card_bg",
+      "label": "Card Background",
+      "default": "#f9f7f4"
+    },
+
+    {
+      "type": "color",
+      "id": "card_border",
+      "label": "Card Border",
+      "default": "#eeeeee"
+    },
+
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Card Title Color",
+      "default": "#111111"
+    },
+
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Card Text Color",
+      "default": "#666666"
+    },
+
+    {
+      "type": "range",
+      "id": "container_width",
+      "min": 1000,
+      "max": 1800,
+      "step": 20,
+      "unit": "px",
+      "label": "Container Width",
+      "default": 1400
+    },
+
+    {
+      "type": "range",
+      "id": "desktop_columns",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "label": "Desktop Columns",
+      "default": 3
+    },
+
+    {
+      "type": "range",
+      "id": "tablet_columns",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "label": "Tablet Columns",
+      "default": 2
+    },
+
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "min": 10,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Grid Gap",
+      "default": 24
+    },
+
+    {
+      "type": "range",
+      "id": "card_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Card Radius",
+      "default": 20
+    },
+
+    {
+      "type": "range",
+      "id": "card_height",
+      "min": 240,
+      "max": 700,
+      "step": 10,
+      "unit": "px",
+      "label": "Card Height",
+      "default": 420
+    },
+
+    {
+      "type": "range",
+      "id": "image_height",
+      "min": 120,
+      "max": 400,
+      "step": 10,
+      "unit": "px",
+      "label": "Image Height",
+      "default": 240
+    },
+
+    {
+      "type": "range",
+      "id": "mobile_card_width",
+      "min": 220,
+      "max": 400,
+      "step": 10,
+      "unit": "px",
+      "label": "Mobile Card Width",
+      "default": 280
+    },
+
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 28,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Desktop Heading Size",
+      "default": 48
+    },
+
+    {
+      "type": "range",
+      "id": "heading_size_tablet",
+      "min": 24,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Tablet Heading Size",
+      "default": 40
+    },
+
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "min": 20,
+      "max": 46,
+      "step": 2,
+      "unit": "px",
+      "label": "Mobile Heading Size",
+      "default": 30
+    },
+
+    {
+      "type": "range",
+      "id": "subheading_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Subheading Size",
+      "default": 16
+    },
+
+    {
+      "type": "range",
+      "id": "description_size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Description Size",
+      "default": 17
+    },
+
+    {
+      "type": "range",
+      "id": "description_size_mobile",
+      "min": 13,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile Description Size",
+      "default": 15
+    },
+
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 16,
+      "max": 36,
+      "step": 1,
+      "label": "Card Title Size",
+      "default": 24
+    },
+
+    {
+      "type": "range",
+      "id": "title_size_mobile",
+      "min": 15,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile Card Title Size",
+      "default": 20
+    },
+
+    {
+      "type": "range",
+      "id": "text_size",
+      "min": 13,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "label": "Card Text Size",
+      "default": 15
+    },
+
+    {
+      "type": "range",
+      "id": "text_size_mobile",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile Card Text Size",
+      "default": 14
+    },
+
+    {
+      "type": "range",
+      "id": "content_padding_top",
+      "min": 10,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Content Top Padding",
+      "default": 24
+    },
+
+    {
+      "type": "range",
+      "id": "content_padding_bottom",
+      "min": 10,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Content Bottom Padding",
+      "default": 24
+    },
+
+    {
+      "type": "range",
+      "id": "content_padding_side",
+      "min": 10,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Content Side Padding",
+      "default": 24
+    },
+
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 180,
+      "step": 4,
+      "unit": "px",
+      "label": "Section Top Padding",
+      "default": 80
+    },
+
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 180,
+      "step": 4,
+      "unit": "px",
+      "label": "Section Bottom Padding",
+      "default": 80
+    },
+
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 180,
+      "step": 4,
+      "unit": "px",
+      "label": "Section Top Margin",
+      "default": 0
+    },
+
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 180,
+      "step": 4,
+      "unit": "px",
+      "label": "Section Bottom Margin",
+      "default": 0
+    }
+  ],
+
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category Card",
+
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Beginner Guides"
+        },
+
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Short Description (card + modal)",
+          "default": "Learn the basics of microneedling and skincare routines."
+        },
+
+        {
+          "type": "richtext",
+          "id": "modal_paragraph",
+          "label": "Modal Full Content (paragraph)",
+          "default": "<p>Dive deeper into the world of microneedling with our comprehensive beginner resources. Whether you're just starting out or looking to refine your technique, our guides cover everything from choosing the right needle depth to building an effective skincare routine around your treatments.</p><p>Our expert-backed content ensures you get safe, effective results every time.</p>"
+        },
+
+        {
+          "type": "text",
+          "id": "cta_label",
+          "label": "Modal Button Label",
+          "default": "Explore Articles"
+        },
+
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Modal Button Link"
+        }
+      ]
+    }
+  ],
+
+  "presets": [
+    {
+      "name": "Learn Categories",
+      "blocks": [{ "type": "category" }, { "type": "category" }, { "type": "category" }]
+    }
+  ]
+}
+{% endschema %}
